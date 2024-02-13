@@ -15,8 +15,8 @@
                         <span>(+12) 345 678 910</span>
                     </div>
                     <div class="header__top__social">
-                        <a href="/Home/Second"><i class="fa fa-facebook"></i></a>
-                        <a href="/Info/Index"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-google"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
@@ -36,18 +36,18 @@
             <div class="header__nav">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
+                        <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
                         <li><a href="./car.html">Cars</a></li>
-                        <li><a href="./blog.html">Blog</a></li>
+                        <li><a href="@Url.Action("Blog", "Home")">Blog</a></li>
                         <li>
                             <a href="#">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="./about.html">About Us</a></li>
+                                <li><a href="@Url.Action("AboutUs", "Home")">About Us</a></li>
                                 <li><a href="./car-details.html">Car Details</a></li>
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="./about.html">About</a></li>
+                        <li><a href="@Url.Action("AboutUs", "Home")">About</a></li>
                         <li><a href="./contact.html">Contact</a></li>
                     </ul>
                 </nav>

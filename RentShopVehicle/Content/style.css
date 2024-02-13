@@ -745,19 +745,19 @@ ol {
 	padding-bottom: 55px;
 }
 
-.feature:after {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 605px;
-	height: 404px;
-	background-image: url(../img/feature/car.png);
-	content: "";
-	-webkit-transform: translate(-300px, -202px);
-	-ms-transform: translate(-300px, -202px);
-	transform: translate(-300px, -202px);
-	z-index: -1;
-}
+	.feature:after {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 605px;
+		height: 404px;
+		background-image: url(~/Images/feature/car.png);
+		content: "";
+		-webkit-transform: translate(-300px, -202px);
+		-ms-transform: translate(-300px, -202px);
+		transform: translate(-300px, -202px);
+		z-index: -1;
+	}
 
 .feature__text .section-title {
 	text-align: left;
