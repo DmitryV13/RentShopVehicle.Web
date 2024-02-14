@@ -26,5 +26,17 @@ namespace RentShopVehicle.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Cars()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Contacts()
+        {
+            return View();
+        }
     }
 }
