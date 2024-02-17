@@ -307,6 +307,9 @@
     <Content Include="Views\Home\Registration.cshtml" />
     <Content Include="Views\Shared\_Form.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
+    <Content Include="Views\Shared\_Error.cshtml" />
+    <Content Include="Views\Home\E404.cshtml" />
+    <Content Include="Views\Home\E500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
