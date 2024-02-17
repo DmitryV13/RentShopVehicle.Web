@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentShopVehicle.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ namespace RentShopVehicle.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        
         [HttpGet]
         public ActionResult Index()
         {
@@ -36,7 +37,17 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Contacts()
         {
-            return View();
+            Pre yt = new Pre()
+            {
+                y = 6
+            };
+            return View(yt);
+        }
+
+        [HttpPost]
+        public ActionResult Form(string name, string email, int age)
+        {
+            return RedirectToAction("Contacts", "Home");
         }
     }
 }
