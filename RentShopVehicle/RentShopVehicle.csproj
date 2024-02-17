@@ -121,6 +121,7 @@
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\nice-select.css" />
+    <Content Include="Content\other\style.css" />
     <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\slicknav.min.css" />
@@ -303,6 +304,9 @@
     <Content Include="Views\Home\Contacts.cshtml" />
     <Content Include="Views\Home\CarDetails.cshtml" />
     <Content Include="Views\Home\BlogDetails.cshtml" />
+    <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Shared\_Form.cshtml" />
+    <Content Include="Views\Home\LogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

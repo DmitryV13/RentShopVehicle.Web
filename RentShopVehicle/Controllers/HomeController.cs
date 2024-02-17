@@ -44,6 +44,18 @@ namespace RentShopVehicle.Controllers
             return View(yt);
         }
 
+        [HttpGet]
+        public ActionResult Registration()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Form(string name, string email, int age)
         {

@@ -29,6 +29,8 @@ namespace RentShopVehicle.App_Start
                 "~/Content/slicknav.min.css", new CssRewriteUrlTransform())); 
             bundles.Add(new StyleBundle("~/bundles/main/css").Include(
                 "~/Content/style.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/bundles/second_main/css").Include(
+                "~/Content/other/style.css", new CssRewriteUrlTransform()));
 
             //scripts
             bundles.Add(new ScriptBundle("~/bundles/jquery-331/js").Include(
