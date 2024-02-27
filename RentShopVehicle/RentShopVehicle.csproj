@@ -368,11 +368,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentShopVehicle.BusinessLogic\RentShopVehicle.BusinessLogic.csproj">
-      <Project>{179c87e3-1de0-458a-b36a-bb19bc5dd20d}</Project>
+      <Project>{ef2aa6d0-dff1-49e4-8e29-f25d670a0721}</Project>
       <Name>RentShopVehicle.BusinessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\RentShopVehicle.Domain\RentShopVehicle.Domain.csproj">
-      <Project>{3fa26554-45ed-4619-901f-c338364c451f}</Project>
+      <Project>{9b0dcb71-87ad-412c-a730-0acae5d48fb7}</Project>
       <Name>RentShopVehicle.Domain</Name>
     </ProjectReference>
   </ItemGroup>

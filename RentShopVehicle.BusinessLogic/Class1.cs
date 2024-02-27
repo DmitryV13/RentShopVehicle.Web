@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentShopVehicle.BusinessLogic.Interfaces
+namespace RentShopVehicle.BusinessLogic
 {
-    public interface ISession
+    public class Class1
     {
     }
 }
