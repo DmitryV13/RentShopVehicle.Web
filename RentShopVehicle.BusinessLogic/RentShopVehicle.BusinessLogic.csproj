@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BusinessLogic.cs" />
+    <Compile Include="Core\AdminAPI.cs" />
+    <Compile Include="Core\ModeratorAPI.cs" />
+    <Compile Include="Core\PrivelegedAdminAPI.cs" />
+    <Compile Include="Core\UserAPI.cs" />
+    <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SessionS.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentShopVehicle.Domain\RentShopVehicle.Domain.csproj">
@@ -53,6 +59,9 @@
       <Project>{ac0d96b8-fc78-4eb3-bdca-98c562266608}</Project>
       <Name>RentShopVehicle.Helpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Intermediate\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

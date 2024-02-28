@@ -37,11 +37,7 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Contacts()
         {
-            Pre yt = new Pre()
-            {
-                y = 6
-            };
-            return View(yt);
+            return View();
         }
 
         [HttpGet]

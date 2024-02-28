@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentShopVehicle.BusinessLogic
+namespace RentShopVehicle.Domain.Entities.User
 {
-    public class Class1
+    internal class UserData
     {
     }
 }

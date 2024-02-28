@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Entities\ServiceE\VerificationResponse.cs" />
+    <Compile Include="Entities\User\LoginData.cs" />
+    <Compile Include="Entities\User\UserData.cs" />
+    <Compile Include="Entities\User\UserDB.cs" />
+    <Compile Include="Entities\Vehicles\Car.cs" />
+    <Compile Include="Entities\Vehicles\Motocycle.cs" />
+    <Compile Include="Entities\Vehicles\VehicleDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +55,13 @@
       <Project>{ac0d96b8-fc78-4eb3-bdca-98c562266608}</Project>
       <Name>RentShopVehicle.Helpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Details\" />
+    <Folder Include="Entities\Feedback\" />
+    <Folder Include="Entities\Order\" />
+    <Folder Include="Entities\Parameters\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

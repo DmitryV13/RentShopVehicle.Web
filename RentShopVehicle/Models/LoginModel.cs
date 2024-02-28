@@ -5,9 +5,9 @@ using System.Web;
 
 namespace RentShopVehicle.Models
 {
-    public class Pre
+    public class LoginModel
     {
-        public int y { get; set; }
-        public int x { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
     }
 }
