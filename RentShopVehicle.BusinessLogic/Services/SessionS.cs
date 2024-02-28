@@ -13,7 +13,22 @@ namespace RentShopVehicle.BusinessLogic.Services
     {
         public VerificationResponse CredentialsVerification(LoginData lData)
         {
-            return new VerificationResponse { };
+            var response =new VerificationResponse();
+            if(lData.Password=="password" && lData.Login == "login")
+            {
+                response.Exist = true;
+                response.user = new UserData
+                {
+                    Password = "password",
+                    Login = "login",
+                };
+            }
+            else
+            {
+                response.Exist = false;
+            }
+
+            return response;
         }
     }
 }

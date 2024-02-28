@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using RentShopVehicle.BusinessLogic;
 using RentShopVehicle.BusinessLogic.Interfaces;
+using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Models;
+using RentShopVehicle.Domain.Entities.ServiceE;
 
 namespace RentShopVehicle.Controllers
 {
@@ -32,10 +34,27 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginAction(LoginModel model)
+        public ActionResult LoginAction(LoginModel lModel)
         {
-            string h = model.Password;
-            return View();
+            LoginData lData = new LoginData
+            {
+                Login = lModel.Login,
+                Password = lModel.Password,
+                IP = "",
+            };
+            VerificationResponse vResponse = session.CredentialsVerification(lData);
+            if(vResponse != null && vResponse.Exist) {
+
+                //  user exists logic
+
+
+                // if exists for example we redirect him to "Contacts"
+                return RedirectToAction("Contacts", "Home");
+            }
+                //  user doesn't exist logic
+
+
+            return RedirectToAction("Login", "Login");
         }
     }
 }

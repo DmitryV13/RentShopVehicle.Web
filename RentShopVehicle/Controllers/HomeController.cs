@@ -40,28 +40,6 @@ namespace RentShopVehicle.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Registration()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult LogIn()
-        {
-            return View();
-        }
-
-        public ActionResult E404()
-        {
-            return View();
-        }
-
-        public ActionResult E500()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Form(string name, string email, int age)
         {
