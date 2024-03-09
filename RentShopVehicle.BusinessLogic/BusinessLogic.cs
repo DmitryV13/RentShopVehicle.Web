@@ -14,5 +14,10 @@ namespace RentShopVehicle.BusinessLogic
         {
             return new SessionS();
         }
+
+        public ICar getCarS()
+        {
+            return new CarS();
+        }
     }
 }

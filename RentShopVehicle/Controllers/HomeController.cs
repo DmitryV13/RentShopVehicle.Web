@@ -1,14 +1,25 @@
-﻿using RentShopVehicle.Models;
+﻿using RentShopVehicle.BusinessLogic.Interfaces;
+using RentShopVehicle.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RentShopVehicle.BusinessLogic;
+using RentShopVehicle.Domain.Entities.Car;
 
 namespace RentShopVehicle.Controllers
 {
     public class HomeController : Controller
     {
+
+        public ICar carService;
+
+        public HomeController()
+        {
+            var tmp = new BusinessLogic.BusinessLogic();
+            carService = tmp.getCarS();
+        }
         
         [HttpGet]
         public ActionResult Index()
@@ -43,6 +54,21 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult Form(string name, string email, int age)
         {
+            return RedirectToAction("Contacts", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult FindCar(Car newCar)
+        {
+            var carDomain = new CarD()
+            {
+                Price = newCar.Price
+            };
+            ResponceFindCar resp = carService.FindCar(carDomain);
+            if (resp.Found == true)
+            {
+
+            }
             return RedirectToAction("Contacts", "Home");
         }
     }

@@ -1,4 +1,5 @@
-﻿using RentShopVehicle.BusinessLogic.Interfaces;
+﻿using RentShopVehicle.BusinessLogic.Core;
+using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.ServiceE;
 using RentShopVehicle.Domain.Entities.User;
 using System;
@@ -9,26 +10,11 @@ using System.Threading.Tasks;
 
 namespace RentShopVehicle.BusinessLogic.Services
 {
-    public class SessionS : ISession
+    public class SessionS : UserAPI, ISession
     {
         public VerificationResponse CredentialsVerification(LoginData lData)
         {
-            var response =new VerificationResponse();
-            if(lData.Password=="password" && lData.Login == "login")
-            {
-                response.Exist = true;
-                response.user = new UserData
-                {
-                    Password = "password",
-                    Login = "login",
-                };
-            }
-            else
-            {
-                response.Exist = false;
-            }
-
-            return response;
+            return CredentialsVerificationUserAPI(lData);
         }
     }
 }

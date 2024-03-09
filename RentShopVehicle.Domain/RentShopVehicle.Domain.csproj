@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Car\CarD.cs" />
+    <Compile Include="Entities\Car\CarDB.cs" />
+    <Compile Include="Entities\Car\ResponceFindCar.cs" />
     <Compile Include="Entities\ServiceE\VerificationResponse.cs" />
     <Compile Include="Entities\User\LoginData.cs" />
     <Compile Include="Entities\User\UserData.cs" />

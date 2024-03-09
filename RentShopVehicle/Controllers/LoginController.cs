@@ -42,6 +42,7 @@ namespace RentShopVehicle.Controllers
                 Password = lModel.Password,
                 IP = "",
             };
+
             VerificationResponse vResponse = session.CredentialsVerification(lData);
             if(vResponse != null && vResponse.Exist) {
 
