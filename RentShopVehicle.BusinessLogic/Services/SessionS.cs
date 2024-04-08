@@ -15,7 +15,7 @@ namespace RentShopVehicle.BusinessLogic.Services
 
         public HttpCookie GenerateCookies(string creds)
         {
-            return GenerateCookiesForCS(creds);
+            return GenerateCookiesUserAPI(creds);
         }
     }
 }

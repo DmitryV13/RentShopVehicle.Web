@@ -74,6 +74,7 @@
     <Compile Include="Entities\Car\CarDB.cs" />
     <Compile Include="Entities\Car\ResponceFindCar.cs" />
     <Compile Include="Entities\ServiceE\VerificationResponse.cs" />
+    <Compile Include="Entities\Session\Credential.cs" />
     <Compile Include="Entities\Session\SessionDB.cs" />
     <Compile Include="Entities\User\LoginData.cs" />
     <Compile Include="Entities\User\UserData.cs" />

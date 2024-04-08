@@ -1,15 +1,14 @@
 ﻿using RentShopVehicle.Domain.Entities.Car;
 using RentShopVehicle.Domain.Entities.ServiceE;
 using RentShopVehicle.Domain.Entities.User;
+using RentShopVehicle.Domain.Entities.Session;
 using RentShopVehicle.Helpers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+using RentShopVehicle.BusinessLogic.DBModel;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -19,13 +18,13 @@ namespace RentShopVehicle.BusinessLogic.Core
         {
 
             var response = new VerificationResponse();
-            if (lData.Password == "password" && lData.Login == "login")
+            if (lData.Password == "password" && lData.Credential == "login")
             {
                 response.Exist = true;
                 response.user = new UserData
                 {
                     Password = "password",
-                    Login = "login",
+                    Credential = "login",
                 };
             }
             else
@@ -36,7 +35,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             return response;
         }
 
-        public HttpCookie GenerateCookiesForCS(string creds)
+        public HttpCookie GenerateCookiesUserAPI(string creds)
         {
             var cookies = new HttpCookie("RSV-CC")
             {
@@ -45,40 +44,46 @@ namespace RentShopVehicle.BusinessLogic.Core
 
             using (var db = new SessionContext())
             {
-                Session curent;
-                var validate = new EmailAddressAttribute();
-                if (validate.IsValid(loginCredential))
+                SessionDB current;
+                Credential newCreds = new Credential();
+
+                var emailValidation = new EmailAddressAttribute();
+                if (emailValidation.IsValid(creds))
                 {
-                    curent = (from e in db.Sessions where e.Username == loginCredential select e).FirstOrDefault();
+                    current = (from el in db.Sessions where el.Cred.Email == creds select el).FirstOrDefault();
+                    newCreds.Email = creds;
+                    newCreds.Username = null;
                 }
                 else
                 {
-                    curent = (from e in db.Sessions where e.Username == loginCredential select e).FirstOrDefault();
+                    current = (from el in db.Sessions where el.Cred.Username == creds select el).FirstOrDefault();
+                    newCreds.Email = null;
+                    newCreds.Username = creds;
                 }
 
-                if (curent != null)
+                if (current != null)
                 {
-                    curent.CookieString = apiCookie.Value;
-                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
-                    using (var todo = new SessionContext())
+                    current.CookieString = cookies.Value;
+                    current.ExpireTime = DateTime.Now.AddHours(2);
+                    using (var db_context = new SessionContext())
                     {
-                        todo.Entry(curent).State = EntityState.Modified;
-                        todo.SaveChanges();
+                        db_context.Entry(current).State = EntityState.Modified;
+                        db_context.SaveChanges();
                     }
                 }
                 else
                 {
-                    db.Sessions.Add(new Session
+                    db.Sessions.Add(new SessionDB
                     {
-                        Username = loginCredential,
-                        CookieString = apiCookie.Value,
-                        ExpireTime = DateTime.Now.AddMinutes(60)
+                        Cred = newCreds,
+                        CookieString = cookies.Value,
+                        ExpireTime = DateTime.Now.AddHours(2)
                     });
                     db.SaveChanges();
                 }
             }
 
-            return apiCookie;
+            return cookies;
         }
 
         public ResponceFindCar FindCarUserAPI(CarD car)

@@ -17,7 +17,7 @@ namespace RentShopVehicle.Domain.Entities.User
 
         [Required]
         [StringLength(50)]
-        public string Login { get; set; }
+        public string Credential { get; set; }
 
         [Required]
         [StringLength(100)]
