@@ -8,6 +8,7 @@ using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Models;
 using RentShopVehicle.Domain.Entities.ServiceE;
+using RentShopVehicle.BusinessLogic.DBModel;
 
 namespace RentShopVehicle.Controllers
 {
@@ -36,6 +37,21 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult LoginAction(LoginModel lModel)
         {
+            UserDB tmp= new UserDB()
+            {
+                Login = lModel.Login,
+                Password = lModel.Password
+            };
+            using (var db=new UserContext()) {
+                db.Users.Add(tmp);
+                db.SaveChanges();
+                //tmp=db.Users.FirstOrDefault(u=>u.Login==lModel.Login);
+            }
+            using (var db = new UserContext())
+            {
+                UserDB tmp1= db.Users.FirstOrDefault(u => u.Login == lModel.Login);
+
+            }
             LoginData lData = new LoginData
             {
                 Login = lModel.Login,

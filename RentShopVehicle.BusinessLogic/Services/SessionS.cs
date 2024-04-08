@@ -2,11 +2,7 @@
 using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.ServiceE;
 using RentShopVehicle.Domain.Entities.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace RentShopVehicle.BusinessLogic.Services
 {
@@ -15,6 +11,11 @@ namespace RentShopVehicle.BusinessLogic.Services
         public VerificationResponse CredentialsVerification(LoginData lData)
         {
             return CredentialsVerificationUserAPI(lData);
+        }
+
+        public HttpCookie GenerateCookies(string creds)
+        {
+            return GenerateCookiesForCS(creds);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
     public interface ISession
     {
         VerificationResponse CredentialsVerification(LoginData lData);
+        HttpCookie GenerateCookies(string creds);
     }
 }
