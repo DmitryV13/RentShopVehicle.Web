@@ -8,9 +8,10 @@ namespace RentShopVehicle.Domain.Entities.User
 {
     public class LoginData
     {
-        public string Credential { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
-        public string IP { get; set; }
+        public string LoginIP { get; set; }
+        public DateTime Entry { get; set; }
 
     }
 }

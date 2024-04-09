@@ -11,7 +11,7 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
 {
     public interface ISession
     {
-        VerificationResponse CredentialsVerification(LoginData lData);
+        Response CredentialsVerification(LoginData lData);
         HttpCookie GenerateCookies(string creds);
     }
 }

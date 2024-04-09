@@ -7,9 +7,9 @@ using RentShopVehicle.Domain.Entities.User;
 
 namespace RentShopVehicle.Domain.Entities.ServiceE
 {
-    public class VerificationResponse
+    public class Response
     {
         public bool Exist { get; set; }
-        public UserData user { get; set; }
+        public string ErrorMsg { get; set; }
     }
 }

@@ -9,57 +9,61 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using RentShopVehicle.BusinessLogic.DBModel;
+using System.Web.Http.Results;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
     public class UserAPI
     {
-        public VerificationResponse CredentialsVerificationUserAPI(LoginData lData)
+        public Response CredentialsVerificationUserAPI(LoginData lData)
         {
+            var response = new Response();
+            response.Exist = true;
 
-            var response = new VerificationResponse();
-            if (lData.Password == "password" && lData.Credential == "login")
+            UserDB userDB;
+            var hashedPassword = HashGenerator.HashGenerate(lData.Password);
+
+            using(var db = new UserContext())
             {
-                response.Exist = true;
-                response.user = new UserData
-                {
-                    Password = "password",
-                    Credential = "login",
-                };
+                userDB=db.Users.FirstOrDefault(
+                    el => el.Password == hashedPassword && el.Login == lData.Login);
             }
-            else
+            if(userDB == null)
             {
                 response.Exist = false;
+                response.ErrorMsg = "There is no such user, check credentials, please!";
+                return response;
             }
-
+            using (var db = new UserContext())
+            {
+                userDB.LoginIP.Add(lData.LoginIP);
+                userDB.LastEntry.Add(lData.Entry);
+                db.Entry(userDB).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             return response;
         }
 
-        public HttpCookie GenerateCookiesUserAPI(string creds)
+        public HttpCookie GenerateCookiesUserAPI(string transmittedUsername)
         {
             var cookies = new HttpCookie("RSV-CC")
             {
-                Value = CookieGenerator.Create(creds)
+                Value = CookieGenerator.Create(transmittedUsername)
             };
 
             using (var db = new SessionContext())
             {
                 SessionDB current;
-                Credential newCreds = new Credential();
 
-                var emailValidation = new EmailAddressAttribute();
-                if (emailValidation.IsValid(creds))
-                {
-                    current = (from el in db.Sessions where el.Cred.Email == creds select el).FirstOrDefault();
-                    newCreds.Email = creds;
-                    newCreds.Username = null;
-                }
-                else
-                {
-                    current = (from el in db.Sessions where el.Cred.Username == creds select el).FirstOrDefault();
-                    newCreds.Email = null;
-                    newCreds.Username = creds;
-                }
+                //var emailValidation = new EmailAddressAttribute();
+                //if (emailValidation.IsValid(creds))
+                //{
+                current = (from el in db.Sessions where el.Username == transmittedUsername select el).FirstOrDefault();
+                //}
+                //else
+                //{
+                //    current = (from el in db.Sessions where el.Username == creds select el).FirstOrDefault();
+                //}
 
                 if (current != null)
                 {
@@ -75,14 +79,13 @@ namespace RentShopVehicle.BusinessLogic.Core
                 {
                     db.Sessions.Add(new SessionDB
                     {
-                        Cred = newCreds,
+                        Username = transmittedUsername,
                         CookieString = cookies.Value,
                         ExpireTime = DateTime.Now.AddHours(2)
                     });
                     db.SaveChanges();
                 }
             }
-
             return cookies;
         }
 

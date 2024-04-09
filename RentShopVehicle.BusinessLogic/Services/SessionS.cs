@@ -8,7 +8,7 @@ namespace RentShopVehicle.BusinessLogic.Services
 {
     public class SessionS : UserAPI, ISession
     {
-        public VerificationResponse CredentialsVerification(LoginData lData)
+        public Response CredentialsVerification(LoginData lData)
         {
             return CredentialsVerificationUserAPI(lData);
         }

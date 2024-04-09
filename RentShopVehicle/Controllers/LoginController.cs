@@ -9,6 +9,8 @@ using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Models;
 using RentShopVehicle.Domain.Entities.ServiceE;
 using RentShopVehicle.BusinessLogic.DBModel;
+using RentShopVehicle.BusinessLogic.Services;
+using System.Web.UI.WebControls;
 
 namespace RentShopVehicle.Controllers
 {
@@ -37,41 +39,42 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult LoginAction(LoginModel lModel)
         {
-            UserDB tmp= new UserDB()
+            if (ModelState.IsValid)
             {
-                Login = lModel.Login,
-                Password = lModel.Password
-            };
-            using (var db=new UserContext()) {
-                db.Users.Add(tmp);
-                db.SaveChanges();
-                //tmp=db.Users.FirstOrDefault(u=>u.Login==lModel.Login);
+                var lData = new LoginData()
+                {
+                    Login = lModel.Login,
+                    Password = lModel.Password,
+                    Entry = DateTime.Now,
+                    LoginIP = Request.UserHostAddress,
+                };
+
+                var authResp = session.CredentialsVerification(lData);
+                if (authResp.Exist)
+                {
+                    HttpCookie cookie = session.GenerateCookies(lModel.Login);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+
+                    return RedirectToAction("Contacts", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", authResp.ErrorMsg);
+                    return RedirectToAction("Login", "Login");
+                }
             }
-            using (var db = new UserContext())
-            {
-                UserDB tmp1= db.Users.FirstOrDefault(u => u.Login == lModel.Login);
-
-            }
-            LoginData lData = new LoginData
-            {
-                Login = lModel.Login,
-                Password = lModel.Password,
-                IP = "",
-            };
-
-            VerificationResponse vResponse = session.CredentialsVerification(lData);
-            if(vResponse != null && vResponse.Exist) {
-
-                //  user exists logic
-
-
-                // if exists for example we redirect him to "Contacts"
-                return RedirectToAction("Contacts", "Home");
-            }
-                //  user doesn't exist logic
-
-
             return RedirectToAction("Login", "Login");
+        }
+
+        [HttpPost]
+        public ActionResult RegistrationAction(RegistrationModel lModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction("Login", "Login");
+            }
+            return RedirectToAction("Registration", "Login");
         }
     }
 }

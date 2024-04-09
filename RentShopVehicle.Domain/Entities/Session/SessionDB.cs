@@ -15,7 +15,8 @@ namespace RentShopVehicle.Domain.Entities.Session
         public int Id { get; set; }
 
         [Required]
-        public Credential Cred { get; set; }
+        [StringLength(20)]
+        public string Username { get; set; }
 
         [Required]
         public string CookieString { get; set; }

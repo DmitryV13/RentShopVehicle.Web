@@ -17,12 +17,15 @@ namespace RentShopVehicle.Domain.Entities.User
 
         [Required]
         [StringLength(50)]
-        public string Credential { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Password { get; set; }
 
+        public List<string> LoginIP { get; set; }
+
+        public List<DateTime> LastEntry { get; set; }
 
     }
 }
