@@ -76,6 +76,7 @@
     <Compile Include="Entities\ServiceE\Response.cs" />
     <Compile Include="Entities\Session\SessionDB.cs" />
     <Compile Include="Entities\User\LoginData.cs" />
+    <Compile Include="Entities\User\RegistrationData.cs" />
     <Compile Include="Entities\User\UserData.cs" />
     <Compile Include="Entities\User\UserDB.cs" />
     <Compile Include="Entities\Vehicles\Car.cs" />

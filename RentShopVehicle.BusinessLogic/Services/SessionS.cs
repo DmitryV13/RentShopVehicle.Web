@@ -8,6 +8,11 @@ namespace RentShopVehicle.BusinessLogic.Services
 {
     public class SessionS : UserAPI, ISession
     {
+        public Response CreateUserAccount(RegistrationData rData)
+        {
+            return CreateUserAccountUserAPI(rData);
+        }
+
         public Response CredentialsVerification(LoginData lData)
         {
             return CredentialsVerificationUserAPI(lData);

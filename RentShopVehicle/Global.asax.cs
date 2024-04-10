@@ -1,6 +1,8 @@
 ﻿using RentShopVehicle.App_Start;
+using RentShopVehicle.BusinessLogic.DBModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +21,8 @@ namespace RentShopVehicle
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //Database.SetInitializer(new DropCreateDatabaseAlways<YourDbContext>());
+            Database.SetInitializer<UserContext>(new DropCreateDatabaseIfModelChanges<UserContext>());
         }
     }
 }

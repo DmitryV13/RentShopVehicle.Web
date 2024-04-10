@@ -23,6 +23,9 @@ namespace RentShopVehicle.Domain.Entities.User
         [StringLength(100)]
         public string Password { get; set; }
 
+        [StringLength(100)]
+        public string Email { get; set; }
+
         public List<string> LoginIP { get; set; }
 
         public List<DateTime> LastEntry { get; set; }

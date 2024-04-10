@@ -11,6 +11,7 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
 {
     public interface ISession
     {
+        Response CreateUserAccount(RegistrationData rData);
         Response CredentialsVerification(LoginData lData);
         HttpCookie GenerateCookies(string creds);
     }

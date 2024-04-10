@@ -15,6 +15,41 @@ namespace RentShopVehicle.BusinessLogic.Core
 {
     public class UserAPI
     {
+        public Response CreateUserAccountUserAPI(RegistrationData rData)
+        {
+            var response = new Response();
+            response.Exist = true;
+
+            UserDB newUser;
+
+            using (var db = new UserContext())
+            {
+                newUser = db.Users.FirstOrDefault(el => el.Login == rData.Login);
+            }
+            if (newUser != null)
+            {
+                response.Exist = false;
+                response.ErrorMsg = "Try another username, this is already occupied!";
+                return response;
+            }
+
+            newUser = new UserDB()
+            {
+                Login = rData.Login,
+                Password = HashGenerator.HashGenerate(rData.Password),
+                Email = rData.Email,
+            };
+            newUser.LastEntry.Add(rData.LastEntry);
+            newUser.LoginIP.Add(rData.LoginIP);
+
+            using(var db = new UserContext())
+            {
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
+            return response;
+        }
+
         public Response CredentialsVerificationUserAPI(LoginData lData)
         {
             var response = new Response();

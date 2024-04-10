@@ -67,10 +67,31 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrationAction(RegistrationModel lModel)
+        public ActionResult RegistrationAction(RegistrationModel rModel)
         {
             if (ModelState.IsValid)
             {
+                if (rModel.Password1 != rModel.Password2)
+                {
+                    ModelState.AddModelError("", "Password was not typed correct the second time!");
+                    return RedirectToAction("Registration", "Login");
+                }
+
+                var rData = new RegistrationData()
+                {
+                    Email = rModel.Email,
+                    Password = rModel.Password1,
+                    Login = rModel.Login,
+                    LoginIP = Request.UserHostAddress,
+                    LastEntry = DateTime.Now,
+                };
+
+                var resp=session.CreateUserAccount(rData);
+                if(!resp.Exist)
+                {
+                    ModelState.AddModelError("", resp.ErrorMsg);
+                    return RedirectToAction("Registration", "Login");
+                }
 
                 return RedirectToAction("Login", "Login");
             }
