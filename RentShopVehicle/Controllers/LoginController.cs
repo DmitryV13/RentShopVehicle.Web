@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using RentShopVehicle.BusinessLogic;
 using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Models;
-using RentShopVehicle.Domain.Entities.ServiceE;
-using RentShopVehicle.BusinessLogic.DBModel;
-using RentShopVehicle.BusinessLogic.Services;
-using System.Web.UI.WebControls;
 
 namespace RentShopVehicle.Controllers
 {

@@ -156,7 +156,9 @@
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\nice-select.css" />
+    <Content Include="Content\other\materialdesignicons.min.css" />
     <Content Include="Content\other\style.css" />
+    <Content Include="Content\other\style1.css" />
     <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\slicknav.min.css" />
@@ -308,11 +310,16 @@
     <Content Include="Content\sass\_services.scss" />
     <Content Include="Content\sass\_variable.scss" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\dashboard.js" />
+    <Content Include="Scripts\hoverable-collapse.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Scripts\jquery-jvectormap.min.js" />
     <Content Include="Scripts\jquery-ui-1.13.2.js" />
     <Content Include="Scripts\jquery-ui-1.13.2.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
@@ -325,8 +332,14 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\misc.js" />
     <Content Include="Scripts\mixitup.min.js" />
+    <Content Include="Scripts\off-canvas.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\progressbar.min.js" />
+    <Content Include="Scripts\settings.js" />
+    <Content Include="Scripts\todolist.js" />
+    <Content Include="Scripts\vendor.bundle.base.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -345,6 +358,11 @@
     <Content Include="Views\Shared\_Error.cshtml" />
     <Content Include="Views\Error\E404.cshtml" />
     <Content Include="Views\Error\E500.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_Footer2.cshtml" />
+    <Content Include="Views\Shared\_Header2.cshtml" />
+    <Content Include="Views\Home\PrivateCabinet.cshtml" />
+    <Content Include="Views\Shared\_Sidebar2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

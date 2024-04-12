@@ -32,7 +32,11 @@
     @Styles.Render("~/bundles/carousel/css")
     @Styles.Render("~/bundles/slicknav/css")
 
-    @if (IsSectionDefined("Styles")){
+    @*@Styles.Render("~/bundles/other/materialdesignicons.min/css")
+    @Styles.Render("~/bundles/other/style1/css")*@
+
+    @if (IsSectionDefined("Styles"))
+    {
         @RenderSection("Styles", required: false);
     }
 
@@ -97,7 +101,6 @@
         </div>
     </div>
     <!-- Search End -->
-
     <!-- Js Plugins -->
     <!--<script src="~/Scripts/jquery-3.3.1.min.js"></script>-->
     <!--<script src="~/Scripts/bootstrap.min.js"></script>-->
@@ -118,6 +121,18 @@
     @Scripts.Render("~/bundles/jquery-slicknav/js")
     @Scripts.Render("~/bundles/carousel/js")
     @Scripts.Render("~/bundles/main/js")
+
+    @*@Scripts.Render("~/bundles/other/dashboard/js")
+    @Scripts.Render("~/bundles/other/hoverable-collapse/js")
+    @Scripts.Render("~/bundles/other/Chart.min/js")
+    @Scripts.Render("~/bundles/other/misc/js")
+    @Scripts.Render("~/bundles/other/off-canvas/js")
+    @Scripts.Render("~/bundles/other/progressbar.min/js")
+    @Scripts.Render("~/bundles/other/settings/js")
+    @Scripts.Render("~/bundles/other/todolist/js")
+    @Scripts.Render("~/bundles/other/vendor.bundle.base/js")
+    @Scripts.Render("~/bundles/other/jquery-jvectormap-world-mill-en/js")
+    @Scripts.Render("~/bundles/other/jquery-jvectormap.min/js")*@
 
     @RenderSection("Scripts", required: false)
 

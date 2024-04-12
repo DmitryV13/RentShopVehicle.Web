@@ -38,6 +38,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Username = rData.Username,
                 Password = HashGenerator.HashGenerate(rData.Password),
                 Email = rData.Email,
+                Role=1,
             };
             newLHistory = new LoginHistoryDB()
             {

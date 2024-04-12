@@ -29,6 +29,8 @@ namespace RentShopVehicle.Domain.Entities.User
         [Required]
         public ICollection<LoginHistoryDB> LoginHistories { get; set; }
 
+        [Required]
+        public int Role { get; set; }
         public UserDB()
         {
             LoginHistories = new List<LoginHistoryDB>();

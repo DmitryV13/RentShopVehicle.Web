@@ -35,14 +35,12 @@
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="hero__tab__form">
                                     <h2>Find Your Dream Car</h2>
-                                    @using (Html.BeginForm("FindCar", "Home", FormMethod.Post, new { autocomplete = "off"
-                                    }))
+                                    @using (Html.BeginForm("FindCar", "Home", FormMethod.Post, new { autocomplete = "off"}))
                                     {
-                                    <form>
                                         <div class="select-list">
                                             <div class="select-list-item">
                                                 <p>Select Year</p>
-                                                <selectn name="Year">
+                                                <select name="Year">
                                                     <option data-display=" ">Select Year</option>
                                                     <option value="">2020</option>
                                                     <option value="">2019</option>
@@ -50,7 +48,7 @@
                                                     <option value="">2017</option>
                                                     <option value="">2016</option>
                                                     <option value="">2015</option>
-                                                </selectn>
+                                                </select>
                                             </div>
                                             <div class="select-list-item">
                                                 <p>Select Brand</p>
@@ -95,7 +93,6 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="site-btn">Searching</button>
-                                    </form>
                                     }
                                 </div>
                             </div>

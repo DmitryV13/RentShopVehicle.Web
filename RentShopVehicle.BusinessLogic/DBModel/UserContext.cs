@@ -11,7 +11,9 @@ namespace RentShopVehicle.BusinessLogic.DBModel
 {
     public class UserContext: DbContext
     {
-        public UserContext() : base("name=RentShopVehicle") { }
+        public UserContext() : base("name=RentShopVehicle") {
+            Database.SetInitializer<UserContext>(new DropCreateDatabaseIfModelChanges<UserContext>());
+        }
 
         public virtual DbSet<UserDB> Users { get; set; }
         public virtual DbSet<LoginHistoryDB> LoginHistory { get; set; }

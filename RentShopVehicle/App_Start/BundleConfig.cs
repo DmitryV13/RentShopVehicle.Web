@@ -32,6 +32,11 @@ namespace RentShopVehicle.App_Start
             bundles.Add(new StyleBundle("~/bundles/second_main/css").Include(
                 "~/Content/other/style.css", new CssRewriteUrlTransform()));
 
+            bundles.Add(new StyleBundle("~/bundles/other/materialdesignicons.min/css").Include(
+                "~/Content/other/materialdesignicons.min.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/bundles/other/style1/css").Include(
+                "~/Content/other/style1.css", new CssRewriteUrlTransform()));
+
             //scripts
             bundles.Add(new ScriptBundle("~/bundles/jquery-331/js").Include(
                 "~/Scripts/jquery-3.3.1.min.js"));
@@ -51,6 +56,29 @@ namespace RentShopVehicle.App_Start
                 "~/Scripts/owl.carousel.min.js"));
             bundles.Add(new ScriptBundle("~/bundles/main/js").Include(
                 "~/Scripts/main.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/other/dashboard/js").Include(
+                "~/Scripts/dashboard.js"));//dashboard
+            bundles.Add(new ScriptBundle("~/bundles/other/hoverable-collapse/js").Include(
+                "~/Scripts/hoverable-collapse.js"));//hoverable-collapse
+            bundles.Add(new ScriptBundle("~/bundles/other/Chart.min/js").Include(
+                "~/Scripts/Chart.min.js"));//Chart.min
+            bundles.Add(new ScriptBundle("~/bundles/other/misc/js").Include(
+                "~/Scripts/misc.js"));//misc
+            bundles.Add(new ScriptBundle("~/bundles/other/off-canvas/js").Include(
+                "~/Scripts/off-canvas.js"));//off-canvas
+            bundles.Add(new ScriptBundle("~/bundles/other/progressbar.min/js").Include(
+                "~/Scripts/progressbar.min.js"));//progressbar.min
+            bundles.Add(new ScriptBundle("~/bundles/other/settings/js").Include(
+                "~/Scripts/settings.js"));//settings
+            bundles.Add(new ScriptBundle("~/bundles/other/todolist/js").Include(
+                "~/Scripts/todolist.js"));//todolist
+            bundles.Add(new ScriptBundle("~/bundles/other/vendor.bundle.base/js").Include(
+                "~/Scripts/vendor.bundle.base.js"));//vendor.bundle.base
+            bundles.Add(new ScriptBundle("~/bundles/other/jquery-jvectormap-world-mill-en/js").Include(
+                "~/Scripts/jquery-jvectormap-world-mill-en.js"));//jquery-jvectormap-world-mill-en
+            bundles.Add(new ScriptBundle("~/bundles/other/jquery-jvectormap.min/js").Include(
+                "~/Scripts/jquery-jvectormap.min.js"));//jquery-jvectormap.min
         }
     }
 }
