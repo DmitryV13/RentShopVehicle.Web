@@ -8,7 +8,7 @@ namespace RentShopVehicle.Models
 {
     public class RegistrationModel
     {
-        public string Login { get; set; }
+        public string Username { get; set; }
 
         public string Password1 { get; set; }
 

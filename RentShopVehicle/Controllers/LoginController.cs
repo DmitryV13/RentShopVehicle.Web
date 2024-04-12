@@ -43,7 +43,7 @@ namespace RentShopVehicle.Controllers
             {
                 var lData = new LoginData()
                 {
-                    Login = lModel.Login,
+                    Username = lModel.Username,
                     Password = lModel.Password,
                     Entry = DateTime.Now,
                     LoginIP = Request.UserHostAddress,
@@ -52,7 +52,7 @@ namespace RentShopVehicle.Controllers
                 var authResp = session.CredentialsVerification(lData);
                 if (authResp.Exist)
                 {
-                    HttpCookie cookie = session.GenerateCookies(lModel.Login);
+                    HttpCookie cookie = session.GenerateCookies(lModel.Username);
                     ControllerContext.HttpContext.Response.Cookies.Add(cookie);
 
                     return RedirectToAction("Contacts", "Home");
@@ -81,7 +81,7 @@ namespace RentShopVehicle.Controllers
                 {
                     Email = rModel.Email,
                     Password = rModel.Password1,
-                    Login = rModel.Login,
+                    Username = rModel.Username,
                     LoginIP = Request.UserHostAddress,
                     LastEntry = DateTime.Now,
                 };

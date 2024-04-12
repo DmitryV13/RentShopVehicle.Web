@@ -12,6 +12,7 @@ using RentShopVehicle.BusinessLogic.DBModel;
 using System.Web.Http.Results;
 using System.Data.Entity.Validation;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -22,13 +23,9 @@ namespace RentShopVehicle.BusinessLogic.Core
             var response = new Response();
             response.Exist = true;
 
-            UserDB newUser;
+            UserDB newUser = getUserByUsername(rData.Username);
             LoginHistoryDB newLHistory;
 
-            using (var db = new UserContext())
-            {
-                newUser = db.Users.FirstOrDefault(el => el.Login == rData.Login);
-            }
             if (newUser != null)
             {
                 response.Exist = false;
@@ -38,7 +35,7 @@ namespace RentShopVehicle.BusinessLogic.Core
 
             newUser = new UserDB()
             {
-                Login = rData.Login,
+                Username = rData.Username,
                 Password = HashGenerator.HashGenerate(rData.Password),
                 Email = rData.Email,
             };
@@ -70,7 +67,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             using(var db = new UserContext())
             {
                 userDB=db.Users.FirstOrDefault(
-                    el => el.Password == hashedPassword && el.Login == lData.Login);
+                    el => el.Password == hashedPassword && el.Username == lData.Username);
             }
             if(userDB == null)
             {
@@ -144,12 +141,28 @@ namespace RentShopVehicle.BusinessLogic.Core
                 currentSession=db.Sessions.FirstOrDefault(el=> el.CookieString == cookies);
             }
             if(currentSession != null) {
-                if(currentSession.ExpireTime < DateTime.Now) {
+                UserDB sessionOwner = getUserByUsername(currentSession.Username);
+                if(currentSession.ExpireTime < DateTime.Now || sessionOwner==null) {
+                    using(var db = new SessionContext())
+                    {
+                        db.Sessions.Remove(currentSession);
+                        db.SaveChanges();
+                    }
                     return false;
                 }
                 return true;
             }
             return false;
+        }
+
+        private UserDB getUserByUsername(string username)
+        {
+            UserDB userDB;
+            using (var db = new UserContext())
+            {
+                userDB = db.Users.FirstOrDefault(el => el.Username == username);
+            }
+            return userDB;
         }
 
         public ResponceFindCar FindCarUserAPI(CarD car)

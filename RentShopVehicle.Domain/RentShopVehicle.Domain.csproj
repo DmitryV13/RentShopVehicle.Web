@@ -76,10 +76,10 @@
     <Compile Include="Entities\ServiceE\Response.cs" />
     <Compile Include="Entities\Session\SessionDB.cs" />
     <Compile Include="Entities\User\LoginData.cs" />
-    <Compile Include="Entities\User\LoginHistoryDB.cs" />
+    <Compile Include="Entities\User\DB\LoginHistoryDB.cs" />
     <Compile Include="Entities\User\RegistrationData.cs" />
-    <Compile Include="Entities\User\UserData.cs" />
-    <Compile Include="Entities\User\UserDB.cs" />
+    <Compile Include="Entities\User\DB\UserDB.cs" />
+    <Compile Include="Entities\User\UserMinData.cs" />
     <Compile Include="Entities\Vehicles\Car.cs" />
     <Compile Include="Entities\Vehicles\Motocycle.cs" />
     <Compile Include="Entities\Vehicles\VehicleDB.cs" />
