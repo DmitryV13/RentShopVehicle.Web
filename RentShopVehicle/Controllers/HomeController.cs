@@ -15,7 +15,14 @@ namespace RentShopVehicle.Controllers
 
         public ICar carService;
 
-        public HomeController()
+
+        //SessionStatus();
+        //if ((string) System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+        //{
+        //    return RedirectToAction("Index", "Login");
+        //}
+
+    public HomeController()
         {
             var tmp = new BusinessLogic.BusinessLogic();
             carService = tmp.getCarS();

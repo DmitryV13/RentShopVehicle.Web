@@ -11,17 +11,18 @@ namespace RentShopVehicle.Helpers
 {
     public static class CookieGenerator
     {
-        private const string SaltData = "aPo0JfB7Cgiw0VMB2Kzn" + "QJ2YdPVRLKCp2jZteF7a";
-        private static readonly byte[] salt = Encoding.ASCII.GetBytes(SaltData);
+        private const string SaltData1 = "aPo0JfB7Cgiw0VMB";
+        private const string SaltData2 = "QJ2YdPVRLKCp2jZt";
+        private static readonly byte[] salt = Encoding.ASCII.GetBytes(SaltData1 + SaltData2);
 
         public static string Create(string key)
         {
-            return EncryptStringAES(key, salt, salt);
+            return EncryptStringAES(key, salt, Encoding.ASCII.GetBytes(SaltData2));
         }
 
         public static string Validate(string value)
         {
-            return DecryptStringAES(value, salt, salt);
+            return DecryptStringAES(value, salt, Encoding.ASCII.GetBytes(SaltData2));
         }
 
         public static string EncryptStringAES(string plainText, byte[] key, byte[] iv)

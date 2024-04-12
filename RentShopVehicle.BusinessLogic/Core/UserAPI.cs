@@ -106,15 +106,11 @@ namespace RentShopVehicle.BusinessLogic.Core
             {
                 SessionDB current;
 
-                //var emailValidation = new EmailAddressAttribute();
-                //if (emailValidation.IsValid(creds))
-                //{
-                current = (from el in db.Sessions where el.Username == transmittedUsername select el).FirstOrDefault();
-                //}
-                //else
-                //{
-                //    current = (from el in db.Sessions where el.Username == creds select el).FirstOrDefault();
-                //}
+                current = (
+                    from el in db.Sessions 
+                    where el.Username == transmittedUsername 
+                    select el
+                    ).FirstOrDefault();
 
                 if (current != null)
                 {
@@ -138,6 +134,22 @@ namespace RentShopVehicle.BusinessLogic.Core
                 }
             }
             return cookies;
+        }
+
+        public bool VerifySessionUserAPI(string cookies)
+        {
+            SessionDB currentSession;
+            using(var db = new SessionContext())
+            {
+                currentSession=db.Sessions.FirstOrDefault(el=> el.CookieString == cookies);
+            }
+            if(currentSession != null) {
+                if(currentSession.ExpireTime < DateTime.Now) {
+                    return false;
+                }
+                return true;
+            }
+            return false;
         }
 
         public ResponceFindCar FindCarUserAPI(CarD car)
