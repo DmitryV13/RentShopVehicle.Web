@@ -16,19 +16,22 @@ namespace RentShopVehicle.Domain.Entities.User
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
+        //[StringLength(50)]
         public string Login { get; set; }
 
         [Required]
-        [StringLength(100)]
+        //[StringLength(100)]
         public string Password { get; set; }
 
-        [StringLength(100)]
+        //[StringLength(100)]
         public string Email { get; set; }
 
-        public List<string> LoginIP { get; set; }
+        [Required]
+        public ICollection<LoginHistoryDB> LoginHistories { get; set; }
 
-        public List<DateTime> LastEntry { get; set; }
-
+        public UserDB()
+        {
+            LoginHistories = new List<LoginHistoryDB>();
+        }
     }
 }

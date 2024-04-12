@@ -10,6 +10,8 @@ using System.Linq;
 using System.Web;
 using RentShopVehicle.BusinessLogic.DBModel;
 using System.Web.Http.Results;
+using System.Data.Entity.Validation;
+using System.Collections.Generic;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -21,6 +23,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             response.Exist = true;
 
             UserDB newUser;
+            LoginHistoryDB newLHistory;
 
             using (var db = new UserContext())
             {
@@ -39,12 +42,18 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Password = HashGenerator.HashGenerate(rData.Password),
                 Email = rData.Email,
             };
-            newUser.LastEntry.Add(rData.LastEntry);
-            newUser.LoginIP.Add(rData.LoginIP);
+            newLHistory = new LoginHistoryDB()
+            {
+                LastEntry = DateTime.Now,
+                LoginIP = HttpContext.Current.Request.UserHostAddress,
+            };
+            newUser.LoginHistories.Add(newLHistory);
+            newLHistory.User=newUser;
 
             using(var db = new UserContext())
             {
                 db.Users.Add(newUser);
+                db.LoginHistory.Add(newLHistory);
                 db.SaveChanges();
             }
             return response;
@@ -69,10 +78,17 @@ namespace RentShopVehicle.BusinessLogic.Core
                 response.ErrorMsg = "There is no such user, check credentials, please!";
                 return response;
             }
+
+            LoginHistoryDB newLHistory = new LoginHistoryDB()
+            {
+                LastEntry = DateTime.Now,
+                LoginIP = HttpContext.Current.Request.UserHostAddress,
+                User=userDB,
+            };
             using (var db = new UserContext())
             {
-                userDB.LoginIP.Add(lData.LoginIP);
-                userDB.LastEntry.Add(lData.Entry);
+                db.LoginHistory.Add(newLHistory);
+                userDB.LoginHistories.Add(newLHistory);
                 db.Entry(userDB).State = EntityState.Modified;
                 db.SaveChanges();
             }

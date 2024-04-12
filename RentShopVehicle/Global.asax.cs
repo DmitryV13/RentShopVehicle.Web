@@ -21,8 +21,9 @@ namespace RentShopVehicle
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //Database.SetInitializer(new DropCreateDatabaseAlways<YourDbContext>());
-            Database.SetInitializer<UserContext>(new DropCreateDatabaseIfModelChanges<UserContext>());
+
+            //Database.SetInitializer(new DropCreateDatabaseAlways<UserContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<SessionContext>());
         }
     }
 }
