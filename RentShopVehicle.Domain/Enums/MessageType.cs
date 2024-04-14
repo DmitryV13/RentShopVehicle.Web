@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace RentShopVehicle.Domain.Enums
 {
-    internal class MessageType
+    public enum MessageType
     {
+        Review = 0,
+        Feedback,
+        Comment,
+        Error,
     }
 }
