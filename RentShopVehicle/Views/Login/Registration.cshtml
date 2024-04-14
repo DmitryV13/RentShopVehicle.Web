@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+<div class="c_align">
+    <div class="card">
+        <div class="bg-light rounded h-100 p-4">
+            <h1 class="mb-4">Registration Form</h1>
+            @using (Html.BeginForm("RegistrationAction", "Login", FormMethod.Post, new { autocomplete = "off" }))
+            {
+                <div class="form-group">
+                    <label for="exampleInputUsername1">Username</label>
+                    <input type="text" class="form-control" name="Username" id="exampleInputUsername1" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" name="Email" id="exampleInputEmail1" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="Password1" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputConfirmPassword1">Confirm Password</label>
+                    <input type="password" class="form-control" name="Password2" id="exampleInputConfirmPassword1" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Create</button>
+                <a href="@Url.Action("Login", "Login")"><div class="btn btn-dark">Cancel</div></a>
+            }
+        </div>
+    </div>
+</div>
+
