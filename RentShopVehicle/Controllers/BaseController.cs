@@ -11,7 +11,7 @@ namespace RentShopVehicle.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly ISession session;
+        protected readonly ISession session;
 
         public BaseController()
         {
@@ -28,6 +28,7 @@ namespace RentShopVehicle.Controllers
                 if (responce)
                 {
                     System.Web.HttpContext.Current.Session["SessionStatus"] = "valid";
+                    System.Web.HttpContext.Current.Session["SessionUser"] = session.getUserByCookies(currentCookies.Value); 
                 }
                 else
                 {

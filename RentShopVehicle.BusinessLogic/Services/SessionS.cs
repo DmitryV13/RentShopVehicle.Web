@@ -27,5 +27,10 @@ namespace RentShopVehicle.BusinessLogic.Services
         {
             return VerifySessionUserAPI(cookies);
         }
+
+        public UserMinData getUserByCookies(string cookies)
+        {
+            return getUserByCookiesUserAPI(cookies);
+        }
     }
 }

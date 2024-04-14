@@ -7,20 +7,24 @@ using RentShopVehicle.Models;
 
 namespace RentShopVehicle.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
-        internal ISession session;
 
         public LoginController()
         {
             var tmp = new BusinessLogic.BusinessLogic();
-            session = tmp.getSessionS();
         }
 
         [HttpGet]
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -47,8 +51,8 @@ namespace RentShopVehicle.Controllers
                 {
                     HttpCookie cookie = session.GenerateCookies(lModel.Username);
                     ControllerContext.HttpContext.Response.Cookies.Add(cookie);
-
-                    return RedirectToAction("Contacts", "Home");
+                    UpdateSessionStatus();
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

@@ -30,10 +30,18 @@
                         <a href="#"><i class="fa fa-cart-plus"></i></a>
                         <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                     </div>
-                    @if(Session.)
-                    <a href="@Url.Action("Login", "Login")" class="primary-btn">Sign in</a>
+                    @if (HttpContext.Current.Session["SessionStatus"] == "valid")
+                    {
+                        <a href="@Url.Action("Profile", "PrivateAccount")" class="primary-btn">Profile</a>
+                        //var user = HttpContext.Current.Session["SessionUser"] as RentShopVehicle.Domain.Entities.User.UserMinData;
+                        //@Html.Partial("_" + user.UserRole.ToString() + "Toolbar");
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Login")" class="primary-btn">Sign in</a>
+                    }
+
                 </div>
-            </div>
         </div>
     </div>
     <div class="canvas__open">

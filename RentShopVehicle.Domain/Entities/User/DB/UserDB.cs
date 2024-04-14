@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentShopVehicle.Domain.Enums;
+using System;
 using System.Collections.Generic;
 
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +31,8 @@ namespace RentShopVehicle.Domain.Entities.User
         public ICollection<LoginHistoryDB> LoginHistories { get; set; }
 
         [Required]
-        public int Role { get; set; }
+        public Role UserRole { get; set; }
+
         public UserDB()
         {
             LoginHistories = new List<LoginHistoryDB>();

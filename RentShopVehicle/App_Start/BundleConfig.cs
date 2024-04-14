@@ -29,13 +29,12 @@ namespace RentShopVehicle.App_Start
                 "~/Content/slicknav.min.css", new CssRewriteUrlTransform())); 
             bundles.Add(new StyleBundle("~/bundles/main/css").Include(
                 "~/Content/style.css", new CssRewriteUrlTransform()));
+
             bundles.Add(new StyleBundle("~/bundles/second_main/css").Include(
                 "~/Content/other/style.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/bundles/tempusdominus/css").Include(
+                "~/Content/other/tempusdominus-bootstrap-4.min.css", new CssRewriteUrlTransform()));
 
-            bundles.Add(new StyleBundle("~/bundles/other/materialdesignicons.min/css").Include(
-                "~/Content/other/materialdesignicons.min.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/bundles/other/style1/css").Include(
-                "~/Content/other/style1.css", new CssRewriteUrlTransform()));
 
             //scripts
             bundles.Add(new ScriptBundle("~/bundles/jquery-331/js").Include(
@@ -57,28 +56,26 @@ namespace RentShopVehicle.App_Start
             bundles.Add(new ScriptBundle("~/bundles/main/js").Include(
                 "~/Scripts/main.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/other/dashboard/js").Include(
-                "~/Scripts/dashboard.js"));//dashboard
-            bundles.Add(new ScriptBundle("~/bundles/other/hoverable-collapse/js").Include(
-                "~/Scripts/hoverable-collapse.js"));//hoverable-collapse
-            bundles.Add(new ScriptBundle("~/bundles/other/Chart.min/js").Include(
-                "~/Scripts/Chart.min.js"));//Chart.min
-            bundles.Add(new ScriptBundle("~/bundles/other/misc/js").Include(
-                "~/Scripts/misc.js"));//misc
-            bundles.Add(new ScriptBundle("~/bundles/other/off-canvas/js").Include(
-                "~/Scripts/off-canvas.js"));//off-canvas
-            bundles.Add(new ScriptBundle("~/bundles/other/progressbar.min/js").Include(
-                "~/Scripts/progressbar.min.js"));//progressbar.min
-            bundles.Add(new ScriptBundle("~/bundles/other/settings/js").Include(
-                "~/Scripts/settings.js"));//settings
-            bundles.Add(new ScriptBundle("~/bundles/other/todolist/js").Include(
-                "~/Scripts/todolist.js"));//todolist
-            bundles.Add(new ScriptBundle("~/bundles/other/vendor.bundle.base/js").Include(
-                "~/Scripts/vendor.bundle.base.js"));//vendor.bundle.base
-            bundles.Add(new ScriptBundle("~/bundles/other/jquery-jvectormap-world-mill-en/js").Include(
-                "~/Scripts/jquery-jvectormap-world-mill-en.js"));//jquery-jvectormap-world-mill-en
-            bundles.Add(new ScriptBundle("~/bundles/other/jquery-jvectormap.min/js").Include(
-                "~/Scripts/jquery-jvectormap.min.js"));//jquery-jvectormap.min
+            bundles.Add(new Bundle("~/bundles/other/chart-min/js").Include(
+                "~/Scripts/other/chart.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/easing-min/js").Include(
+                "~/Scripts/other/easing.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/moment-timezone-min/js").Include(
+                "~/Scripts/other/moment-timezone.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/moment-min/js").Include(
+                "~/Scripts/other/moment.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/owl-carousel-min/js").Include(
+                "~/Scripts/other/owl.carousel.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/tempusdominus-bootstrap4min/js").Include(
+                "~/Scripts/other/tempusdominus-bootstrap-4.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/waypoints-min/js").Include(
+                "~/Scripts/other/waypoints.min.js"));
+            bundles.Add(new Bundle("~/bundles/bootstrap-bundle-min/js").Include(
+                "~/Scripts/bootstrap.bundle.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery-371/js").Include(
+                "~/Scripts/jquery-3.7.1.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/other/second-main/js").Include(
+                "~/Scripts/other/main.js"));
         }
     }
 }

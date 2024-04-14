@@ -4,15 +4,11 @@ using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Domain.Entities.Session;
 using RentShopVehicle.Helpers;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using RentShopVehicle.BusinessLogic.DBModel;
-using System.Web.Http.Results;
-using System.Data.Entity.Validation;
-using System.Collections.Generic;
-using System.Xml.Linq;
+using RentShopVehicle.Domain.Enums;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -38,7 +34,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Username = rData.Username,
                 Password = HashGenerator.HashGenerate(rData.Password),
                 Email = rData.Email,
-                Role=1,
+                UserRole=Role.User,
             };
             newLHistory = new LoginHistoryDB()
             {
@@ -137,21 +133,21 @@ namespace RentShopVehicle.BusinessLogic.Core
         public bool VerifySessionUserAPI(string cookies)
         {
             SessionDB currentSession;
-            using(var db = new SessionContext())
+            using (var db = new SessionContext())
             {
-                currentSession=db.Sessions.FirstOrDefault(el=> el.CookieString == cookies);
-            }
-            if(currentSession != null) {
-                UserDB sessionOwner = getUserByUsername(currentSession.Username);
-                if(currentSession.ExpireTime < DateTime.Now || sessionOwner==null) {
-                    using(var db = new SessionContext())
+                currentSession = db.Sessions.FirstOrDefault(el => el.CookieString == cookies);
+
+                if (currentSession != null)
+                {
+                    UserDB sessionOwner = getUserByUsername(currentSession.Username);
+                    if (currentSession.ExpireTime < DateTime.Now || sessionOwner == null)
                     {
                         db.Sessions.Remove(currentSession);
                         db.SaveChanges();
+                        return false;
                     }
-                    return false;
+                    return true;
                 }
-                return true;
             }
             return false;
         }
@@ -177,6 +173,31 @@ namespace RentShopVehicle.BusinessLogic.Core
                 responce.Found = true;
             }
             return responce;
+        }
+
+        public UserMinData getUserByCookiesUserAPI(string cookies)
+        {
+            UserMinData userMinData = null;
+            SessionDB currentSession;
+            using (var db = new SessionContext())
+            {
+                currentSession = db.Sessions.FirstOrDefault(el => el.CookieString == cookies);
+            }
+            UserDB sessionOwner = null;
+            if (currentSession != null)
+            {
+                sessionOwner = getUserByUsername(currentSession.Username);
+            }
+            if(sessionOwner != null)
+            {
+                userMinData = new UserMinData()
+                {
+                    Username = sessionOwner.Username,
+                    Email = sessionOwner.Email,
+                    UserRole = sessionOwner.UserRole,
+                };
+            }
+            return userMinData;
         }
     }
 }
