@@ -1,4 +1,5 @@
-﻿using RentShopVehicle.Domain.Entities.User.DB;
+﻿using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.User.DB;
 using RentShopVehicle.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,9 @@ namespace RentShopVehicle.Domain.Entities.User
         public ICollection<LoginHistoryDB> LoginHistories { get; set; }
 
         [Required]
+        public ICollection<AnnouncementIdDB> AnnouncementsIds { get; set; }
+
+        [Required]
         public Role UserRole { get; set; }
 
         public AddressDB Address { get; set; }
@@ -41,6 +45,7 @@ namespace RentShopVehicle.Domain.Entities.User
         public UserDB()
         {
             LoginHistories = new List<LoginHistoryDB>();
+            AnnouncementsIds = new List<AnnouncementIdDB>();
         }
     }
 }

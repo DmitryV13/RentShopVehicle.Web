@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace RentShopVehicle.Domain.Enums
 {
-    public enum ServiceType
+    public enum AnnouncementType
     {
         Rent = 0,
         Sale,
-        Reparation,
     }
 }
