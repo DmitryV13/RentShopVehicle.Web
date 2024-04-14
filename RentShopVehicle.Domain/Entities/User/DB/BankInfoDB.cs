@@ -6,24 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentShopVehicle.Domain.Entities.User
+namespace RentShopVehicle.Domain.Entities.User.DB
 {
-    public class LoginHistoryDB
+    public class BankInfoDB
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, ForeignKey("User")]
         public int Id { get; set; }
-
+        
         [Required]
-        public string LoginIP { get; set; }
-
+        public string ValidDate { get; set; }
+        
         [Required]
-        public DateTime LastEntry { get; set; }
-
+        public string Number { get; set; }
+        
         [Required]
-        public int UserId { get; set; }
-
+        public string Credentials { get; set; }
+        
         [Required]
+        public int Number3 { get; set; }
+        
         public UserDB User { get; set; }
     }
 }

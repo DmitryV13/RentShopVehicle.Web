@@ -199,5 +199,22 @@ namespace RentShopVehicle.BusinessLogic.Core
             }
             return userMinData;
         }
+
+        public void CloseCurrentSessionUserAPI(string cookies)
+        {
+            UserMinData userMinData = null;
+            SessionDB currentSession;
+            UserDB sessionOwner = null;
+            using (var db = new SessionContext())
+            {
+                currentSession = db.Sessions.FirstOrDefault(el => el.CookieString == cookies);
+                if (currentSession != null)
+                {
+                    currentSession.ExpireTime = DateTime.Now.AddDays(-1);
+                }
+                db.Entry(currentSession).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
     }
 }

@@ -25,6 +25,14 @@ namespace RentShopVehicle.BusinessLogic.DBModel
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(true);
+            
+            modelBuilder.Entity<UserDB>()
+                .HasOptional(e => e.Address)
+                .WithRequired(e => e.User);
+
+            modelBuilder.Entity<UserDB>()
+                .HasOptional(e => e.BankInfo)
+                .WithRequired(e => e.User);
         }
     }
 

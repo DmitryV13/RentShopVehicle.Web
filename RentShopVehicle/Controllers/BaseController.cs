@@ -50,5 +50,15 @@ namespace RentShopVehicle.Controllers
                 System.Web.HttpContext.Current.Session["SessionStatus"] = "invalid";
             }
         }
+
+        public void CloseSession()
+        {
+            HttpCookie currentCookies = Request.Cookies["RSV-CC"];
+            if (currentCookies != null)
+            {
+                session.CloseCurrentSession(currentCookies.Value);
+            }
+            UpdateSessionStatus();
+        }
     }
 }

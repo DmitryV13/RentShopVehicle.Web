@@ -11,6 +11,11 @@ namespace RentShopVehicle.Controllers
         // GET: PrivateAccount
         public ActionResult Profile()
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
     }

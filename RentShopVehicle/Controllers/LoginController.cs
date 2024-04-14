@@ -24,6 +24,7 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
+            CloseSession();
             return RedirectToAction("Index", "Home");
         }
 

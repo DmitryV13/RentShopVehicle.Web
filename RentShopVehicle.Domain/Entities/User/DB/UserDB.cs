@@ -1,4 +1,5 @@
-﻿using RentShopVehicle.Domain.Enums;
+﻿using RentShopVehicle.Domain.Entities.User.DB;
+using RentShopVehicle.Domain.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -32,6 +33,10 @@ namespace RentShopVehicle.Domain.Entities.User
 
         [Required]
         public Role UserRole { get; set; }
+
+        public AddressDB Address { get; set; }
+
+        public BankInfoDB BankInfo { get; set; }
 
         public UserDB()
         {

@@ -32,5 +32,10 @@ namespace RentShopVehicle.BusinessLogic.Services
         {
             return getUserByCookiesUserAPI(cookies);
         }
+
+        public void CloseCurrentSession(string cookies)
+        {
+            CloseCurrentSessionUserAPI(cookies);
+        }
     }
 }
