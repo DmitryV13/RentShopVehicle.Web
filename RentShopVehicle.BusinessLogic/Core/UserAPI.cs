@@ -44,7 +44,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             newUser.LoginHistories.Add(newLHistory);
             newLHistory.User=newUser;
 
-            using(var db = new UserContext())
+            using(var db = new CommonContext())
             {
                 db.Users.Add(newUser);
                 db.LoginHistory.Add(newLHistory);
@@ -61,7 +61,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             UserDB userDB;
             var hashedPassword = HashGenerator.HashGenerate(lData.Password);
 
-            using(var db = new UserContext())
+            using(var db = new CommonContext())
             {
                 userDB=db.Users.FirstOrDefault(
                     el => el.Password == hashedPassword && el.Username == lData.Username);
@@ -79,7 +79,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 LoginIP = HttpContext.Current.Request.UserHostAddress,
                 User=userDB,
             };
-            using (var db = new UserContext())
+            using (var db = new CommonContext())
             {
                 db.LoginHistory.Add(newLHistory);
                 userDB.LoginHistories.Add(newLHistory);
@@ -155,7 +155,7 @@ namespace RentShopVehicle.BusinessLogic.Core
         private UserDB getUserByUsername(string username)
         {
             UserDB userDB;
-            using (var db = new UserContext())
+            using (var db = new CommonContext())
             {
                 userDB = db.Users.FirstOrDefault(el => el.Username == username);
             }

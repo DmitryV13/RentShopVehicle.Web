@@ -33,7 +33,7 @@ namespace RentShopVehicle.Domain.Entities.User
         public ICollection<LoginHistoryDB> LoginHistories { get; set; }
 
         [Required]
-        public ICollection<AnnouncementIdDB> AnnouncementsIds { get; set; }
+        public ICollection<AnnouncementConnectorDB> Connectors { get; set; }
 
         [Required]
         public Role UserRole { get; set; }
@@ -45,7 +45,7 @@ namespace RentShopVehicle.Domain.Entities.User
         public UserDB()
         {
             LoginHistories = new List<LoginHistoryDB>();
-            AnnouncementsIds = new List<AnnouncementIdDB>();
+            Connectors = new List<AnnouncementConnectorDB>();
         }
     }
 }

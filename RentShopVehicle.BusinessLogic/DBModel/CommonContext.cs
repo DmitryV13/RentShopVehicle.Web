@@ -6,21 +6,22 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.Feedback;
 using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Domain.Entities.User.DB;
 
 namespace RentShopVehicle.BusinessLogic.DBModel
 {
-    public class UserContext: DbContext
+    public class CommonContext: DbContext
     {
-        public UserContext() : base("name=RentShopVehicle") {
-            Database.SetInitializer<UserContext>(new DropCreateDatabaseIfModelChanges<UserContext>());
+        public CommonContext() : base("name=RentShopVehicle") {
+            Database.SetInitializer<CommonContext>(new DropCreateDatabaseIfModelChanges<CommonContext>());
         }
 
         public virtual DbSet<UserDB> Users { get; set; }
         public virtual DbSet<LoginHistoryDB> LoginHistory { get; set; }
-
-        public virtual DbSet<AnnouncementIdDB> AnnouncementIds { get; set; }
+        public virtual DbSet<AnnouncementDB> Announcements { get; set; }
+        public virtual DbSet<MessageDB> Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,10 +32,9 @@ namespace RentShopVehicle.BusinessLogic.DBModel
                 .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<UserDB>()
-                .HasMany(e => e.AnnouncementsIds)
+                .HasMany(e => e.Connectors)
                 .WithRequired(e => e.User)
-                .HasForeignKey(e => e.UserId)
-                .WillCascadeOnDelete(true);
+                .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<UserDB>()
                 .HasOptional(e => e.Address)
@@ -43,6 +43,22 @@ namespace RentShopVehicle.BusinessLogic.DBModel
             modelBuilder.Entity<UserDB>()
                 .HasOptional(e => e.BankInfo)
                 .WithRequired(e => e.User);
+
+            modelBuilder.Entity<AnnouncementDB>()
+                .HasMany(e => e.Messages)
+                .WithRequired(e => e.Announcement)
+                .HasForeignKey(e => e.AnnouncementId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<AnnouncementDB>()
+                .HasMany(e => e.Connectors)
+                .WithRequired(e => e.Announcement)
+                .HasForeignKey(e => e.AnnouncementId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<AnnouncementDB>()
+                .HasOptional(e => e.Car)
+                .WithRequired(e => e.Announcement);
         }
     }
 
