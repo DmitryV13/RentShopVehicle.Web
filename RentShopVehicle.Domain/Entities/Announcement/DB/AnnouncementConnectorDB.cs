@@ -22,16 +22,12 @@ namespace RentShopVehicle.Domain.Entities.User.DB
         [Required]
         public AnnouncementStatus Status { get; set; }
 
-        [Required]
         public int UserId { get; set; }
 
-        [Required]
         public UserDB User { get; set; }
 
-        [Required]
         public AnnouncementDB Announcement { get; set; }
 
-        [Required]
         public int AnnouncementId { get; set; }
     }
 }

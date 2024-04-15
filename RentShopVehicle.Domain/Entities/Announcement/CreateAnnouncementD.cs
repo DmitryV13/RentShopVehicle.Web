@@ -26,5 +26,7 @@ namespace RentShopVehicle.Domain.Entities.Announcement
         public AnnouncementType Type { get; set; }
 
         public decimal Price { get; set; }
+
+        public string UserCookies { get; set; }
     }
 }

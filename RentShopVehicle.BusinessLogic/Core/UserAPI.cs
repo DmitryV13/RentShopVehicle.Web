@@ -180,16 +180,8 @@ namespace RentShopVehicle.BusinessLogic.Core
         public UserMinData getUserByCookiesUserAPI(string cookies)
         {
             UserMinData userMinData = null;
-            SessionDB currentSession;
-            using (var db = new SessionContext())
-            {
-                currentSession = db.Sessions.FirstOrDefault(el => el.CookieString == cookies);
-            }
-            UserDB sessionOwner = null;
-            if (currentSession != null)
-            {
-                sessionOwner = getUserByUsername(currentSession.Username);
-            }
+            UserDB sessionOwner = getUserDBByCookiesUser(cookies);
+
             if(sessionOwner != null)
             {
                 userMinData = new UserMinData()
@@ -200,6 +192,21 @@ namespace RentShopVehicle.BusinessLogic.Core
                 };
             }
             return userMinData;
+        }
+
+        private UserDB getUserDBByCookiesUser(string cookies)
+        {
+            SessionDB currentSession;
+            using (var db = new SessionContext())
+            {
+                currentSession = db.Sessions.FirstOrDefault(el => el.CookieString == cookies);
+            }
+            UserDB sessionOwner = null;
+            if (currentSession != null)
+            {
+                sessionOwner = getUserByUsername(currentSession.Username);
+            }
+            return sessionOwner;
         }
 
         public void CloseCurrentSessionUserAPI(string cookies)
@@ -221,6 +228,10 @@ namespace RentShopVehicle.BusinessLogic.Core
 
         public bool CreateAnnouncementUserAPI(CreateAnnouncementD announcementD)
         {
+            if(announcementD.UserCookies == null) {
+                return false;
+            }
+            UserDB userDB = getUserDBByCookiesUser(announcementD.UserCookies);
             CarDB carDB = new CarDB()
             {
                 Make = announcementD.Make,
@@ -231,15 +242,29 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Mileage = announcementD.Mileage,
                 Transmission = announcementD.Transmission,
             };
-            AnnouncementConnectorDB announcementConnectorDB = new AnnouncementConnectorDB()
-            {
-                Type = announcementD.Type,
-                Price = announcementD.Price,
-            }
             AnnouncementDB announcementDB = new AnnouncementDB()
             {
                 Price = announcementD.Price,
+                Car = carDB,
             };
+            AnnouncementConnectorDB announcementConnectorDB = new AnnouncementConnectorDB()
+            {
+                Type = announcementD.Type,
+                Status = AnnouncementStatus.Undone,
+                Announcement = announcementDB,
+                User = userDB,
+            };
+            userDB.Connectors.Add(announcementConnectorDB);
+            announcementDB.Connectors.Add(announcementConnectorDB);
+
+            using(var db = new CommonContext())
+            {
+                db.Announcements.Add(announcementDB);
+                db.Entry(userDB).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return true;
         }
     }
 }

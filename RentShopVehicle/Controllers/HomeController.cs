@@ -13,8 +13,6 @@ namespace RentShopVehicle.Controllers
     public class HomeController : Controller
     {
 
-        public IDeals carService;
-
 
         //SessionStatus();
         //if ((string) System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -22,10 +20,9 @@ namespace RentShopVehicle.Controllers
         //    return RedirectToAction("Index", "Login");
         //}
 
-    public HomeController()
+        public HomeController()
         {
             var tmp = new BusinessLogic.BusinessLogic();
-            carService = tmp.getCarS();
         }
         
         [HttpGet]
@@ -67,15 +64,15 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult FindCar(Car newCar)
         {
-            var carDomain = new CarD()
-            {
-                Price = newCar.Price
-            };
-            ResponceFindCar resp = carService.FindCar(carDomain);
-            if (resp.Found == true)
-            {
-
-            }
+            //var carDomain = new CarD()
+            //{
+            //    Price = newCar.Price
+            //};
+            //ResponceFindCar resp = carService.FindCar(carDomain);
+            //if (resp.Found == true)
+            //{
+            //
+            //}
             return RedirectToAction("Contacts", "Home");
         }
     }

@@ -51,6 +51,16 @@ namespace RentShopVehicle.Controllers
             }
         }
 
+        public string getCookiesString()
+        {
+            HttpCookie currentCookies = Request.Cookies["RSV-CC"];
+            if (currentCookies != null)
+            {
+                return currentCookies.Value;
+            }
+            return null;
+        }
+
         public void CloseSession()
         {
             HttpCookie currentCookies = Request.Cookies["RSV-CC"];

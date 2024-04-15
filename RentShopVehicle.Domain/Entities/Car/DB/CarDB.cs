@@ -21,14 +21,19 @@ namespace RentShopVehicle.Domain.Entities.Car
         [Required]
         public string Model { get; set; }
 
+        [Required]
         public int Year { get; set; }
 
+        [Required]
         public string Color { get; set; }
 
+        [Required]
         public string VIN { get; set; }
 
+        [Required]
         public int Mileage { get; set; }
 
+        [Required]
         public Transmission Transmission { get; set; }
 
         public AnnouncementDB Announcement { get; set; }
