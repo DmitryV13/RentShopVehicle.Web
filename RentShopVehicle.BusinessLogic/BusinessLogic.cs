@@ -15,9 +15,9 @@ namespace RentShopVehicle.BusinessLogic
             return new SessionS();
         }
 
-        public ICar getCarS()
+        public IDeals getCarS()
         {
-            return new CarS();
+            return new DealsS();
         }
     }
 }

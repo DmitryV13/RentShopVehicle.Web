@@ -20,6 +20,9 @@ namespace RentShopVehicle.Domain.Entities.User.DB
         public AnnouncementType Type { get; set; }
 
         [Required]
+        public AnnouncementStatus Status { get; set; }
+
+        [Required]
         public int UserId { get; set; }
 
         [Required]

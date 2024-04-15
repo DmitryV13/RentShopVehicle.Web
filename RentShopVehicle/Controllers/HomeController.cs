@@ -13,7 +13,7 @@ namespace RentShopVehicle.Controllers
     public class HomeController : Controller
     {
 
-        public ICar carService;
+        public IDeals carService;
 
 
         //SessionStatus();

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Enums;
 
 namespace RentShopVehicle.Domain.Entities.Car
 {
@@ -26,11 +27,9 @@ namespace RentShopVehicle.Domain.Entities.Car
 
         public string VIN { get; set; }
 
-        public DateTime ManufactureDate { get; set; }
-
         public int Mileage { get; set; }
 
-        public string Transmission { get; set; }
+        public Transmission Transmission { get; set; }
 
         public AnnouncementDB Announcement { get; set; }
     }

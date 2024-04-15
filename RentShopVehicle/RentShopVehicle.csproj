@@ -394,6 +394,9 @@
     <Content Include="Views\Shared\_Admin2Toolbar.cshtml" />
     <Content Include="Views\PrivateAccount\Profile.cshtml" />
     <Content Include="Views\Shared\_OfficeSpinner.cshtml" />
+    <Content Include="Views\Deals\Announcements.cshtml" />
+    <Content Include="Views\Deals\Sales.cshtml" />
+    <Content Include="Views\Deals\Purchases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -408,6 +411,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\CreateAnnouncementM.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -447,7 +451,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Deals\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentShopVehicle.BusinessLogic\RentShopVehicle.BusinessLogic.csproj">

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Web;
 using RentShopVehicle.BusinessLogic.DBModel;
 using RentShopVehicle.Domain.Enums;
+using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.User.DB;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -215,6 +217,29 @@ namespace RentShopVehicle.BusinessLogic.Core
                 db.Entry(currentSession).State = EntityState.Modified;
                 db.SaveChanges();
             }
+        }
+
+        public bool CreateAnnouncementUserAPI(CreateAnnouncementD announcementD)
+        {
+            CarDB carDB = new CarDB()
+            {
+                Make = announcementD.Make,
+                Model = announcementD.Model,
+                Year = announcementD.Year,
+                Color = announcementD.Color,
+                VIN = announcementD.VIN,
+                Mileage = announcementD.Mileage,
+                Transmission = announcementD.Transmission,
+            };
+            AnnouncementConnectorDB announcementConnectorDB = new AnnouncementConnectorDB()
+            {
+                Type = announcementD.Type,
+                Price = announcementD.Price,
+            }
+            AnnouncementDB announcementDB = new AnnouncementDB()
+            {
+                Price = announcementD.Price,
+            };
         }
     }
 }

@@ -87,10 +87,10 @@
     <Compile Include="Core\UserAPI.cs" />
     <Compile Include="DBModel\SessionContext.cs" />
     <Compile Include="DBModel\CommonContext.cs" />
-    <Compile Include="Interfaces\ICar.cs" />
+    <Compile Include="Interfaces\IDeals.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CarS.cs" />
+    <Compile Include="Services\DealsS.cs" />
     <Compile Include="Services\SessionS.cs" />
   </ItemGroup>
   <ItemGroup>
