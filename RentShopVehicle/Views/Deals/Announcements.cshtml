@@ -1,0 +1,134 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Office.cshtml";
+    ViewBag.Title = "Announcements";
+}
+@model RentShopVehicle.Models.AllAnnouncements
+
+<div class="bg-light rounded h-100 p-4">
+    <h3 class="mb-4">My announcements</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AnnouncementConnectors)
+                {
+                    <tr>
+                        <th>@item.Id</th>
+                        <td>@item.Type</td>
+                        <td>Car</td>
+                        <td>@item.Announcement.Price</td>
+                        <td>@item.Status</td>
+                        <td><a href="@Url.Action("Index", "Home")"><div class="btn btn-success">More info</div></a></td>
+                        <td><a href="@Url.Action("Index", "Home")"><div class="btn btn-danger">Delete</div></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="c_align">
+    <div class="card">
+        <div class="bg-light rounded h-100 p-4">
+            <h3 class="mb-4">Create Announcement</h3>
+            @using (Html.BeginForm("CreateAnnouncement", "Deals", FormMethod.Post, new { autocomplete = "off" }))
+            {
+                <div class="mb-3">
+                    <label for="Make1" class="form-label">Make</label>
+                    <input type="text" name="Make" class="form-control" id="Make1"
+                           aria-describedby="MakeHelp" required>
+                    <div id="MakeHelp" class="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Model1" class="form-label">Model</label>
+                    <input type="text" name="Model" class="form-control" id="Model1"
+                           aria-describedby="ModelHelp" required>
+                    <div id="ModelHelp" class="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Year1" class="form-label">Year</label>
+                    <input type="number" name="Year" class="form-control" id="Year1" min="1900" max="2100"
+                           aria-describedby="YearHelp" required>
+                    <div id="YearHelp" class="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Color1" class="form-label">Color</label>
+                    <input type="text" name="Color" class="form-control" id="Color1"
+                           aria-describedby="ColorHelp" required>
+                    <div id="ColorHelp" class="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="VIN1" class="form-label">VIN</label>
+                    <input type="text" name="VIN" class="form-control" id="VIN1"
+                           aria-describedby="VINHelp" required>
+                    <div id="VINHelp" class="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Mileage1" class="form-label">Mileage</label>
+                    <input type="number" name="Mileage" class="form-control" id="Mileage1" min="0" max="9999999" required
+                           aria-describedby="MileageHelp">
+                    <div id="MileageHelp" class="form-text">
+                        We'll never share your email with anyone else.
+                    </div>
+                </div>
+                var transmissionList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.Transmission))
+                                        .Cast<RentShopVehicle.Domain.Enums.Transmission>()
+                                        .Select(e => new SelectListItem
+                                        {
+                                            Value = e.ToString(),
+                                            Text = e.ToString()
+                                        });
+
+                <select class="form-select mb-3" aria-label="Transmission" name="Transmission" required>
+                    @foreach (var item in transmissionList)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+
+                var typesList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.AnnouncementType))
+                        .Cast<RentShopVehicle.Domain.Enums.AnnouncementType>()
+                        .Select(e => new SelectListItem
+                        {
+                            Value = ((int)e).ToString(),
+                            Text = e.ToString()
+                        });
+
+                <select class="form-select mb-3" aria-label="Announcement type" name="Type" required>
+                    @foreach (var type in typesList)
+                    {
+                        <option value="@type.Value">@type.Text</option>
+                    }
+                </select>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="number" name="Price" min="0" max="9999999" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                    <span class="input-group-text">.00</span>
+                </div>
+
+                <button type="submit" class="btn  btn-success">Create</button>
+                <button type="reset" class="btn  btn-primary">Reset</button>
+            }
+        </div>
+    </div>
+</div>

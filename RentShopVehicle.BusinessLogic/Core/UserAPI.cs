@@ -9,6 +9,10 @@ using System.Linq;
 using System.Web;
 using RentShopVehicle.BusinessLogic.DBModel;
 using RentShopVehicle.Domain.Enums;
+using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.User.DB;
+using System.Collections.Generic;
+using System.Net;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -44,7 +48,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             newUser.LoginHistories.Add(newLHistory);
             newLHistory.User=newUser;
 
-            using(var db = new UserContext())
+            using(var db = new CommonContext())
             {
                 db.Users.Add(newUser);
                 db.LoginHistory.Add(newLHistory);
@@ -61,7 +65,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             UserDB userDB;
             var hashedPassword = HashGenerator.HashGenerate(lData.Password);
 
-            using(var db = new UserContext())
+            using(var db = new CommonContext())
             {
                 userDB=db.Users.FirstOrDefault(
                     el => el.Password == hashedPassword && el.Username == lData.Username);
@@ -79,7 +83,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 LoginIP = HttpContext.Current.Request.UserHostAddress,
                 User=userDB,
             };
-            using (var db = new UserContext())
+            using (var db = new CommonContext())
             {
                 db.LoginHistory.Add(newLHistory);
                 userDB.LoginHistories.Add(newLHistory);
@@ -155,7 +159,7 @@ namespace RentShopVehicle.BusinessLogic.Core
         private UserDB getUserByUsername(string username)
         {
             UserDB userDB;
-            using (var db = new UserContext())
+            using (var db = new CommonContext())
             {
                 userDB = db.Users.FirstOrDefault(el => el.Username == username);
             }
@@ -178,6 +182,23 @@ namespace RentShopVehicle.BusinessLogic.Core
         public UserMinData getUserByCookiesUserAPI(string cookies)
         {
             UserMinData userMinData = null;
+            UserDB sessionOwner = getUserDBByCookiesUser(cookies);
+
+            if(sessionOwner != null)
+            {
+                userMinData = new UserMinData()
+                {
+                    Username = sessionOwner.Username,
+                    Email = sessionOwner.Email,
+                    UserRole = sessionOwner.UserRole,
+                    Id = sessionOwner.Id,
+                };
+            }
+            return userMinData;
+        }
+
+        private UserDB getUserDBByCookiesUser(string cookies)
+        {
             SessionDB currentSession;
             using (var db = new SessionContext())
             {
@@ -188,16 +209,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             {
                 sessionOwner = getUserByUsername(currentSession.Username);
             }
-            if(sessionOwner != null)
-            {
-                userMinData = new UserMinData()
-                {
-                    Username = sessionOwner.Username,
-                    Email = sessionOwner.Email,
-                    UserRole = sessionOwner.UserRole,
-                };
-            }
-            return userMinData;
+            return sessionOwner;
         }
 
         public void CloseCurrentSessionUserAPI(string cookies)
@@ -215,6 +227,73 @@ namespace RentShopVehicle.BusinessLogic.Core
                 db.Entry(currentSession).State = EntityState.Modified;
                 db.SaveChanges();
             }
+        }
+
+        public bool CreateAnnouncementUserAPI(CreateAnnouncementD announcementD)
+        {
+            if(announcementD.UserCookies == null) {
+                return false;
+            }
+            UserDB userDB = getUserDBByCookiesUser(announcementD.UserCookies);
+            CarDB carDB = new CarDB()
+            {
+                Make = announcementD.Make,
+                Model = announcementD.Model,
+                Year = announcementD.Year,
+                Color = announcementD.Color,
+                VIN = announcementD.VIN,
+                Mileage = announcementD.Mileage,
+                Transmission = announcementD.Transmission,
+            };
+            AnnouncementDB announcementDB = new AnnouncementDB()
+            {
+                Price = announcementD.Price,
+                Car = carDB,
+            };
+            AnnouncementConnectorDB announcementConnectorDB = new AnnouncementConnectorDB()
+            {
+                Type = announcementD.Type,
+                Status = AnnouncementStatus.Undone,
+                Announcement = announcementDB,
+                User = userDB,
+            };
+            userDB.Connectors.Add(announcementConnectorDB);
+            announcementDB.Connectors.Add(announcementConnectorDB);
+
+            using(var db = new CommonContext())
+            {
+                db.Announcements.Add(announcementDB);
+                db.Connectors.Add(announcementConnectorDB);
+                db.Entry(userDB).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return true;
+        }
+
+        private UserDB GetUserDBById(int Id)
+        {
+            UserDB userDB = null;
+            using (var db = new CommonContext())
+            {
+                userDB = db.Users.FirstOrDefault(x => x.Id == Id);
+            }
+            return userDB;
+        }
+
+
+        public List<AnnouncementConnectorDB> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
+        {
+            List<AnnouncementConnectorDB> annList;
+            using (var db = new CommonContext())
+            {
+                annList = db.Connectors.Where(e=>e.UserId== Id).ToList();
+                foreach (var ann in annList)
+                {
+                    ann.Announcement = db.Announcements.FirstOrDefault(e => e.Id == ann.AnnouncementId);
+                }
+            }
+            return annList;
         }
     }
 }

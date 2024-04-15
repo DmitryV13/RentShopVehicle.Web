@@ -394,19 +394,28 @@
     <Content Include="Views\Shared\_Admin2Toolbar.cshtml" />
     <Content Include="Views\PrivateAccount\Profile.cshtml" />
     <Content Include="Views\Shared\_OfficeSpinner.cshtml" />
+    <Content Include="Views\Deals\Announcements.cshtml" />
+    <Content Include="Views\Deals\Sales.cshtml" />
+    <Content Include="Views\Deals\Purchases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DealsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PrivateAccountController.cs" />
+    <Compile Include="Filters\AuthFilters\AuthAdmin1Attribute.cs" />
+    <Compile Include="Filters\AuthFilters\AuthAdmin2Attribute.cs" />
+    <Compile Include="Filters\AuthFilters\AuthModeratorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AllAnnouncements.cs" />
     <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\CreateAnnouncementM.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

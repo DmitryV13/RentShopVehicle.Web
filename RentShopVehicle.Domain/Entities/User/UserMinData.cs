@@ -9,6 +9,7 @@ namespace RentShopVehicle.Domain.Entities.User
 {
     public class UserMinData
     {
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string LoginIP { get; set; }
