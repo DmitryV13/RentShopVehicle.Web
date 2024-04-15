@@ -11,6 +11,8 @@ using RentShopVehicle.BusinessLogic.DBModel;
 using RentShopVehicle.Domain.Enums;
 using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Entities.User.DB;
+using System.Collections.Generic;
+using System.Net;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -189,6 +191,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                     Username = sessionOwner.Username,
                     Email = sessionOwner.Email,
                     UserRole = sessionOwner.UserRole,
+                    Id = sessionOwner.Id,
                 };
             }
             return userMinData;
@@ -260,11 +263,37 @@ namespace RentShopVehicle.BusinessLogic.Core
             using(var db = new CommonContext())
             {
                 db.Announcements.Add(announcementDB);
+                db.Connectors.Add(announcementConnectorDB);
                 db.Entry(userDB).State = EntityState.Modified;
                 db.SaveChanges();
             }
 
             return true;
+        }
+
+        private UserDB GetUserDBById(int Id)
+        {
+            UserDB userDB = null;
+            using (var db = new CommonContext())
+            {
+                userDB = db.Users.FirstOrDefault(x => x.Id == Id);
+            }
+            return userDB;
+        }
+
+
+        public List<AnnouncementConnectorDB> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
+        {
+            List<AnnouncementConnectorDB> annList;
+            using (var db = new CommonContext())
+            {
+                annList = db.Connectors.Where(e=>e.UserId== Id).ToList();
+                foreach (var ann in annList)
+                {
+                    ann.Announcement = db.Announcements.FirstOrDefault(e => e.Id == ann.AnnouncementId);
+                }
+            }
+            return annList;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using RentShopVehicle.Models;
 using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.BusinessLogic.Interfaces;
+using RentShopVehicle.Domain.Entities.User;
 
 namespace RentShopVehicle.Controllers
 {
@@ -23,7 +24,10 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Announcements()
         {
-            return View();
+            AllAnnouncements allAnnouncements = new AllAnnouncements() {
+                AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
+            };
+            return View(allAnnouncements);
         }
 
         [HttpGet]

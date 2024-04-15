@@ -7,6 +7,7 @@ using RentShopVehicle.BusinessLogic.Core;
 using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Entities.Car;
+using RentShopVehicle.Domain.Entities.User.DB;
 using RentShopVehicle.Domain.Enums;
 
 namespace RentShopVehicle.BusinessLogic.Services
@@ -19,6 +20,11 @@ namespace RentShopVehicle.BusinessLogic.Services
         public bool CreateAnnouncement(CreateAnnouncementD announcementD)
         {
             return CreateAnnouncementUserAPI(announcementD);
+        }
+
+        public List<AnnouncementConnectorDB> GetAnnouncementConnectorsByUserId(int Id)
+        {
+            return GetAnnouncementConnectorsByUserIdUserAPI(Id);
         }
     }
 }

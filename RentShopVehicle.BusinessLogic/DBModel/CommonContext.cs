@@ -22,6 +22,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel
         public virtual DbSet<LoginHistoryDB> LoginHistory { get; set; }
         public virtual DbSet<AnnouncementDB> Announcements { get; set; }
         public virtual DbSet<MessageDB> Messages { get; set; }
+        public virtual DbSet<AnnouncementConnectorDB> Connectors { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
