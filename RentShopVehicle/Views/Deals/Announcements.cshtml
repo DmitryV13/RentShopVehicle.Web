@@ -12,8 +12,8 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Type</th>
                     <th scope="col">Product</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Price</th>
                     <th scope="col">Status</th>
                     <th scope="col"></th>
@@ -24,10 +24,10 @@
                 @foreach (var item in Model.AnnouncementConnectors)
                 {
                     <tr>
-                        <th>@item.Id</th>
-                        <td>@item.Type</td>
+                        <th>@item.ConnectorId</th>
                         <td>Car</td>
-                        <td>@item.Announcement.Price</td>
+                        <td>@item.Type</td>
+                        <td>@item.Price</td>
                         <td>@item.Status</td>
                         <td><a href="@Url.Action("Index", "Home")"><div class="btn btn-success">More info</div></a></td>
                         <td><a href="@Url.Action("Index", "Home")"><div class="btn btn-danger">Delete</div></a></td>

@@ -12,7 +12,8 @@ namespace RentShopVehicle.Domain.Entities.Car
 {
     public class CarDB
     {
-        [Key, ForeignKey("Announcement")]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

@@ -85,8 +85,10 @@
     <Compile Include="Core\ModeratorAPI.cs" />
     <Compile Include="Core\PrivelegedAdminAPI.cs" />
     <Compile Include="Core\UserAPI.cs" />
+    <Compile Include="DBModel\CarContext.cs" />
+    <Compile Include="DBModel\Seed\UserContextInitializer.cs" />
     <Compile Include="DBModel\SessionContext.cs" />
-    <Compile Include="DBModel\CommonContext.cs" />
+    <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\IDeals.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,7 +106,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DBModel\Seed\" />
     <Folder Include="Intermediate\" />
   </ItemGroup>
   <ItemGroup>

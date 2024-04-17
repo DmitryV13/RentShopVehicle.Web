@@ -15,26 +15,17 @@ namespace RentShopVehicle.Domain.Entities.Announcement
 {
     public class AnnouncementDB
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, ForeignKey("Car")]
         public int Id { get; set; }
 
         [Required]
         public CarDB Car { get; set; }
 
         [Required]
-        public ICollection<MessageDB> Messages { get; set; }
-
-        [Required]
         public decimal Price { get; set; }
-
-        [Required]
-        public ICollection<AnnouncementConnectorDB> Connectors { get; set; }
 
         public AnnouncementDB()
         {
-            Messages = new List<MessageDB>();
-            Connectors = new List<AnnouncementConnectorDB>();
         }
     }
 }

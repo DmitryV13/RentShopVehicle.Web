@@ -13,6 +13,7 @@ using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Entities.User.DB;
 using System.Collections.Generic;
 using System.Net;
+using RentShopVehicle.BusinessLogic.DBModel;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -48,7 +49,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             newUser.LoginHistories.Add(newLHistory);
             newLHistory.User=newUser;
 
-            using(var db = new CommonContext())
+            using(var db = new UserContext())
             {
                 db.Users.Add(newUser);
                 db.LoginHistory.Add(newLHistory);
@@ -65,7 +66,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             UserDB userDB;
             var hashedPassword = HashGenerator.HashGenerate(lData.Password);
 
-            using(var db = new CommonContext())
+            using(var db = new UserContext())
             {
                 userDB=db.Users.FirstOrDefault(
                     el => el.Password == hashedPassword && el.Username == lData.Username);
@@ -83,7 +84,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 LoginIP = HttpContext.Current.Request.UserHostAddress,
                 User=userDB,
             };
-            using (var db = new CommonContext())
+            using (var db = new UserContext())
             {
                 db.LoginHistory.Add(newLHistory);
                 userDB.LoginHistories.Add(newLHistory);
@@ -159,7 +160,7 @@ namespace RentShopVehicle.BusinessLogic.Core
         private UserDB getUserByUsername(string username)
         {
             UserDB userDB;
-            using (var db = new CommonContext())
+            using (var db = new UserContext())
             {
                 userDB = db.Users.FirstOrDefault(el => el.Username == username);
             }
@@ -250,21 +251,28 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Price = announcementD.Price,
                 Car = carDB,
             };
+            carDB.Announcement=announcementDB;
+
             AnnouncementConnectorDB announcementConnectorDB = new AnnouncementConnectorDB()
             {
                 Type = announcementD.Type,
                 Status = AnnouncementStatus.Undone,
-                Announcement = announcementDB,
                 User = userDB,
             };
             userDB.Connectors.Add(announcementConnectorDB);
-            announcementDB.Connectors.Add(announcementConnectorDB);
 
-            using(var db = new CommonContext())
+            using(var db = new UserContext())
+            using(var db1 = new CarContext())
             {
-                db.Announcements.Add(announcementDB);
+                db1.Cars.Add(carDB);
+                db1.Announcements.Add(announcementDB);
+
+                db1.SaveChanges();
+
+                announcementConnectorDB.AnnouncementId = announcementDB.Id;
                 db.Connectors.Add(announcementConnectorDB);
                 db.Entry(userDB).State = EntityState.Modified;
+
                 db.SaveChanges();
             }
 
@@ -274,7 +282,7 @@ namespace RentShopVehicle.BusinessLogic.Core
         private UserDB GetUserDBById(int Id)
         {
             UserDB userDB = null;
-            using (var db = new CommonContext())
+            using (var db = new UserContext())
             {
                 userDB = db.Users.FirstOrDefault(x => x.Id == Id);
             }
@@ -282,18 +290,33 @@ namespace RentShopVehicle.BusinessLogic.Core
         }
 
 
-        public List<AnnouncementConnectorDB> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
+        public List<AnnouncementD> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
         {
-            List<AnnouncementConnectorDB> annList;
-            using (var db = new CommonContext())
+            List<AnnouncementConnectorDB> annConnList;
+            List<AnnouncementD> annListD = new List<AnnouncementD>();
+
+            using (var db1 = new CarContext())
+            using (var db = new UserContext())
             {
-                annList = db.Connectors.Where(e=>e.UserId== Id).ToList();
-                foreach (var ann in annList)
+                annConnList = db.Connectors.Where(e =>
+                e.UserId == Id &&
+                e.Type != AnnouncementType.Purchase &&
+                e.Status == AnnouncementStatus.Undone).ToList();
+                foreach (var conn in annConnList)
                 {
-                    ann.Announcement = db.Announcements.FirstOrDefault(e => e.Id == ann.AnnouncementId);
+                    var a = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId);
+                    var tmp = new AnnouncementD()
+                    {
+                        ConnectorId = conn.Id,
+                        AnnouncementId = conn.AnnouncementId,
+                        Type = conn.Type,
+                        Status = conn.Status,
+                        Price = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId).Price,
+                    };
+                    annListD.Add(tmp);
                 }
             }
-            return annList;
+            return annListD;
         }
     }
 }

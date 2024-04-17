@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Announcement\AnnouncementD.cs" />
     <Compile Include="Entities\Announcement\CreateAnnouncementD.cs" />
     <Compile Include="Entities\Announcement\DB\AnnouncementDB.cs" />
     <Compile Include="Entities\Car\CarD.cs" />

@@ -28,8 +28,5 @@ namespace RentShopVehicle.Domain.Entities.Feedback
 
         [Required]
         public int AnnouncementId { get; set; }
-
-        [Required]
-        public AnnouncementDB Announcement { get; set; }
     }
 }

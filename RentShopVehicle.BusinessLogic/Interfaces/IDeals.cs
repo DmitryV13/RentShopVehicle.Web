@@ -13,6 +13,6 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
     {
         ResponceFindCar FindCar(CarD car);
         bool CreateAnnouncement(CreateAnnouncementD announcementD);
-        List<AnnouncementConnectorDB> GetAnnouncementConnectorsByUserId(int Id);
+        List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id);
     }
 }

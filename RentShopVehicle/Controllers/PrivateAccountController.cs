@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentShopVehicle.Filters.AuthFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ namespace RentShopVehicle.Controllers
     public class PrivateAccountController : BaseController
     {
         // GET: PrivateAccount
+        [AuthAdmin1]
         public ActionResult Profile()
         {
             UpdateSessionStatus();

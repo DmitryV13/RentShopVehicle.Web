@@ -5,22 +5,25 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using RentShopVehicle.BusinessLogic.DBModel.Seed;
 using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Entities.Feedback;
 using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Domain.Entities.User.DB;
+using RentShopVehicle.Domain.Enums;
+using RentShopVehicle.Helpers;
 
 namespace RentShopVehicle.BusinessLogic.DBModel
 {
-    public class CommonContext: DbContext
+    public class UserContext: DbContext
     {
-        public CommonContext() : base("name=RentShopVehicle") {
-            Database.SetInitializer<CommonContext>(new DropCreateDatabaseIfModelChanges<CommonContext>());
+        public UserContext() : base("name=RentShopVehicle") {
+            Database.SetInitializer<UserContext>(new UserContextInitializer());
         }
 
         public virtual DbSet<UserDB> Users { get; set; }
         public virtual DbSet<LoginHistoryDB> LoginHistory { get; set; }
-        public virtual DbSet<AnnouncementDB> Announcements { get; set; }
         public virtual DbSet<MessageDB> Messages { get; set; }
         public virtual DbSet<AnnouncementConnectorDB> Connectors { get; set; }
 
@@ -44,22 +47,6 @@ namespace RentShopVehicle.BusinessLogic.DBModel
             modelBuilder.Entity<UserDB>()
                 .HasOptional(e => e.BankInfo)
                 .WithRequired(e => e.User);
-
-            modelBuilder.Entity<AnnouncementDB>()
-                .HasMany(e => e.Messages)
-                .WithRequired(e => e.Announcement)
-                .HasForeignKey(e => e.AnnouncementId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<AnnouncementDB>()
-                .HasMany(e => e.Connectors)
-                .WithRequired(e => e.Announcement)
-                .HasForeignKey(e => e.AnnouncementId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<AnnouncementDB>()
-                .HasOptional(e => e.Car)
-                .WithRequired(e => e.Announcement);
         }
     }
 
