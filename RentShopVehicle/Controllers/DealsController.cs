@@ -9,6 +9,7 @@ using RentShopVehicle.Domain.Entities.User;
 using RentShopVehicle.Domain.Entities.Car;
 using RentShopVehicle.BusinessLogic.Interfaces;
 using System.IO;
+using System.Web.Http.Results;
 
 namespace RentShopVehicle.Controllers
 {
@@ -83,20 +84,47 @@ namespace RentShopVehicle.Controllers
                 }
             }
 
-            var result = deals.AddPhotos(photosD);
-            if(!result)
+            var response = deals.AddPhotos(photosD);
+            if(!response)
                 return RedirectToAction("E500", "Error");
             return RedirectToAction("Announcements", "Deals");
         }
 
         [HttpGet]
-        public ActionResult AnnouncementMoreInfo()
+        public ActionResult AnnouncementMoreInfo(int Id)
         {
-            var annId = Request.QueryString["id"];
 
+            AnnouncementDetInfoD detInfoD = deals.getAnnouncementDetInfo(Id);
+            if (detInfoD==null)
+                return RedirectToAction("E404", "Error");
+            AnnouncementDetInfo detInfoM = new AnnouncementDetInfo()
+            {
+                Color = detInfoD.Color,
+                Make = detInfoD.Make,
+                Mileage = detInfoD.Mileage,
+                Model = detInfoD.Model,
+                Year = detInfoD.Year,
+                Id = detInfoD.Id,
+                VIN = detInfoD.VIN,
+                Transmission = detInfoD.Transmission,
+                Price = detInfoD.Price,
+                ImageUrls = new List<string>(),
+            };
+            for (int i = 0; i < detInfoD.Images.Count; i++)
+            {
+                detInfoM.ImageUrls.Add(
+                        $"data:image;base64,{Convert.ToBase64String(detInfoD.Images[i])}"
+                    );
+            }
+            return View(detInfoM);
+        }
 
-
-            return View();
+        [HttpGet]
+        public ActionResult DeleteAnnouncement(int Id)
+        {
+            var response = deals.getAnnouncementDetInfo(Id);
+            
+            return RedirectToAction("Announcements", "Deals");
         }
     }
 }

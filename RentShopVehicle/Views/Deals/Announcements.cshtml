@@ -29,8 +29,8 @@
                         <td>@item.Type</td>
                         <td>@item.Price</td>
                         <td>@item.Status</td>
-                        <td><a href="@Url.Action("AnnouncementMoreInfo", "Deals", new { id = item.ConnectorId })"><div class="btn btn-success">More info</div></a></td>
-                        <td><a href="@Url.Action("Index", "Home")"><div class="btn btn-danger">Delete</div></a></td>
+                        <td><a href="@Url.Action("AnnouncementMoreInfo", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-success">More info</div></a></td>
+                        <td><a href="@Url.Action("DeleteAnnouncement", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-danger">Delete</div></a></td>
                     </tr>
                 }
             </tbody>

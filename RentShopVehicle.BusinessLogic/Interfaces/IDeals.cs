@@ -15,5 +15,7 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
         bool CreateAnnouncement(CreateAnnouncementD announcementD);
         bool AddPhotos(AddPhotosData photosD);
         List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id);
+        AnnouncementDetInfoD getAnnouncementDetInfo(int Id);
+        bool DeleteAnnouncement(int Id);
     }
 }

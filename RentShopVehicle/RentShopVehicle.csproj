@@ -430,7 +430,7 @@
     <Content Include="Views\Deals\Announcements.cshtml" />
     <Content Include="Views\Deals\Sales.cshtml" />
     <Content Include="Views\Deals\Purchases.cshtml" />
-    <Content Include="Views\Deals\AMoreInfo.cshtml" />
+    <Content Include="Views\Deals\AnnouncementMoreInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

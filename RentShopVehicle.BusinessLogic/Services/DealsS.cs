@@ -31,5 +31,15 @@ namespace RentShopVehicle.BusinessLogic.Services
         {
             return GetAnnouncementConnectorsByUserIdUserAPI(Id);
         }
+
+        public AnnouncementDetInfoD getAnnouncementDetInfo(int Id)
+        {
+            return getAnnDetInfoUserAPI(Id);
+        }
+
+        public bool DeleteAnnouncement(int Id)
+        {
+            return 
+        }
     }
 }

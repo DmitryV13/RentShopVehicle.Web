@@ -1,15 +1,13 @@
-﻿using RentShopVehicle.Domain.Entities.Announcement;
-using RentShopVehicle.Domain.Entities.Car.DB;
-using RentShopVehicle.Domain.Enums;
+﻿using RentShopVehicle.Domain.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RentShopVehicle.Models
+namespace RentShopVehicle.Domain.Entities.Announcement
 {
-    public class AnnouncementDetInfo
+    public class AnnouncementDetInfoD
     {
         public int Id { get; set; }
 
@@ -29,6 +27,6 @@ namespace RentShopVehicle.Models
 
         public Transmission Transmission { get; set; }
 
-        public List<string> ImageUrls { get; set; }
+        public List<byte[]> Images { get; set; }
     }
 }

@@ -353,5 +353,43 @@ namespace RentShopVehicle.BusinessLogic.Core
             }
             return true;
         }
+
+        public AnnouncementDetInfoD getAnnDetInfoUserAPI(int Id)
+        {
+            AnnouncementDetInfoD detInfoD = null;
+            CarDB carDB = GetCarDBById(Id);
+            if (carDB == null)
+            {
+                return detInfoD;
+            }
+            detInfoD = new AnnouncementDetInfoD()
+            {
+                VIN = carDB.VIN,
+                Make = carDB.Make,
+                Model = carDB.Model,
+                Transmission = carDB.Transmission,
+                Year = carDB.Year,
+                Color = carDB.Color,
+                Id = Id,
+                Mileage = carDB.Mileage,
+                Images = new List<byte[]>(),
+            };
+
+            using(var db = new CarContext())
+            {
+                detInfoD.Price=db.Announcements.FirstOrDefault(e=>e.Id == Id).Price;
+                var images = db.Images.Where(e => e.CarId == carDB.Id).ToList();
+                for(int i = 0; i< images.Count; i++)
+                {
+                    detInfoD.Images.Add(images[i].FileData);
+                }
+            }
+            return detInfoD;
+        }
+
+        public bool DeleteAnnouncement(int Id)
+        {
+            return
+        }
     }
 }
