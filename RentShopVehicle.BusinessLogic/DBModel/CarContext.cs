@@ -1,5 +1,7 @@
 ﻿using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Entities.Car;
+using RentShopVehicle.Domain.Entities.Car.DB;
+using RentShopVehicle.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,12 +22,18 @@ namespace RentShopVehicle.BusinessLogic.DBModel
 
         public virtual DbSet<AnnouncementDB> Announcements { get; set; }
         public virtual DbSet<CarDB> Cars { get; set; }
+        public virtual DbSet<ProductImageDB> Images { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CarDB>()
                 .HasOptional(e => e.Announcement)
                 .WithRequired(e => e.Car);
+
+            modelBuilder.Entity<CarDB>()
+                .HasMany(e => e.Images)
+                .WithRequired(e => e.Car)
+                .HasForeignKey(e => e.CarId);
         }
     }
 }

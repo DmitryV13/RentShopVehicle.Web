@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using RentShopVehicle.Models;
 using RentShopVehicle.Domain.Entities.Announcement;
-using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.User;
+using RentShopVehicle.Domain.Entities.Car;
+using RentShopVehicle.BusinessLogic.Interfaces;
+using System.IO;
 
 namespace RentShopVehicle.Controllers
 {
@@ -60,6 +62,41 @@ namespace RentShopVehicle.Controllers
             };
             deals.CreateAnnouncement(announcementD);
             return RedirectToAction("Announcements", "Deals");
+        }
+
+        [HttpPost]
+        public ActionResult AddAnnouncementPhotos(AddPhotosModel photodM)
+        {
+            AddPhotosData photosD = new AddPhotosData()
+            {
+                AnnouncementId = photodM.AnnouncementId,
+                Images = new List<byte[]>(),
+            };
+            
+
+            for (int i = 0; i < photodM.Images.Count; i++)
+            {
+                using (var binaryReader = new BinaryReader(photodM.Images[i].InputStream))
+                {
+                photosD.Images.Add(binaryReader.ReadBytes(photodM.Images[i].ContentLength));
+
+                }
+            }
+
+            var result = deals.AddPhotos(photosD);
+            if(!result)
+                return RedirectToAction("E500", "Error");
+            return RedirectToAction("Announcements", "Deals");
+        }
+
+        [HttpGet]
+        public ActionResult AnnouncementMoreInfo()
+        {
+            var annId = Request.QueryString["id"];
+
+
+
+            return View();
         }
     }
 }

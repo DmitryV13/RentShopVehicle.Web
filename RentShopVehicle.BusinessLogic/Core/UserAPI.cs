@@ -14,6 +14,7 @@ using RentShopVehicle.Domain.Entities.User.DB;
 using System.Collections.Generic;
 using System.Net;
 using RentShopVehicle.BusinessLogic.DBModel;
+using RentShopVehicle.Domain.Entities.Car.DB;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -289,6 +290,15 @@ namespace RentShopVehicle.BusinessLogic.Core
             return userDB;
         }
 
+        private CarDB GetCarDBById(int Id)
+        {
+            CarDB carDB = null;
+            using (var db = new CarContext())
+            {
+                carDB = db.Cars.FirstOrDefault(x => x.Id == Id);
+            }
+            return carDB;
+        }
 
         public List<AnnouncementD> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
         {
@@ -317,6 +327,31 @@ namespace RentShopVehicle.BusinessLogic.Core
                 }
             }
             return annListD;
+        }
+
+        public bool AddPhotosUserAPI(AddPhotosData photosD)
+        {
+            CarDB carDB = GetCarDBById(photosD.AnnouncementId);
+            if(carDB == null)
+            {
+                return false;
+            }
+            using(var db = new CarContext())
+            {
+                for (var i = 0; i<photosD.Images.Count; i++)
+                {
+                    ProductImageDB tmp = new ProductImageDB()
+                    {
+                        FileData = photosD.Images[i],
+                        Car = carDB,
+                    };
+                    db.Images.Add(tmp);
+                    carDB.Images.Add(tmp);
+                }
+                db.Entry(carDB).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return true;
         }
     }
 }

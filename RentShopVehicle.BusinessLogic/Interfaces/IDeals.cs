@@ -13,6 +13,7 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
     {
         ResponceFindCar FindCar(CarD car);
         bool CreateAnnouncement(CreateAnnouncementD announcementD);
+        bool AddPhotos(AddPhotosData photosD);
         List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id);
     }
 }

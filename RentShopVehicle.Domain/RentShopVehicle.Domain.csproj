@@ -78,8 +78,10 @@
     <Compile Include="Entities\Announcement\AnnouncementD.cs" />
     <Compile Include="Entities\Announcement\CreateAnnouncementD.cs" />
     <Compile Include="Entities\Announcement\DB\AnnouncementDB.cs" />
+    <Compile Include="Entities\Car\AddPhotosData.cs" />
     <Compile Include="Entities\Car\CarD.cs" />
     <Compile Include="Entities\Car\DB\CarDB.cs" />
+    <Compile Include="Entities\Car\DB\ProductImageDB.cs" />
     <Compile Include="Entities\Car\ResponceFindCar.cs" />
     <Compile Include="Entities\Feedback\MessageDB.cs" />
     <Compile Include="Entities\ServiceE\Response.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Entities\Vehicles\Motocycle.cs" />
     <Compile Include="Entities\Vehicles\VehicleDB.cs" />
     <Compile Include="Enums\AnnouncementStatus.cs" />
+    <Compile Include="Enums\Make.cs" />
     <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Enums\AnnouncementType.cs" />

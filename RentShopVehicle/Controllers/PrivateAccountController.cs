@@ -10,7 +10,7 @@ namespace RentShopVehicle.Controllers
     public class PrivateAccountController : BaseController
     {
         // GET: PrivateAccount
-        [AuthAdmin1]
+        //[AuthAdmin1]
         public ActionResult Profile()
         {
             UpdateSessionStatus();

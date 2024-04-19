@@ -9,7 +9,7 @@ namespace RentShopVehicle.Domain.Entities.Announcement
 {
     public class CreateAnnouncementD
     {
-        public string Make { get; set; }
+        public Make Make { get; set; }
 
         public string Model { get; set; }
 
