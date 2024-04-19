@@ -7,16 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Enums;
+using RentShopVehicle.Domain.Entities.User.DB;
+using RentShopVehicle.Domain.Entities.Car.DB;
 
 namespace RentShopVehicle.Domain.Entities.Car
 {
     public class CarDB
     {
-        [Key, ForeignKey("Announcement")]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
-        public string Make { get; set; }
+        public Make Make { get; set; }
 
         [Required]
         public string Model { get; set; }
@@ -37,5 +40,12 @@ namespace RentShopVehicle.Domain.Entities.Car
         public Transmission Transmission { get; set; }
 
         public AnnouncementDB Announcement { get; set; }
+
+        public ICollection<ProductImageDB> Images { get; set; }
+
+        public CarDB()
+        {
+            Images = new List<ProductImageDB>();
+        }
     }
 }

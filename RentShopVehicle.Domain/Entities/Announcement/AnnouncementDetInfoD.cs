@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace RentShopVehicle.Domain.Entities.Announcement
 {
-    public class CreateAnnouncementD
+    public class AnnouncementDetInfoD
     {
+        public int Id { get; set; }
+
         public Make Make { get; set; }
 
         public string Model { get; set; }
@@ -21,12 +23,10 @@ namespace RentShopVehicle.Domain.Entities.Announcement
 
         public int Mileage { get; set; }
 
-        public Transmission Transmission { get; set; }
-
-        public AnnouncementType Type { get; set; }
-
         public decimal Price { get; set; }
 
-        public string UserCookies { get; set; }
+        public Transmission Transmission { get; set; }
+
+        public List<byte[]> Images { get; set; }
     }
 }

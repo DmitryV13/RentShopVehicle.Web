@@ -1,4 +1,6 @@
-﻿using RentShopVehicle.Domain.Enums;
+﻿using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.Car.DB;
+using RentShopVehicle.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,8 +9,10 @@ using System.Web;
 
 namespace RentShopVehicle.Models
 {
-    public class CreateAnnouncementM
+    public class AnnouncementDetInfo
     {
+        public int Id { get; set; }
+
         public Make Make { get; set; }
 
         public string Model { get; set; }
@@ -21,10 +25,10 @@ namespace RentShopVehicle.Models
 
         public int Mileage { get; set; }
 
+        public decimal Price { get; set; }
+
         public Transmission Transmission { get; set; }
 
-        public AnnouncementType Type { get; set; }
-
-        public decimal Price { get; set; }
+        public List<string> ImageUrls { get; set; }
     }
 }

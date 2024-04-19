@@ -22,9 +22,24 @@ namespace RentShopVehicle.BusinessLogic.Services
             return CreateAnnouncementUserAPI(announcementD);
         }
 
-        public List<AnnouncementConnectorDB> GetAnnouncementConnectorsByUserId(int Id)
+        public bool AddPhotos(AddPhotosData photosD)
+        {
+            return AddPhotosUserAPI(photosD);
+        }
+
+        public List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id)
         {
             return GetAnnouncementConnectorsByUserIdUserAPI(Id);
+        }
+
+        public AnnouncementDetInfoD getAnnouncementDetInfoById(int Id)
+        {
+            return getAnnDetInfoByIdUserAPI(Id);
+        }
+
+        public bool DeleteAnnouncementById(int Id)
+        {
+            return DeleteAnnouncementByIdUserAPI(Id);
         }
     }
 }

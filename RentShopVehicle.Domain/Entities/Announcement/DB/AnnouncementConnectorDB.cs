@@ -26,8 +26,7 @@ namespace RentShopVehicle.Domain.Entities.User.DB
 
         public UserDB User { get; set; }
 
-        public AnnouncementDB Announcement { get; set; }
-
+        [Required]
         public int AnnouncementId { get; set; }
     }
 }

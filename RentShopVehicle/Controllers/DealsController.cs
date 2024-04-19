@@ -5,8 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using RentShopVehicle.Models;
 using RentShopVehicle.Domain.Entities.Announcement;
-using RentShopVehicle.BusinessLogic.Interfaces;
 using RentShopVehicle.Domain.Entities.User;
+using RentShopVehicle.Domain.Entities.Car;
+using RentShopVehicle.BusinessLogic.Interfaces;
+using System.IO;
+using System.Web.Http.Results;
 
 namespace RentShopVehicle.Controllers
 {
@@ -59,6 +62,68 @@ namespace RentShopVehicle.Controllers
                 UserCookies=getCookiesString(),
             };
             deals.CreateAnnouncement(announcementD);
+            return RedirectToAction("Announcements", "Deals");
+        }
+
+        [HttpPost]
+        public ActionResult AddAnnouncementPhotos(AddPhotosModel photodM)
+        {
+            AddPhotosData photosD = new AddPhotosData()
+            {
+                AnnouncementId = photodM.AnnouncementId,
+                Images = new List<byte[]>(),
+            };
+            
+
+            for (int i = 0; i < photodM.Images.Count; i++)
+            {
+                using (var binaryReader = new BinaryReader(photodM.Images[i].InputStream))
+                {
+                photosD.Images.Add(binaryReader.ReadBytes(photodM.Images[i].ContentLength));
+
+                }
+            }
+
+            var response = deals.AddPhotos(photosD);
+            if(!response)
+                return RedirectToAction("E500", "Error");
+            return RedirectToAction("Announcements", "Deals");
+        }
+
+        [HttpGet]
+        public ActionResult AnnouncementMoreInfo(int Id)
+        {
+
+            AnnouncementDetInfoD detInfoD = deals.getAnnouncementDetInfoById(Id);
+            if (detInfoD==null)
+                return RedirectToAction("E404", "Error");
+            AnnouncementDetInfo detInfoM = new AnnouncementDetInfo()
+            {
+                Color = detInfoD.Color,
+                Make = detInfoD.Make,
+                Mileage = detInfoD.Mileage,
+                Model = detInfoD.Model,
+                Year = detInfoD.Year,
+                Id = detInfoD.Id,
+                VIN = detInfoD.VIN,
+                Transmission = detInfoD.Transmission,
+                Price = detInfoD.Price,
+                ImageUrls = new List<string>(),
+            };
+            for (int i = 0; i < detInfoD.Images.Count; i++)
+            {
+                detInfoM.ImageUrls.Add(
+                        $"data:image;base64,{Convert.ToBase64String(detInfoD.Images[i])}"
+                    );
+            }
+            return View(detInfoM);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteAnnouncement(int Id)
+        {
+            var response = deals.DeleteAnnouncementById(Id);
+            
             return RedirectToAction("Announcements", "Deals");
         }
     }

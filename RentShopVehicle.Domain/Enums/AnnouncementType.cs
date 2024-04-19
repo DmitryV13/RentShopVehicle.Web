@@ -10,5 +10,6 @@ namespace RentShopVehicle.Domain.Enums
     {
         Rent = 0,
         Sale,
+        Purchase,
     }
 }

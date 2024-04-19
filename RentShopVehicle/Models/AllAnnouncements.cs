@@ -9,6 +9,6 @@ namespace RentShopVehicle.Models
 {
     public class AllAnnouncements
     {
-        public List<AnnouncementConnectorDB> AnnouncementConnectors { get; set; }
+        public List<AnnouncementD> AnnouncementConnectors { get; set; }
     }
 }
