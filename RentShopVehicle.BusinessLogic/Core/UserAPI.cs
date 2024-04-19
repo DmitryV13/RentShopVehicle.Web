@@ -354,7 +354,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             return true;
         }
 
-        public AnnouncementDetInfoD getAnnDetInfoUserAPI(int Id)
+        public AnnouncementDetInfoD getAnnDetInfoByIdUserAPI(int Id)
         {
             AnnouncementDetInfoD detInfoD = null;
             CarDB carDB = GetCarDBById(Id);
@@ -387,9 +387,46 @@ namespace RentShopVehicle.BusinessLogic.Core
             return detInfoD;
         }
 
-        public bool DeleteAnnouncement(int Id)
+        public bool DeleteAnnouncementByIdUserAPI(int Id)
         {
-            return
+            AnnouncementDB annDB;
+            CarDB carDB;
+
+            using (var db1  = new UserContext())
+            using(var db2 = new CarContext())
+            {
+                annDB = db2.Announcements.FirstOrDefault(x => x.Id == Id);
+                carDB = db2.Cars.FirstOrDefault(x => x.Id == Id);
+
+                if (annDB == null)
+                    return false;
+
+                var connectors = db1.Connectors.Where(e => e.AnnouncementId == annDB.Id).ToList();
+                for (int i = 0; i < connectors.Count; i++)
+                {
+                    db1.Connectors.Remove(connectors[i]);
+                }
+
+                var messages = db1.Messages.Where(e => e.AnnouncementId == annDB.Id).ToList();
+                for (int i = 0; i < messages.Count; i++)
+                {
+                    db1.Messages.Remove(messages[i]);
+                }
+                db2.Announcements.Remove(annDB);
+
+                var images = db2.Images.Where(e => e.CarId == carDB.Id).ToList();
+                for (int i = 0;i< images.Count;i++)
+                {
+                    db2.Images.Remove(images[i]);
+                }
+                db2.Cars.Remove(carDB);
+
+                db1.SaveChanges();
+                db2.SaveChanges();
+            }
+
+
+            return true;
         }
     }
 }

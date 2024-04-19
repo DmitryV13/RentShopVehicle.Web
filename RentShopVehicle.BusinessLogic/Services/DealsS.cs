@@ -32,14 +32,14 @@ namespace RentShopVehicle.BusinessLogic.Services
             return GetAnnouncementConnectorsByUserIdUserAPI(Id);
         }
 
-        public AnnouncementDetInfoD getAnnouncementDetInfo(int Id)
+        public AnnouncementDetInfoD getAnnouncementDetInfoById(int Id)
         {
-            return getAnnDetInfoUserAPI(Id);
+            return getAnnDetInfoByIdUserAPI(Id);
         }
 
-        public bool DeleteAnnouncement(int Id)
+        public bool DeleteAnnouncementById(int Id)
         {
-            return 
+            return DeleteAnnouncementByIdUserAPI(Id);
         }
     }
 }

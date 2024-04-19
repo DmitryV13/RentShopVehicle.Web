@@ -94,7 +94,7 @@ namespace RentShopVehicle.Controllers
         public ActionResult AnnouncementMoreInfo(int Id)
         {
 
-            AnnouncementDetInfoD detInfoD = deals.getAnnouncementDetInfo(Id);
+            AnnouncementDetInfoD detInfoD = deals.getAnnouncementDetInfoById(Id);
             if (detInfoD==null)
                 return RedirectToAction("E404", "Error");
             AnnouncementDetInfo detInfoM = new AnnouncementDetInfo()
@@ -122,7 +122,7 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult DeleteAnnouncement(int Id)
         {
-            var response = deals.getAnnouncementDetInfo(Id);
+            var response = deals.DeleteAnnouncementById(Id);
             
             return RedirectToAction("Announcements", "Deals");
         }
