@@ -94,8 +94,10 @@
     <Compile Include="Entities\User\DB\BankInfoDB.cs" />
     <Compile Include="Entities\User\LoginData.cs" />
     <Compile Include="Entities\User\DB\LoginHistoryDB.cs" />
+    <Compile Include="Entities\User\LoginHistoryD.cs" />
     <Compile Include="Entities\User\RegistrationData.cs" />
     <Compile Include="Entities\User\DB\UserDB.cs" />
+    <Compile Include="Entities\User\UserInfo.cs" />
     <Compile Include="Entities\User\UserMinData.cs" />
     <Compile Include="Entities\Vehicles\Car.cs" />
     <Compile Include="Entities\Vehicles\Motocycle.cs" />

@@ -46,5 +46,10 @@ namespace RentShopVehicle.BusinessLogic.Services
         {
             return getAnnouncementByFilterUserAPI(filter);
         }
+
+        public AnnouncementDetInfoD getCarDetailById(int Id)
+        {
+            return getCarDetailByIdUserAPI(Id);
+        }
     }
 }

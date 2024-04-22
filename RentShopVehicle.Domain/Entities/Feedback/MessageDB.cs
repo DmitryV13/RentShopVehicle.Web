@@ -27,6 +27,12 @@ namespace RentShopVehicle.Domain.Entities.Feedback
         public DateTime Created { get; set; }
 
         [Required]
+        public int UserId { get; set; }
+
+        [Required]
+        public UserDB User { get; set; }
+
+        [Required]
         public int AnnouncementId { get; set; }
     }
 }

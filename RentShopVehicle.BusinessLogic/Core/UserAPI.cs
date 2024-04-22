@@ -42,6 +42,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Password = HashGenerator.HashGenerate(rData.Password),
                 Email = rData.Email,
                 UserRole=Role.User,
+                AccountState = true,
             };
             newLHistory = new LoginHistoryDB()
             {
@@ -56,6 +57,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 db.Users.Add(newUser);
                 db.LoginHistory.Add(newLHistory);
                 db.SaveChanges();
+
             }
             return response;
         }
@@ -71,7 +73,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             using(var db = new UserContext())
             {
                 userDB=db.Users.FirstOrDefault(
-                    el => el.Password == hashedPassword && el.Username == lData.Username);
+                    el => el.Password == hashedPassword && el.Username == lData.Username && el.AccountState);
             }
             if(userDB == null)
             {
@@ -491,6 +493,38 @@ namespace RentShopVehicle.BusinessLogic.Core
             }
 
             return infoDs;
+        }
+
+        public AnnouncementDetInfoD getCarDetailByIdUserAPI(int Id)
+        {
+            AnnouncementDetInfoD infoD = null;
+            using (var db1 = new UserContext())
+            using (var db = new CarContext())
+            {
+                var annDB = db.Announcements.FirstOrDefault(e => e.Id == Id);
+                var carDB = db.Cars.FirstOrDefault(e => e.Id == Id);
+
+                infoD = new AnnouncementDetInfoD()
+                {
+                    Id = Id,
+                    HP = carDB.HP,
+                    VIN = carDB.VIN,
+                    Make = carDB.Make,
+                    Model = carDB.Model,
+                    Transmission = carDB.Transmission,
+                    Year = carDB.Year,
+                    Color = carDB.Color,
+                    Mileage = carDB.Mileage,
+                    Images = new List<byte[]>(),
+                    Price = annDB.Price,
+                };
+                var images = db.Images.Where(e => e.CarId == carDB.Id).ToList();
+                for (int i = 0; i < images.Count; i++)
+                {
+                    infoD.Images.Add(images[i].FileData);
+                }
+            }
+            return infoD;
         }
     }
 }

@@ -10,7 +10,7 @@ using RentShopVehicle.BusinessLogic;
 
 namespace RentShopVehicle.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
         IDeals deals;
@@ -72,6 +72,20 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Contacts()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CarDetails(int Id)
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Announceme
+
             return View();
         }
     }

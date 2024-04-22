@@ -23,6 +23,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email= "1admin123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.Admin1,
+                AccountState = true,
             };
             var admin1LH = new LoginHistoryDB()
             {
@@ -41,6 +42,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email = "2admin123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.Admin2,
+                AccountState = true,
             };
             var admin2LH = new LoginHistoryDB()
             {
@@ -59,6 +61,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email = "mod123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.Moderator,
+                AccountState = true,
             };
             var moderatorLH = new LoginHistoryDB()
             {
@@ -77,6 +80,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email = "user123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.User,
+                AccountState = true,
             };
             var user1LH = new LoginHistoryDB()
             {
@@ -99,6 +103,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
 
             
             context.SaveChanges();
+
         }
     }
 }

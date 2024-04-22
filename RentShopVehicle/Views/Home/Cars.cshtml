@@ -28,11 +28,12 @@
                 <div class="car__sidebar">
                     <div class="car__search">
                         <h5>Car Search</h5>
-                        <form action="#">
-                            <input type="text" placeholder="Search...">
+                        @using (Html.BeginForm("FindCar", "Home", FormMethod.Post, new { autocomplete = "off" }))
+                        {
+                            <input type="text" name="Model" placeholder="Search...">
                             <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
+                        }
+                        </div>
                     <div class="car__filter">
                         <h5>Car Filter</h5>
                         @using (Html.BeginForm("FindCar", "Home", FormMethod.Post, new { autocomplete = "off" }))
@@ -98,13 +99,27 @@
 
                     @foreach(var ann in Model.Announcements)
                     {
+
+
                         <div class="col-lg-4 col-md-4">
                             <div class="car__item">
                                 <div class="car__item__pic__slider owl-carousel">
-                                    <img src="~/Images/cars/car-1.jpg" alt="">
-                                    <img src="~/Images/cars/car-8.jpg" alt="">
-                                    <img src="~/Images/cars/car-6.jpg" alt="">
-                                    <img src="~/Images/cars/car-3.jpg" alt="">
+                                    @if (ann.ImageUrls.Count == 0)
+                                    {
+                                        <img src="~/Images/cars/car-1.jpg" alt="">
+                                    }
+                                    else
+                                    {
+                                        var l = ann.ImageUrls.Count;
+                                        if (ann.ImageUrls.Count > 4)
+                                        {
+                                            l = 4;
+                                        }
+                                        for (int i= 0; i < l;i++)
+                                        {
+                                            <img src="@ann.ImageUrls[i]" alt="Photo" />
+                                        }
+                                    }
                                 </div>
                                 <div class="car__item__text">
                                     <div class="car__item__text__inner">
@@ -122,13 +137,13 @@
                                         {<span>/ Month</span>}
                                         else {<span></span> }</h6>
 
-                   </div>
+                                    </div>
 
-               </div>
+                                </div>
 
-           </div>
+                            </div>
 
-       </div>
+                        </div>
 
                     }
 

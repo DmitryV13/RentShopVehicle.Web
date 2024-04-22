@@ -19,5 +19,10 @@ namespace RentShopVehicle.BusinessLogic
         {
             return new DealsS();
         }
+
+        public IUsersManagement GetUsersManagementS()
+        {
+            return new UsersManagementS();
+        }
     }
 }
