@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using RentShopVehicle.Domain.Entities.Car;
 using RentShopVehicle.BusinessLogic;
+using RentShopVehicle.Domain.Entities.Announcement;
 
 namespace RentShopVehicle.Controllers
 {
@@ -84,9 +85,31 @@ namespace RentShopVehicle.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Announceme
+            AnnouncementDetInfo detInfoM = null;
+            AnnouncementDetInfoD detInfoD = deals.getCarDetailById(Id);
+            detInfoM = new AnnouncementDetInfo()
+            {
+                Id = detInfoD.Id,
+                Make = detInfoD.Make,
+                Model = detInfoD.Model,
+                Year = detInfoD.Year,
+                HP = detInfoD.HP,
+                VIN = detInfoD.VIN,
+                Transmission = detInfoD.Transmission,
+                Mileage = detInfoD.Mileage,
+                Color = detInfoD.Color,
+                Price = detInfoD.Price,
+                ImageUrls = new List<string>(),
+            };
 
-            return View();
+            for (int i = 0; i < detInfoD.Images.Count; i++)
+            {
+                detInfoM.ImageUrls.Add(
+                        $"data:image;base64,{Convert.ToBase64String(detInfoD.Images[i])}"
+                    );
+            }
+
+            return View(detInfoM);
         }
     }
 }

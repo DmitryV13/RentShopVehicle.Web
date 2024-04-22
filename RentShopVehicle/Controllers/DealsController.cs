@@ -36,13 +36,21 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Sales()
         {
-            return View();
+            AllAnnouncements allAnnouncements = new AllAnnouncements()
+            {
+                AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
+            };
+            return View(allAnnouncements);
         }
 
         [HttpGet]
         public ActionResult Purchases()
         {
-            return View();
+            AllAnnouncements allAnnouncements = new AllAnnouncements()
+            {
+                AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
+            };
+            return View(allAnnouncements);
         }
 
         [HttpPost]
@@ -127,6 +135,14 @@ namespace RentShopVehicle.Controllers
             var response = deals.DeleteAnnouncementById(Id);
             
             return RedirectToAction("Announcements", "Deals");
+        }
+
+        [HttpGet]
+        public ActionResult MakePurchase(int Id)
+        {
+            var response = deals.MakePurchase(Id);
+
+            return RedirectToAction("Cars", "Home");
         }
     }
 }

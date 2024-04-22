@@ -51,5 +51,10 @@ namespace RentShopVehicle.BusinessLogic.Services
         {
             return getCarDetailByIdUserAPI(Id);
         }
+
+        public bool MakePurchase(int Id)
+        {
+            return MakePurchaseUserAPI(Id);
+        }
     }
 }

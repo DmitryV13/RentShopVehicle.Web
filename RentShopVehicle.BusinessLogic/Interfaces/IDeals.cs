@@ -19,5 +19,6 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
         bool DeleteAnnouncementById(int Id);
         List<AnnouncementMinInfoD> getAnnouncementByFilter(FilterData filter);
         AnnouncementDetInfoD getCarDetailById(int Id);
+        bool MakePurchase(int Id);
     }
 }

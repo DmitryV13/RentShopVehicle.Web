@@ -314,9 +314,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             using (var db = new UserContext())
             {
                 annConnList = db.Connectors.Where(e =>
-                e.UserId == Id &&
-                e.Type != AnnouncementType.Purchase &&
-                e.Status == AnnouncementStatus.Undone).ToList();
+                e.UserId == Id).ToList();
                 foreach (var conn in annConnList)
                 {
                     var a = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId);
@@ -525,6 +523,32 @@ namespace RentShopVehicle.BusinessLogic.Core
                 }
             }
             return infoD;
+        }
+
+        public bool MakePurchaseUserAPI(int Id)
+        {
+            using (var db1 = new UserContext())
+            using (var db = new CarContext())
+            {
+                var connDB = db1.Connectors.FirstOrDefault(e => e.AnnouncementId == Id);
+                connDB.Status = AnnouncementStatus.Done;
+                var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+                var userDB = db1.Users.FirstOrDefault(e=>e.Id == user.Id);
+                AnnouncementConnectorDB tmp = new AnnouncementConnectorDB()
+                {
+                    Type = AnnouncementType.Purchase,
+                    Status = AnnouncementStatus.Done,
+                    AnnouncementId = Id,
+                    Owner = false,
+                    User = userDB,
+                };
+
+                db1.Entry(connDB).State = EntityState.Modified;
+                db1.Connectors.Add(tmp);
+                db1.SaveChanges();
+            }
+
+            return true;
         }
     }
 }

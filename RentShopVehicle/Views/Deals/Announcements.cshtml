@@ -23,15 +23,18 @@
             <tbody>
                 @foreach (var item in Model.AnnouncementConnectors)
                 {
-                    <tr>
-                        <th>@item.ConnectorId</th>
-                        <td>Car</td>
-                        <td>@item.Type</td>
-                        <td>@item.Price</td>
-                        <td>@item.Status</td>
-                        <td><a href="@Url.Action("AnnouncementMoreInfo", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-success">More info</div></a></td>
-                        <td><a href="@Url.Action("DeleteAnnouncement", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-danger">Delete</div></a></td>
-                    </tr>
+                    if(item.Status==RentShopVehicle.Domain.Enums.AnnouncementStatus.Undone && item.Type != RentShopVehicle.Domain.Enums.AnnouncementType.Purchase)
+                    {
+                        <tr>
+                            <th>@item.ConnectorId</th>
+                            <td>Car</td>
+                            <td>@item.Type</td>
+                            <td>@item.Price</td>
+                            <td>@item.Status</td>
+                            <td><a href="@Url.Action("AnnouncementMoreInfo", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-success">More info</div></a></td>
+                            <td><a href="@Url.Action("DeleteAnnouncement", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-danger">Delete</div></a></td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
