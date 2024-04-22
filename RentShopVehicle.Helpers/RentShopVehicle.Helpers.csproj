@@ -73,6 +73,7 @@
     <Compile Include="CookieGenerator.cs" />
     <Compile Include="HashGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -50,6 +50,7 @@ namespace RentShopVehicle.Controllers
         {
             CreateAnnouncementD announcementD = new CreateAnnouncementD()
             {
+                HP = announcementM.HP,
                 Make = announcementM.Make,
                 Model = announcementM.Model,
                 Year = announcementM.Year,
@@ -99,6 +100,7 @@ namespace RentShopVehicle.Controllers
                 return RedirectToAction("E404", "Error");
             AnnouncementDetInfo detInfoM = new AnnouncementDetInfo()
             {
+                HP = detInfoD.HP,
                 Color = detInfoD.Color,
                 Make = detInfoD.Make,
                 Mileage = detInfoD.Mileage,

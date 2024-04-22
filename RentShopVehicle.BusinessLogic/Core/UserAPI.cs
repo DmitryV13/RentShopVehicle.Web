@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Net;
 using RentShopVehicle.BusinessLogic.DBModel;
 using RentShopVehicle.Domain.Entities.Car.DB;
+using System.IO;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -239,6 +240,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             UserDB userDB = getUserDBByCookiesUser(announcementD.UserCookies);
             CarDB carDB = new CarDB()
             {
+                HP = announcementD.HP,
                 Make = announcementD.Make,
                 Model = announcementD.Model,
                 Year = announcementD.Year,
@@ -259,6 +261,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Type = announcementD.Type,
                 Status = AnnouncementStatus.Undone,
                 User = userDB,
+                Owner=true,
             };
             userDB.Connectors.Add(announcementConnectorDB);
 
@@ -300,7 +303,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             return carDB;
         }
 
-        public List<AnnouncementD> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
+        public List<AnnouncementD> GetUsersAnnouncementsByUserIdUserAPI(int Id)
         {
             List<AnnouncementConnectorDB> annConnList;
             List<AnnouncementD> annListD = new List<AnnouncementD>();
@@ -364,6 +367,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             }
             detInfoD = new AnnouncementDetInfoD()
             {
+                HP = carDB.HP,
                 VIN = carDB.VIN,
                 Make = carDB.Make,
                 Model = carDB.Model,
@@ -427,6 +431,66 @@ namespace RentShopVehicle.BusinessLogic.Core
 
 
             return true;
+        }
+
+        public List<AnnouncementMinInfoD> getAnnouncementByFilterUserAPI(FilterData filter)
+        {
+            List<AnnouncementMinInfoD> infoDs = new List<AnnouncementMinInfoD>();
+            if(filter == null) { 
+                filter= new FilterData();
+            }
+
+            using(var db = new UserContext())
+            using(var db1 =new CarContext())
+            {
+                var consDB = db.Connectors.Where(e=> 
+                    e.Owner == true &&
+                    e.Status == AnnouncementStatus.Undone).ToList();
+                for(int i = 0; i< consDB.Count; i++)
+                {
+                    int announcementId = consDB[i].AnnouncementId;
+                    var annDB = db1.Announcements.FirstOrDefault(e => 
+                    e.Id == announcementId &&
+                    ((filter.min == 0) ? true : e.Price >= filter.min) &&
+                    ((filter.max == 0) ? true : e.Price <= filter.max)
+                    );
+                    if (annDB != null)
+                    {
+                        var carDB = db1.Cars.FirstOrDefault(e =>
+                        e.Id == annDB.Id &&
+                        ((filter.Make == Make.None) ? true : e.Make == filter.Make) &&
+                        ((filter.Model == null) ? true : e.Model == filter.Model) &&
+                        ((filter.Transmission == Transmission.None) ? true : e.Transmission == filter.Transmission)
+                        );
+
+                        if (carDB != null)
+                        {
+                            var images = db1.Images.Where(e => e.CarId == carDB.Id).ToList();
+
+                            AnnouncementMinInfoD tmp = new AnnouncementMinInfoD()
+                            {
+                                Id = annDB.Id,
+                                Make = carDB.Make,
+                                Model = carDB.Model,
+                                Transmission = carDB.Transmission,
+                                Price = annDB.Price,
+                                Year = carDB.Year,
+                                Mileage = carDB.Mileage,
+                                HP = carDB.HP,
+                                Type = consDB[i].Type,
+                                ImageUrls = new List<string>(),
+                            };
+                            for (int j = 0; j < images.Count; j++)
+                            {
+                                tmp.ImageUrls.Add($"data:image;base64,{Convert.ToBase64String(images[j].FileData)}");
+                            }
+                            infoDs.Add(tmp);
+                        }
+                    }
+                }
+            }
+
+            return infoDs;
         }
     }
 }

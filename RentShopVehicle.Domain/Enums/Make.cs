@@ -8,6 +8,7 @@ namespace RentShopVehicle.Domain.Enums
 {
     public enum Make
     {
+        None,
         Toyota,
         Ford,
         Chevrolet,

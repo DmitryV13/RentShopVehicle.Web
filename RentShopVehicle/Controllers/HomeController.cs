@@ -5,24 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using RentShopVehicle.BusinessLogic;
 using RentShopVehicle.Domain.Entities.Car;
+using RentShopVehicle.BusinessLogic;
 
 namespace RentShopVehicle.Controllers
 {
     public class HomeController : Controller
     {
 
-
-        //SessionStatus();
-        //if ((string) System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
-        //{
-        //    return RedirectToAction("Index", "Login");
-        //}
-
+        IDeals deals;
         public HomeController()
         {
-            var tmp = new BusinessLogic.BusinessLogic();
+            var bl = new BusinessLogic.BusinessLogic();
+            deals = bl.getDealsS();
         }
         
         [HttpGet]
@@ -44,36 +39,40 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpGet]
-        public ActionResult Cars()
+        public ActionResult Cars(FilterDataM filterM)
         {
-            return View();
+            FilterData filterD=null;
+            if (filterM != null) {
+                filterD = new FilterData()
+                {
+                    Make = filterM.Make,
+                    Model = filterM.Model,
+                    Transmission = filterM.Transmission,
+                };
+                if (filterM.Price != null)
+                {
+                    var MinMax = Helpers.SParseMinMax(filterM.Price);
+                    filterD.min = MinMax.Item1;
+                    filterD.max = MinMax.Item2;
+                }
+            }
+            AnnouncementsMinInfo minInfo = new AnnouncementsMinInfo();
+
+            minInfo.Announcements = deals.getAnnouncementByFilter(filterD);
+
+            return View(minInfo);
+        }
+
+        [HttpPost]
+        public ActionResult FindCar(FilterDataM filterM)
+        {
+            return RedirectToAction("Cars", "Home", filterM);
         }
 
         [HttpGet]
         public ActionResult Contacts()
         {
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult Form(string name, string email, int age)
-        {
-            return RedirectToAction("Contacts", "Home");
-        }
-
-        [HttpPost]
-        public ActionResult FindCar(Car newCar)
-        {
-            //var carDomain = new CarD()
-            //{
-            //    Price = newCar.Price
-            //};
-            //ResponceFindCar resp = carService.FindCar(carDomain);
-            //if (resp.Found == true)
-            //{
-            //
-            //}
-            return RedirectToAction("Contacts", "Home");
         }
     }
 }

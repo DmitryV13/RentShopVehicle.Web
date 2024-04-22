@@ -8,7 +8,8 @@ namespace RentShopVehicle.Domain.Enums
 {
     public enum Transmission
     {
-        Manual = 0,
+        None = 0,
+        Manual,
         Automatic,
     }
 }

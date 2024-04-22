@@ -450,8 +450,10 @@
     <Compile Include="Models\AddPhotosModel.cs" />
     <Compile Include="Models\AllAnnouncements.cs" />
     <Compile Include="Models\AnnouncementDetInfo.cs" />
+    <Compile Include="Models\AnnouncementsMinInfo.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CreateAnnouncementM.cs" />
+    <Compile Include="Models\FilterDataM.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,5 +17,6 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
         List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id);
         AnnouncementDetInfoD getAnnouncementDetInfoById(int Id);
         bool DeleteAnnouncementById(int Id);
+        List<AnnouncementMinInfoD> getAnnouncementByFilter(FilterData filter);
     }
 }

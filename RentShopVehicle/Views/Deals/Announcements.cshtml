@@ -46,6 +46,7 @@
 
                 var makeList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.Make))
                         .Cast<RentShopVehicle.Domain.Enums.Make>()
+                        .Where(e => e != RentShopVehicle.Domain.Enums.Make.None)
                         .Select(e => new SelectListItem
                         {
                             Value = e.ToString(),
@@ -95,8 +96,16 @@
                     <div id="MileageHelp" class="form-text">
                     </div>
                 </div>
+                <div class="mb-3">
+                    <label for="HP1" class="form-label">Horse Power</label>
+                    <input type="number" name="HP" class="form-control" id="HP1" min="0" max="4000" required
+                           aria-describedby="HPHelp">
+                    <div id="HPHelp" class="form-text">
+                    </div>
+                </div>
                 var transmissionList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.Transmission))
                                         .Cast<RentShopVehicle.Domain.Enums.Transmission>()
+                                        .Where(e => e != RentShopVehicle.Domain.Enums.Transmission.None)
                                         .Select(e => new SelectListItem
                                         {
                                             Value = e.ToString(),
@@ -112,6 +121,7 @@
 
                 var typesList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.AnnouncementType))
                         .Cast<RentShopVehicle.Domain.Enums.AnnouncementType>()
+                        .Where(e => e != RentShopVehicle.Domain.Enums.AnnouncementType.Purchase)
                         .Select(e => new SelectListItem
                         {
                             Value = ((int)e).ToString(),
