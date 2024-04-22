@@ -23,6 +23,8 @@ namespace RentShopVehicle.Domain.Entities.Announcement
 
         public int Mileage { get; set; }
 
+        public int HP { get; set; }
+
         public decimal Price { get; set; }
 
         public Transmission Transmission { get; set; }

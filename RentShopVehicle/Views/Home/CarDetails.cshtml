@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "CarDetails";
 }
+@model RentShopVehicle.Models.AnnouncementDetInfo
 
 <!-- Breadcrumb End -->
 <div class="breadcrumb-option set-bg" data-setbg="/Images/breadcrumb-bg.jpg">
@@ -9,11 +10,11 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Porsche Cayenne Turbo S 2019</h2>
+                    <h2>@Model.Make @Model.Model @Model.Year</h2>
                     <div class="breadcrumb__links">
                         <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a>
                         <a href="#">Car Listing</a>
-                        <span>Porsche cayenne turbo s</span>
+                        <span>@Model.Make @Model.Model</span>
                     </div>
                 </div>
             </div>
@@ -28,25 +29,26 @@
             <div class="col-lg-9">
                 <div class="car__details__pic">
                     <div class="car__details__pic__large">
-                        <img class="car-big-img" src="~/Images/cars/details/cd-1.jpg" alt="">
+                        @if (Model.ImageUrls.Count != 0)
+                        {
+                            <img src="@Model.ImageUrls[0]" alt="Photo" />
+                        }
+                        else
+                        {
+                            <img class="car-big-img" src="~/Images/cars/details/cd-1.jpg" alt="">
+                        }
                     </div>
                     <div class="car-thumbs">
                         <div class="car-thumbs-track car__thumb__slider owl-carousel">
-                            <div class="ct" data-imgbigurl="img/cars/details/cd-2.jpg">
-                                <img src="~/Images/cars/details/sm-1.jpg" alt="">
-                            </div>
-                            <div class="ct" data-imgbigurl="img/cars/details/cd-3.jpg">
-                                <img src="~/Images/cars/details/sm-2.jpg" alt="">
-                            </div>
-                            <div class="ct" data-imgbigurl="img/cars/details/cd-4.jpg">
-                                <img src="~/Images/cars/details/sm-3.jpg" alt="">
-                            </div>
-                            <div class="ct" data-imgbigurl="img/cars/details/cd-5.jpg">
-                                <img src="~/Images/cars/details/sm-4.jpg" alt="">
-                            </div>
-                            <div class="ct" data-imgbigurl="img/cars/details/cd-6.jpg">
-                                <img src="~/Images/cars/details/sm-5.jpg" alt="">
-                            </div>
+                            @if (Model.ImageUrls.Count > 1)
+                            {
+                                for (int i = 1; i < Model.ImageUrls.Count; i++)
+                                {
+                                    <div class="ct" data-imgbigurl="img/cars/details/cd-2.jpg">
+                                        <img src="@Model.ImageUrls[i]" alt="">
+                                    </div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -508,21 +510,19 @@
                 <div class="car__details__sidebar">
                     <div class="car__details__sidebar__model">
                         <ul>
-                            <li>Stock <span>K99D10459934</span></li>
-                            <li>Vin <span>3VWKM245686</span></li>
+                            <li>Vin <span>@Model.VIN</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Get Today Is Price</a>
-                        <p>Pricing in 11/26/2019</p>
                     </div>
                     <div class="car__details__sidebar__payment">
                         <ul>
-                            <li>MSRP <span>$120,000</span></li>
-                            <li>Dealer Discounts <span>$3,000</span></li>
-                            <li>Price <span>$117,000</span></li>
+                            <li>MSRP <span>@Model.Price</span></li>
+                            @{var prc = Model.Price / 100 * 5;
+                              var totalPrice = Model.Price + prc;
+                                }
+                            <li>Dealer Discounts <span>$@prc</span></li>
+                            <li>Price <span>@totalPrice</span></li>
                         </ul>
-                        <a href="#" class="primary-btn"><i class="fa fa-credit-card"></i> Express Purchase</a>
-                        <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-sliders"></i> Build Payment</a>
-                        <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-money"></i> Value Trade</a>
+                        <a href="@Url.Action("MakePurchase", "Deals", new {Id=Model.Id})" class="primary-btn"><i class="fa fa-credit-card"></i>Make Purchase</a>
                     </div>
                 </div>
             </div>

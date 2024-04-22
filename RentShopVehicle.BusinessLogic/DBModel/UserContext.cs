@@ -36,6 +36,12 @@ namespace RentShopVehicle.BusinessLogic.DBModel
                 .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<UserDB>()
+                .HasMany(e => e.Messages)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<UserDB>()
                 .HasMany(e => e.Connectors)
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.UserId);

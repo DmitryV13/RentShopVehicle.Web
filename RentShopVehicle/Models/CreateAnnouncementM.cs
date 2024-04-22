@@ -21,6 +21,8 @@ namespace RentShopVehicle.Models
 
         public int Mileage { get; set; }
 
+        public int HP { get; set; }
+
         public Transmission Transmission { get; set; }
 
         public AnnouncementType Type { get; set; }

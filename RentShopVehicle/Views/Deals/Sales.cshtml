@@ -9,42 +9,30 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Type</th>
                     <th scope="col">Product</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Price</th>
-                    <th scope="col">S-Provider</th>
                     <th scope="col">Status</th>
-                    <th scope="col">More</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>jhon@email.com</td>
-                    <td>USA</td>
-                    <td>123</td>
-                    <td>Member</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mark@email.com</td>
-                    <td>UK</td>
-                    <td>456</td>
-                    <td>Member</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>jacob@email.com</td>
-                    <td>AU</td>
-                    <td>789</td>
-                    <td>Member</td>
-                </tr>
+                @foreach (var item in Model.AnnouncementConnectors)
+                {
+                    if (item.Status == RentShopVehicle.Domain.Enums.AnnouncementStatus.Done && item.Type != RentShopVehicle.Domain.Enums.AnnouncementType.Purchase)
+                    {
+                        <tr>
+                            <th>@item.ConnectorId</th>
+                            <td>Car</td>
+                            <td>@item.Type</td>
+                            <td>@item.Price</td>
+                            <td>@item.Status</td>
+                            <td><a href="@Url.Action("AnnouncementMoreInfo", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-success">More info</div></a></td>
+                            <td><a href="@Url.Action("DeleteAnnouncement", "Deals", new { Id = item.ConnectorId })"><div class="btn btn-danger">Delete</div></a></td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>

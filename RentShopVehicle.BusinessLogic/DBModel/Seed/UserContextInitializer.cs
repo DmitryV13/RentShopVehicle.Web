@@ -23,6 +23,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email= "1admin123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.Admin1,
+                AccountState = true,
             };
             var admin1LH = new LoginHistoryDB()
             {
@@ -41,6 +42,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email = "2admin123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.Admin2,
+                AccountState = true,
             };
             var admin2LH = new LoginHistoryDB()
             {
@@ -59,6 +61,7 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
                 Email = "mod123@gmail.com",
                 Password = HashGenerator.HashGenerate("12345678"),
                 UserRole = Role.Moderator,
+                AccountState = true,
             };
             var moderatorLH = new LoginHistoryDB()
             {
@@ -69,18 +72,38 @@ namespace RentShopVehicle.BusinessLogic.DBModel.Seed
             moderatorLH.User = moderator;
             //MODERATOR
 
-
+            //USER1
+            UserDB user1 = new UserDB()
+            {
+                Id = 1,
+                Username = "user1",
+                Email = "user123@gmail.com",
+                Password = HashGenerator.HashGenerate("12345678"),
+                UserRole = Role.User,
+                AccountState = true,
+            };
+            var user1LH = new LoginHistoryDB()
+            {
+                LastEntry = DateTime.Now,
+                LoginIP = HttpContext.Current.Request.UserHostAddress,
+            };
+            user1.LoginHistories.Add(user1LH);
+            user1LH.User = user1;
+            //USER1
 
             context.Users.Add(admin1);
             context.Users.Add(admin2);
             context.Users.Add(moderator);
+            context.Users.Add(user1);
             context.LoginHistory.Add(admin1LH);
             context.LoginHistory.Add(admin2LH);
             context.LoginHistory.Add(moderatorLH);
+            context.LoginHistory.Add(user1LH);
 
 
             
             context.SaveChanges();
+
         }
     }
 }

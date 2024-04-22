@@ -420,7 +420,7 @@
     <Content Include="Views\Shared\_OfficeFooter.cshtml" />
     <Content Include="Views\Shared\_OfficeHeader.cshtml" />
     <Content Include="Views\Home\PrivateCabinet.cshtml" />
-    <Content Include="Views\Shared\_OfficeSidebar.cshtml" />
+    <Content Include="Views\Shared\_UserSidebar.cshtml" />
     <Content Include="Views\Shared\_UserToolbar.cshtml" />
     <Content Include="Views\Shared\_ModeratorToolbar.cshtml" />
     <Content Include="Views\Shared\_Admin1Toolbar.cshtml" />
@@ -431,6 +431,10 @@
     <Content Include="Views\Deals\Sales.cshtml" />
     <Content Include="Views\Deals\Purchases.cshtml" />
     <Content Include="Views\Deals\AnnouncementMoreInfo.cshtml" />
+    <Content Include="Views\Shared\_Admin1Sidebar.cshtml" />
+    <Content Include="Views\Shared\_Admin2Sidebar.cshtml" />
+    <Content Include="Views\Shared\_ModeratorSidebar.cshtml" />
+    <Content Include="Views\PrivateAccount\AllUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -450,10 +454,13 @@
     <Compile Include="Models\AddPhotosModel.cs" />
     <Compile Include="Models\AllAnnouncements.cs" />
     <Compile Include="Models\AnnouncementDetInfo.cs" />
+    <Compile Include="Models\AnnouncementsMinInfo.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CreateAnnouncementM.cs" />
+    <Compile Include="Models\FilterDataM.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\UsersInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

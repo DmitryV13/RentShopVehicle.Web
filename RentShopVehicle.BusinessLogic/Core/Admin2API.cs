@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
-    public class PrivelegedAdminAPI
+    public class Admin2API : ModeratorAPI
     {
     }
 }

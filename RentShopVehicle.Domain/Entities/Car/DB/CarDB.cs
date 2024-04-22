@@ -37,6 +37,9 @@ namespace RentShopVehicle.Domain.Entities.Car
         public int Mileage { get; set; }
 
         [Required]
+        public int HP { get; set; }
+
+        [Required]
         public Transmission Transmission { get; set; }
 
         public AnnouncementDB Announcement { get; set; }

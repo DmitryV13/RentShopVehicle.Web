@@ -36,13 +36,21 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Sales()
         {
-            return View();
+            AllAnnouncements allAnnouncements = new AllAnnouncements()
+            {
+                AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
+            };
+            return View(allAnnouncements);
         }
 
         [HttpGet]
         public ActionResult Purchases()
         {
-            return View();
+            AllAnnouncements allAnnouncements = new AllAnnouncements()
+            {
+                AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
+            };
+            return View(allAnnouncements);
         }
 
         [HttpPost]
@@ -50,6 +58,7 @@ namespace RentShopVehicle.Controllers
         {
             CreateAnnouncementD announcementD = new CreateAnnouncementD()
             {
+                HP = announcementM.HP,
                 Make = announcementM.Make,
                 Model = announcementM.Model,
                 Year = announcementM.Year,
@@ -99,6 +108,7 @@ namespace RentShopVehicle.Controllers
                 return RedirectToAction("E404", "Error");
             AnnouncementDetInfo detInfoM = new AnnouncementDetInfo()
             {
+                HP = detInfoD.HP,
                 Color = detInfoD.Color,
                 Make = detInfoD.Make,
                 Mileage = detInfoD.Mileage,
@@ -125,6 +135,14 @@ namespace RentShopVehicle.Controllers
             var response = deals.DeleteAnnouncementById(Id);
             
             return RedirectToAction("Announcements", "Deals");
+        }
+
+        [HttpGet]
+        public ActionResult MakePurchase(int Id)
+        {
+            var response = deals.MakePurchase(Id);
+
+            return RedirectToAction("Cars", "Home");
         }
     }
 }

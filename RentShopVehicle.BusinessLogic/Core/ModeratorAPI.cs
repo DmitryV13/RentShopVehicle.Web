@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
-    public class ModeratorAPI
+    public class ModeratorAPI : UserAPI
     {
     }
 }

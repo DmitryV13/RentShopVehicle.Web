@@ -25,6 +25,8 @@ namespace RentShopVehicle.Models
 
         public int Mileage { get; set; }
 
+        public int HP { get; set; }
+
         public decimal Price { get; set; }
 
         public Transmission Transmission { get; set; }

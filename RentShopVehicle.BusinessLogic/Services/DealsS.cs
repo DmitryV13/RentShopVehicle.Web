@@ -29,7 +29,7 @@ namespace RentShopVehicle.BusinessLogic.Services
 
         public List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id)
         {
-            return GetAnnouncementConnectorsByUserIdUserAPI(Id);
+            return GetUsersAnnouncementsByUserIdUserAPI(Id);
         }
 
         public AnnouncementDetInfoD getAnnouncementDetInfoById(int Id)
@@ -40,6 +40,21 @@ namespace RentShopVehicle.BusinessLogic.Services
         public bool DeleteAnnouncementById(int Id)
         {
             return DeleteAnnouncementByIdUserAPI(Id);
+        }
+
+        public List<AnnouncementMinInfoD> getAnnouncementByFilter(FilterData filter)
+        {
+            return getAnnouncementByFilterUserAPI(filter);
+        }
+
+        public AnnouncementDetInfoD getCarDetailById(int Id)
+        {
+            return getCarDetailByIdUserAPI(Id);
+        }
+
+        public bool MakePurchase(int Id)
+        {
+            return MakePurchaseUserAPI(Id);
         }
     }
 }

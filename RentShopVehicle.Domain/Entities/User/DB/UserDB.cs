@@ -1,4 +1,5 @@
 ﻿using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.Feedback;
 using RentShopVehicle.Domain.Entities.User.DB;
 using RentShopVehicle.Domain.Enums;
 using System;
@@ -33,10 +34,16 @@ namespace RentShopVehicle.Domain.Entities.User
         public ICollection<LoginHistoryDB> LoginHistories { get; set; }
 
         [Required]
+        public ICollection<MessageDB> Messages { get; set; }
+
+        [Required]
         public ICollection<AnnouncementConnectorDB> Connectors { get; set; }
 
         [Required]
         public Role UserRole { get; set; }
+
+        [Required]
+        public bool AccountState { get; set; }
 
         public AddressDB Address { get; set; }
 
@@ -46,6 +53,7 @@ namespace RentShopVehicle.Domain.Entities.User
         {
             LoginHistories = new List<LoginHistoryDB>();
             Connectors = new List<AnnouncementConnectorDB>();
+            Messages= new List<MessageDB>();
         }
     }
 }

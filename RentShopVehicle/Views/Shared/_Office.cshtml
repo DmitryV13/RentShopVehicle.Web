@@ -52,24 +52,25 @@
         @*@Html.Partial("_OfficeSpinner")*@
         <!-- Spinner End -->
         <!-- Sidebar Start -->
-        @Html.Partial("_OfficeSidebar")
-        <!-- Sidebar End -->
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            @Html.Partial("_OfficeHeader")
-            <!-- Navbar End -->
-            <!--  Content Start -->
-            @RenderBody()
+            @{var user = HttpContext.Current.Session["SessionUser"] as RentShopVehicle.Domain.Entities.User.UserMinData; }
+            @Html.Partial("_" + user.UserRole.ToString() + "Sidebar")
+            <!-- Sidebar End -->
+            <!-- Content Start -->
+            <div class="content">
+                <!-- Navbar Start -->
+                @Html.Partial("_OfficeHeader")
+                <!-- Navbar End -->
+                <!--  Content Start -->
+                @RenderBody()
+                <!-- Content End -->
+                <!-- Footer Start -->
+                @Html.Partial("_OfficeFooter")
+                <!-- Footer End -->
+            </div>
             <!-- Content End -->
-            <!-- Footer Start -->
-            @Html.Partial("_OfficeFooter")
-            <!-- Footer End -->
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
-        <!-- Content End -->
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
 
     <!-- JavaScript Libraries -->
 

@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Net;
 using RentShopVehicle.BusinessLogic.DBModel;
 using RentShopVehicle.Domain.Entities.Car.DB;
+using System.IO;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -41,6 +42,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Password = HashGenerator.HashGenerate(rData.Password),
                 Email = rData.Email,
                 UserRole=Role.User,
+                AccountState = true,
             };
             newLHistory = new LoginHistoryDB()
             {
@@ -55,6 +57,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 db.Users.Add(newUser);
                 db.LoginHistory.Add(newLHistory);
                 db.SaveChanges();
+
             }
             return response;
         }
@@ -70,7 +73,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             using(var db = new UserContext())
             {
                 userDB=db.Users.FirstOrDefault(
-                    el => el.Password == hashedPassword && el.Username == lData.Username);
+                    el => el.Password == hashedPassword && el.Username == lData.Username && el.AccountState);
             }
             if(userDB == null)
             {
@@ -239,6 +242,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             UserDB userDB = getUserDBByCookiesUser(announcementD.UserCookies);
             CarDB carDB = new CarDB()
             {
+                HP = announcementD.HP,
                 Make = announcementD.Make,
                 Model = announcementD.Model,
                 Year = announcementD.Year,
@@ -259,6 +263,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Type = announcementD.Type,
                 Status = AnnouncementStatus.Undone,
                 User = userDB,
+                Owner=true,
             };
             userDB.Connectors.Add(announcementConnectorDB);
 
@@ -300,7 +305,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             return carDB;
         }
 
-        public List<AnnouncementD> GetAnnouncementConnectorsByUserIdUserAPI(int Id)
+        public List<AnnouncementD> GetUsersAnnouncementsByUserIdUserAPI(int Id)
         {
             List<AnnouncementConnectorDB> annConnList;
             List<AnnouncementD> annListD = new List<AnnouncementD>();
@@ -309,9 +314,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             using (var db = new UserContext())
             {
                 annConnList = db.Connectors.Where(e =>
-                e.UserId == Id &&
-                e.Type != AnnouncementType.Purchase &&
-                e.Status == AnnouncementStatus.Undone).ToList();
+                e.UserId == Id).ToList();
                 foreach (var conn in annConnList)
                 {
                     var a = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId);
@@ -364,6 +367,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             }
             detInfoD = new AnnouncementDetInfoD()
             {
+                HP = carDB.HP,
                 VIN = carDB.VIN,
                 Make = carDB.Make,
                 Model = carDB.Model,
@@ -425,6 +429,124 @@ namespace RentShopVehicle.BusinessLogic.Core
                 db2.SaveChanges();
             }
 
+
+            return true;
+        }
+
+        public List<AnnouncementMinInfoD> getAnnouncementByFilterUserAPI(FilterData filter)
+        {
+            List<AnnouncementMinInfoD> infoDs = new List<AnnouncementMinInfoD>();
+            if(filter == null) { 
+                filter= new FilterData();
+            }
+
+            using(var db = new UserContext())
+            using(var db1 =new CarContext())
+            {
+                var consDB = db.Connectors.Where(e=> 
+                    e.Owner == true &&
+                    e.Status == AnnouncementStatus.Undone).ToList();
+                for(int i = 0; i< consDB.Count; i++)
+                {
+                    int announcementId = consDB[i].AnnouncementId;
+                    var annDB = db1.Announcements.FirstOrDefault(e => 
+                    e.Id == announcementId &&
+                    ((filter.min == 0) ? true : e.Price >= filter.min) &&
+                    ((filter.max == 0) ? true : e.Price <= filter.max)
+                    );
+                    if (annDB != null)
+                    {
+                        var carDB = db1.Cars.FirstOrDefault(e =>
+                        e.Id == annDB.Id &&
+                        ((filter.Make == Make.None) ? true : e.Make == filter.Make) &&
+                        ((filter.Model == null) ? true : e.Model == filter.Model) &&
+                        ((filter.Transmission == Transmission.None) ? true : e.Transmission == filter.Transmission)
+                        );
+
+                        if (carDB != null)
+                        {
+                            var images = db1.Images.Where(e => e.CarId == carDB.Id).ToList();
+
+                            AnnouncementMinInfoD tmp = new AnnouncementMinInfoD()
+                            {
+                                Id = annDB.Id,
+                                Make = carDB.Make,
+                                Model = carDB.Model,
+                                Transmission = carDB.Transmission,
+                                Price = annDB.Price,
+                                Year = carDB.Year,
+                                Mileage = carDB.Mileage,
+                                HP = carDB.HP,
+                                Type = consDB[i].Type,
+                                ImageUrls = new List<string>(),
+                            };
+                            for (int j = 0; j < images.Count; j++)
+                            {
+                                tmp.ImageUrls.Add($"data:image;base64,{Convert.ToBase64String(images[j].FileData)}");
+                            }
+                            infoDs.Add(tmp);
+                        }
+                    }
+                }
+            }
+
+            return infoDs;
+        }
+
+        public AnnouncementDetInfoD getCarDetailByIdUserAPI(int Id)
+        {
+            AnnouncementDetInfoD infoD = null;
+            using (var db1 = new UserContext())
+            using (var db = new CarContext())
+            {
+                var annDB = db.Announcements.FirstOrDefault(e => e.Id == Id);
+                var carDB = db.Cars.FirstOrDefault(e => e.Id == Id);
+
+                infoD = new AnnouncementDetInfoD()
+                {
+                    Id = Id,
+                    HP = carDB.HP,
+                    VIN = carDB.VIN,
+                    Make = carDB.Make,
+                    Model = carDB.Model,
+                    Transmission = carDB.Transmission,
+                    Year = carDB.Year,
+                    Color = carDB.Color,
+                    Mileage = carDB.Mileage,
+                    Images = new List<byte[]>(),
+                    Price = annDB.Price,
+                };
+                var images = db.Images.Where(e => e.CarId == carDB.Id).ToList();
+                for (int i = 0; i < images.Count; i++)
+                {
+                    infoD.Images.Add(images[i].FileData);
+                }
+            }
+            return infoD;
+        }
+
+        public bool MakePurchaseUserAPI(int Id)
+        {
+            using (var db1 = new UserContext())
+            using (var db = new CarContext())
+            {
+                var connDB = db1.Connectors.FirstOrDefault(e => e.AnnouncementId == Id);
+                connDB.Status = AnnouncementStatus.Done;
+                var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+                var userDB = db1.Users.FirstOrDefault(e=>e.Id == user.Id);
+                AnnouncementConnectorDB tmp = new AnnouncementConnectorDB()
+                {
+                    Type = AnnouncementType.Purchase,
+                    Status = AnnouncementStatus.Done,
+                    AnnouncementId = Id,
+                    Owner = false,
+                    User = userDB,
+                };
+
+                db1.Entry(connDB).State = EntityState.Modified;
+                db1.Connectors.Add(tmp);
+                db1.SaveChanges();
+            }
 
             return true;
         }

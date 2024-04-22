@@ -5,24 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using RentShopVehicle.BusinessLogic;
 using RentShopVehicle.Domain.Entities.Car;
+using RentShopVehicle.BusinessLogic;
+using RentShopVehicle.Domain.Entities.Announcement;
 
 namespace RentShopVehicle.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
-
-        //SessionStatus();
-        //if ((string) System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
-        //{
-        //    return RedirectToAction("Index", "Login");
-        //}
-
+        IDeals deals;
         public HomeController()
         {
-            var tmp = new BusinessLogic.BusinessLogic();
+            var bl = new BusinessLogic.BusinessLogic();
+            deals = bl.getDealsS();
         }
         
         [HttpGet]
@@ -44,9 +40,34 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpGet]
-        public ActionResult Cars()
+        public ActionResult Cars(FilterDataM filterM)
         {
-            return View();
+            FilterData filterD=null;
+            if (filterM != null) {
+                filterD = new FilterData()
+                {
+                    Make = filterM.Make,
+                    Model = filterM.Model,
+                    Transmission = filterM.Transmission,
+                };
+                if (filterM.Price != null)
+                {
+                    var MinMax = Helpers.SParseMinMax(filterM.Price);
+                    filterD.min = MinMax.Item1;
+                    filterD.max = MinMax.Item2;
+                }
+            }
+            AnnouncementsMinInfo minInfo = new AnnouncementsMinInfo();
+
+            minInfo.Announcements = deals.getAnnouncementByFilter(filterD);
+
+            return View(minInfo);
+        }
+
+        [HttpPost]
+        public ActionResult FindCar(FilterDataM filterM)
+        {
+            return RedirectToAction("Cars", "Home", filterM);
         }
 
         [HttpGet]
@@ -55,25 +76,40 @@ namespace RentShopVehicle.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Form(string name, string email, int age)
+        [HttpGet]
+        public ActionResult CarDetails(int Id)
         {
-            return RedirectToAction("Contacts", "Home");
-        }
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-        [HttpPost]
-        public ActionResult FindCar(Car newCar)
-        {
-            //var carDomain = new CarD()
-            //{
-            //    Price = newCar.Price
-            //};
-            //ResponceFindCar resp = carService.FindCar(carDomain);
-            //if (resp.Found == true)
-            //{
-            //
-            //}
-            return RedirectToAction("Contacts", "Home");
+            AnnouncementDetInfo detInfoM = null;
+            AnnouncementDetInfoD detInfoD = deals.getCarDetailById(Id);
+            detInfoM = new AnnouncementDetInfo()
+            {
+                Id = detInfoD.Id,
+                Make = detInfoD.Make,
+                Model = detInfoD.Model,
+                Year = detInfoD.Year,
+                HP = detInfoD.HP,
+                VIN = detInfoD.VIN,
+                Transmission = detInfoD.Transmission,
+                Mileage = detInfoD.Mileage,
+                Color = detInfoD.Color,
+                Price = detInfoD.Price,
+                ImageUrls = new List<string>(),
+            };
+
+            for (int i = 0; i < detInfoD.Images.Count; i++)
+            {
+                detInfoM.ImageUrls.Add(
+                        $"data:image;base64,{Convert.ToBase64String(detInfoD.Images[i])}"
+                    );
+            }
+
+            return View(detInfoM);
         }
     }
 }

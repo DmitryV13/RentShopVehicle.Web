@@ -1,15 +1,6 @@
 ﻿using RentShopVehicle.Domain.Entities.Car;
-using RentShopVehicle.Domain.Entities.Feedback;
-using RentShopVehicle.Domain.Entities.User;
-using RentShopVehicle.Domain.Entities.User.DB;
-using RentShopVehicle.Domain.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentShopVehicle.Domain.Entities.Announcement
 {
