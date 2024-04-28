@@ -186,7 +186,7 @@ namespace RentShopVehicle.Controllers
             UpdateSessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
             {
-                return RedirectToAction("Index", "Home");
+                return (Microsoft.AspNetCore.Mvc.IActionResult)RedirectToAction("Index", "Home");
             }
 
             var user = (HttpContext.Session["SessionUser"] as UserMinData);
@@ -196,7 +196,7 @@ namespace RentShopVehicle.Controllers
                 var userM = session.GetUserById(user.Id);
                 var reciever = userM.Email;
                 var subject = "Notification";
-                var message = "Purchase was done"+"address .....";
+                var message = "Purchase was done" + " address .....";
 
                 await emailSender.SendEmailAsync(reciever, subject, message);
             }

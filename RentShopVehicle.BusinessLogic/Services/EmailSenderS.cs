@@ -18,7 +18,7 @@ namespace RentShopVehicle.BusinessLogic.Services
             //vUMT8pw43jznB8aE2aWu
             var mail = "rentshopvehicle.webapplication@mail.ru";
             var psw = "vUMT8pw43jznB8aE2aWu";
-            var client = new SmtpClient("smtp.mail.ru", 465)
+            var client = new SmtpClient("smtp.mail.ru", 587)
             {
                 EnableSsl = true,
                 UseDefaultCredentials = false,
