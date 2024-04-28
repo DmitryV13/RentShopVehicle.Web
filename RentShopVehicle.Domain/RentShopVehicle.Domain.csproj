@@ -102,6 +102,7 @@
     <Compile Include="Entities\Vehicles\Motocycle.cs" />
     <Compile Include="Entities\Vehicles\VehicleDB.cs" />
     <Compile Include="Enums\AnnouncementStatus.cs" />
+    <Compile Include="Enums\DeliveryType.cs" />
     <Compile Include="Enums\Make.cs" />
     <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\Role.cs" />

@@ -121,6 +121,7 @@ namespace RentShopVehicle.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+
             BlogCommentD blogCommentD = new BlogCommentD()
             {
                 MessageType = commentM.MessageType,

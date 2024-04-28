@@ -24,18 +24,36 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
         [HttpGet]
         public ActionResult NewPassword()
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
         [HttpPost]
         public ActionResult ChangePasswordAction(LoginModel lModel)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var lData = new LoginData()
             {
                 Password = lModel.Password,
@@ -55,6 +73,12 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult NewPasswordAction(LoginModel lModel)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var lData = new LoginData()
             {
                 Password = lModel.Password,

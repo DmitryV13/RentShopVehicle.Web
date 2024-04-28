@@ -12,6 +12,7 @@ using System.IO;
 using System.Web.Http.Results;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
+using RentShopVehicle.Domain.Enums;
 
 namespace RentShopVehicle.Controllers
 {
@@ -31,6 +32,12 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Announcements()
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             AllAnnouncements allAnnouncements = new AllAnnouncements() {
                 AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
             };
@@ -40,6 +47,12 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Sales()
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
             AllAnnouncements allAnnouncements = new AllAnnouncements()
             {
                 AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
@@ -50,6 +63,12 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Purchases()
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             AllAnnouncements allAnnouncements = new AllAnnouncements()
             {
                 AnnouncementConnectors = deals.GetAnnouncementConnectorsByUserId((System.Web.HttpContext.Current.Session["SessionUser"] as UserMinData).Id),
@@ -60,6 +79,12 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult CreateAnnouncement(AnnouncementDetInfo announcementM)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             AnnouncementDetInfoD announcementD = new AnnouncementDetInfoD()
             {
                 HP = announcementM.HP,
@@ -82,6 +107,12 @@ namespace RentShopVehicle.Controllers
         [HttpPost]
         public ActionResult AddAnnouncementPhotos(AddPhotosModel photodM)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             AddPhotosData photosD = new AddPhotosData()
             {
                 AnnouncementId = photodM.AnnouncementId,
@@ -107,6 +138,11 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult AnnouncementMoreInfo(int Id)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             AnnouncementDetInfoD detInfoD = deals.getAnnouncementDetInfoById(Id);
             if (detInfoD==null)
@@ -133,22 +169,34 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult DeleteAnnouncement(int Id)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var response = deals.DeleteAnnouncementById(Id);
             
             return RedirectToAction("Announcements", "Deals");
         }
 
-        [HttpGet]
-        public async Task<Microsoft.AspNetCore.Mvc.IActionResult> MakePurchase(int Id)
+        [HttpPost]
+        public async Task<Microsoft.AspNetCore.Mvc.IActionResult> MakePurchase(DeliveryM deliveryM)
         {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var user = (HttpContext.Session["SessionUser"] as UserMinData);
-            var responce = deals.MakePurchase(Id);
-            if (responce)
+            var responce = deals.MakePurchase(deliveryM.Id);
+            if (responce && deliveryM.DeliveryType == DeliveryType.FromOwner)
             {
                 var userM = session.GetUserById(user.Id);
                 var reciever = userM.Email;
                 var subject = "Notification";
-                var message = "Purchase was done";
+                var message = "Purchase was done"+"address .....";
 
                 await emailSender.SendEmailAsync(reciever, subject, message);
             }

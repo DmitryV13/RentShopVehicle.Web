@@ -517,14 +517,37 @@
                         <ul>
                             <li>MSRP <span>$@Model.Price</span></li>
                             @{var prc = Model.Price / 100 * 5;
-                              var totalPrice = Model.Price + prc;
-                                }
+                                var totalPrice = Model.Price + prc;
+                            }
                             <li>Dealer Discounts <span>$@prc</span></li>
-                            <li>Price <span>$@totalPrice @if (Model.Type == RentShopVehicle.Domain.Enums.AnnouncementType.Rent)
-                            {<span>/@Model.RentTimeInDays d.</span> }
-                            else {<span></span> }</span></li>
+                            <li>
+                                Price <span>
+                                    $@totalPrice @if (Model.Type == RentShopVehicle.Domain.Enums.AnnouncementType.Rent)
+                                    {<span>/@Model.RentTimeInDays d.</span> }
+                                else
+                                {<span></span>}
+                                </span>
+                            </li>
                         </ul>
-                        <a href="@Url.Action("MakePurchase", "Deals", new {Id=Model.Id})" class="primary-btn"><i class="fa fa-credit-card"></i>Make Purchase</a>
+                        @using (Html.BeginForm("MakePurchase", "Deals", FormMethod.Post, new { autocomplete = "off" }))
+                        {
+                            <input type="number" name="Id" class="form-control" style="display: none;" value="@Model.Id" readonly>
+                            var typesList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.DeliveryType))
+                                .Cast<RentShopVehicle.Domain.Enums.DeliveryType>()
+                                .Select(e => new SelectListItem
+                                {
+                                    Value = ((int)e).ToString(),
+                                    Text = e.ToString()
+                                });
+
+                            <select class="form-select mb-3" aria-label="Announcement type" name="DeliveryType" required>
+                                @foreach (var type in typesList)
+                                {
+                                    <option value="@type.Value">@type.Text</option>
+                                }
+                            </select>
+                            <button type="submit" class="site-btn">Submit Now</button>
+                        }
                     </div>
                 </div>
             </div>
