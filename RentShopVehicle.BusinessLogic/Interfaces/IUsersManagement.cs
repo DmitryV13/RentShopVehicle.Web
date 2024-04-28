@@ -1,4 +1,5 @@
-﻿using RentShopVehicle.Models;
+﻿using RentShopVehicle.Domain.Entities.Feedback;
+using RentShopVehicle.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
     {
         List<UserInfo> getAllUsers();
         bool DeleteUserById(int Id);
-        bool BlockUserById(int Id);
-        bool UnblockUserById(int Id);
+        bool ChangeUsersAccountStatusById(int Id);
+        bool ChangeUserRole(UserInfo UserInfo);
+        List<BlogCommentD> GetAllMessages();
     }
 }

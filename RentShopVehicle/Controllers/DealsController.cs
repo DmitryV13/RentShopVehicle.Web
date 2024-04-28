@@ -54,9 +54,9 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateAnnouncement(CreateAnnouncementM announcementM)
+        public ActionResult CreateAnnouncement(AnnouncementDetInfo announcementM)
         {
-            CreateAnnouncementD announcementD = new CreateAnnouncementD()
+            AnnouncementDetInfoD announcementD = new AnnouncementDetInfoD()
             {
                 HP = announcementM.HP,
                 Make = announcementM.Make,
@@ -69,6 +69,7 @@ namespace RentShopVehicle.Controllers
                 Type = announcementM.Type,
                 Price = announcementM.Price,
                 UserCookies=getCookiesString(),
+                RentTimeInDays=announcementM.RentTimeInDays,
             };
             deals.CreateAnnouncement(announcementD);
             return RedirectToAction("Announcements", "Deals");
@@ -118,14 +119,10 @@ namespace RentShopVehicle.Controllers
                 VIN = detInfoD.VIN,
                 Transmission = detInfoD.Transmission,
                 Price = detInfoD.Price,
-                ImageUrls = new List<string>(),
+                RentTimeInDays = detInfoD.RentTimeInDays,
+                Type = detInfoD.Type,
+                ImageUrls = detInfoD.ImageUrls,
             };
-            for (int i = 0; i < detInfoD.Images.Count; i++)
-            {
-                detInfoM.ImageUrls.Add(
-                        $"data:image;base64,{Convert.ToBase64String(detInfoD.Images[i])}"
-                    );
-            }
             return View(detInfoM);
         }
 

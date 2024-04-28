@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Cars";
 }
-@model RentShopVehicle.Models.AnnouncementsMinInfo
+@model RentShopVehicle.Models.AllAnnouncementsDetInfo
 <!-- Breadcrumb End -->
 <div class="breadcrumb-option set-bg" data-setbg="/Images/breadcrumb-bg.jpg">
     <div class="container">
@@ -134,7 +134,7 @@
                                     <div class="car__item__price">
                                         <span class="car-option">@ann.Type</span>
                                         <h6>$@ann.Price @if (ann.Type == RentShopVehicle.Domain.Enums.AnnouncementType.Rent)
-                                        {<span>/ Month</span>}
+                                        {<span>/ @ann.RentTimeInDays d.</span>}
                                         else {<span></span> }</h6>
 
                                     </div>

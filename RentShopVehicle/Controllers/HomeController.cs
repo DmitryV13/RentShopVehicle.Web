@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using RentShopVehicle.Domain.Entities.Car;
 using RentShopVehicle.BusinessLogic;
 using RentShopVehicle.Domain.Entities.Announcement;
+using RentShopVehicle.Domain.Entities.Feedback;
 
 namespace RentShopVehicle.Controllers
 {
@@ -15,10 +16,12 @@ namespace RentShopVehicle.Controllers
     {
 
         IDeals deals;
+        IBlog blog;
         public HomeController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             deals = bl.getDealsS();
+            blog = bl.GetBlogS();
         }
         
         [HttpGet]
@@ -36,7 +39,22 @@ namespace RentShopVehicle.Controllers
         [HttpGet]
         public ActionResult Blog()
         {
-            return View();
+            BlogComments blogComments = new BlogComments()
+            {
+                Comments = new List<BlogComment>(),
+            };
+            var commentsD = blog.GetAllBlogComments();
+            for(var i=0; i<commentsD.Count; i++)
+            {
+                var tmp = new BlogComment()
+                {
+                    MessageType = commentsD[i].MessageType,
+                    Comment = commentsD[i].Comment,
+                    UserName = commentsD[i].UserName,   
+                };
+                blogComments.Comments.Add(tmp); 
+            }
+            return View(blogComments);
         }
 
         [HttpGet]
@@ -57,11 +75,30 @@ namespace RentShopVehicle.Controllers
                     filterD.max = MinMax.Item2;
                 }
             }
-            AnnouncementsMinInfo minInfo = new AnnouncementsMinInfo();
+            AllAnnouncementsDetInfo detInfoM = new AllAnnouncementsDetInfo()
+            {
+                Announcements = new List<AnnouncementDetInfo>(),
+            };
 
-            minInfo.Announcements = deals.getAnnouncementByFilter(filterD);
+            List<AnnouncementDetInfoD> detInfoD = deals.getAnnouncementByFilter(filterD);
+            for (int i = 0; i < detInfoD.Count; i++)
+            {
+                var tmp = new AnnouncementDetInfo()
+                {
+                    Id = detInfoD[i].Id,
+                    Make = detInfoD[i].Make,
+                    Model = detInfoD[i].Model,
+                    Year = detInfoD[i].Year,
+                    HP = detInfoD[i].HP,
+                    Transmission = detInfoD[i].Transmission,
+                    Mileage = detInfoD[i].Mileage,
+                    Price = detInfoD[i].Price,
+                    ImageUrls = detInfoD[i].ImageUrls,
+                };
+                detInfoM.Announcements.Add(tmp);
+            }
 
-            return View(minInfo);
+            return View(detInfoM);
         }
 
         [HttpPost]
@@ -74,6 +111,43 @@ namespace RentShopVehicle.Controllers
         public ActionResult Contacts()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddBlogComment(BlogComment commentM)
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            BlogCommentD blogCommentD = new BlogCommentD()
+            {
+                MessageType = commentM.MessageType,
+                Comment = commentM.Comment,
+            };
+            var result = blog.AddBlogComment(blogCommentD);
+            return RedirectToAction("Blog", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult AddReview(BlogComment commentM)
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            BlogCommentD blogCommentD = new BlogCommentD()
+            {
+                AnnouncementId = commentM.AnnouncementId,
+                MessageType = commentM.MessageType,
+                Comment = commentM.Comment,
+            };
+            var result = blog.AddBlogComment(blogCommentD);
+
+            return RedirectToAction("CarDetails", "Home", new { Id = commentM.AnnouncementId });
         }
 
         [HttpGet]
@@ -99,14 +173,19 @@ namespace RentShopVehicle.Controllers
                 Mileage = detInfoD.Mileage,
                 Color = detInfoD.Color,
                 Price = detInfoD.Price,
-                ImageUrls = new List<string>(),
+                ImageUrls = detInfoD.ImageUrls,
+                BlogComments = new BlogComments(),
             };
-
-            for (int i = 0; i < detInfoD.Images.Count; i++)
+            detInfoM.BlogComments.Comments = new List<BlogComment>();
+            for (var i = 0; i < detInfoD.BlogComments.Count; i++)
             {
-                detInfoM.ImageUrls.Add(
-                        $"data:image;base64,{Convert.ToBase64String(detInfoD.Images[i])}"
-                    );
+                var tmp = new BlogComment()
+                {
+                    MessageType = detInfoD.BlogComments[i].MessageType,
+                    Comment = detInfoD.BlogComments[i].Comment,
+                    UserName = detInfoD.BlogComments[i].UserName,
+                };
+                detInfoM.BlogComments.Comments.Add(tmp);
             }
 
             return View(detInfoM);

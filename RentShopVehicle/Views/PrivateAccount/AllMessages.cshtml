@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Office.cshtml";
+    ViewBag.Title = "AllMessages";
+}
+
+@model RentShopVehicle.Models.BlogComments
+
+<div class="bg-light rounded h-100 p-4">
+    <h3 class="mb-4">Manage messages</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">User Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Message type</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Creation date</th>
+                    <th scope="col">Announcement Id</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var message in Model.Comments)
+                {
+                    <tr>
+                        <th>@message.Id</th>
+                        <th>@message.UserId</th>
+                        <td>@message.UserName</td>
+                        <td>
+                            @if (message.MessageType == RentShopVehicle.Domain.Enums.MessageType.Feedback)
+                            {<span class="bg-warning text-dark">@message.MessageType.ToString()</span> }
+                            else if (message.MessageType == RentShopVehicle.Domain.Enums.MessageType.Comment)
+                            {<span class="bg-info text-dark">@message.MessageType.ToString()</span>}
+                            else if (message.MessageType == RentShopVehicle.Domain.Enums.MessageType.Error)
+                            { <span class="bg-danger text-white">@message.MessageType.ToString()</span>}
+                            else if (message.MessageType == RentShopVehicle.Domain.Enums.MessageType.Review)
+                            { <span class="bg-success text-white">@message.MessageType.ToString()</span>}
+                        </td>
+                        <td>@message.Comment</td>
+                        <td>@message.Created.ToString()</td>
+                        <td>@if (message.MessageType == RentShopVehicle.Domain.Enums.MessageType.Review)
+                        {@message.AnnouncementId}
+                        else { }</td>
+                        <td><a href="@Url.Action("", "", new { Id = message.Id })"><div class="btn btn-success">More info</div></a></td>
+                        <td><a href="@Url.Action("DeleteMessage", "PrivateAccount", new { Id = message.Id })"><div class="btn btn-danger">Delete</div></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -17,5 +17,7 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
         bool VerifySession(string cookies);
         UserMinData getUserByCookies(string cookies);
         void CloseCurrentSession(string cookies);
+        bool PasswordVerification(LoginData lData);
+        bool ChangePassword(LoginData lData);
     }
 }

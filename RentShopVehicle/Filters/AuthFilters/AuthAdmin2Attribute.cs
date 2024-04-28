@@ -23,9 +23,10 @@ namespace RentShopVehicle.Filters.AuthFilters
             if (currentCookies != null)
             {
                 var currentUser = session.getUserByCookies(currentCookies.Value);
-                if (currentUser == null || 
-                    currentUser.UserRole != Role.Admin2 || 
-                    currentUser.UserRole != Role.Admin1)
+                bool validRole =
+                    currentUser.UserRole == Role.Admin2 ||
+                    currentUser.UserRole == Role.Admin1;
+                if (currentUser == null || !validRole)
                 {
                     context.Result = new RedirectToRouteResult(
                         new System.Web.Routing.RouteValueDictionary(

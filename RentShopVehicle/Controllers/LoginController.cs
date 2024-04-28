@@ -22,6 +22,57 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult NewPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePasswordAction(LoginModel lModel)
+        {
+            var lData = new LoginData()
+            {
+                Password = lModel.Password,
+            };
+
+            var responce = session.PasswordVerification(lData);
+            if (responce)
+            {
+                return RedirectToAction("NewPassword", "Login");
+            }
+            else
+            {
+                return RedirectToAction("ChangePassword", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult NewPasswordAction(LoginModel lModel)
+        {
+            var lData = new LoginData()
+            {
+                Password = lModel.Password,
+            };
+
+            var responce = session.ChangePassword(lData);
+            if (responce)
+            {
+                CloseSession();
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return RedirectToAction("ChangePassword", "Login");
+            }
+        }
+
+        [HttpGet]
         public ActionResult Logout()
         {
             CloseSession();

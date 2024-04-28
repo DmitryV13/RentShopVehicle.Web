@@ -77,8 +77,6 @@
     </Compile>
     <Compile Include="Entities\Announcement\AnnouncementD.cs" />
     <Compile Include="Entities\Announcement\AnnouncementDetInfoD.cs" />
-    <Compile Include="Entities\Announcement\AnnouncementMinInfoD.cs" />
-    <Compile Include="Entities\Announcement\CreateAnnouncementD.cs" />
     <Compile Include="Entities\Announcement\DB\AnnouncementDB.cs" />
     <Compile Include="Entities\Car\AddPhotosData.cs" />
     <Compile Include="Entities\Car\CarD.cs" />
@@ -86,7 +84,8 @@
     <Compile Include="Entities\Car\DB\ProductImageDB.cs" />
     <Compile Include="Entities\Car\FilterData.cs" />
     <Compile Include="Entities\Car\ResponceFindCar.cs" />
-    <Compile Include="Entities\Feedback\MessageDB.cs" />
+    <Compile Include="Entities\Feedback\BlogCommentD.cs" />
+    <Compile Include="Entities\Feedback\DB\MessageDB.cs" />
     <Compile Include="Entities\ServiceE\Response.cs" />
     <Compile Include="Entities\Session\SessionDB.cs" />
     <Compile Include="Entities\User\DB\AddressDB.cs" />
@@ -127,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>

@@ -1,5 +1,7 @@
 ﻿using RentShopVehicle.BusinessLogic.DBModel;
+using RentShopVehicle.Domain.Entities.Feedback;
 using RentShopVehicle.Domain.Entities.User;
+using RentShopVehicle.Domain.Enums;
 using RentShopVehicle.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -47,6 +50,9 @@ namespace RentShopVehicle.BusinessLogic.Core
 
         public bool DeleteUserByIdAdmin1API(int Id)
         {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+            if (user.Id == Id)
+                return false;
             using (var db1 = new UserContext())
             {
                 var userDB = db1.Users.FirstOrDefault(e => e.Id == Id);
@@ -67,12 +73,22 @@ namespace RentShopVehicle.BusinessLogic.Core
             return true;
         }
 
-        public bool BlockUserByIdAdmin1API(int Id)
+        public bool ChangeUsersAccountStatusByIdAdmin1API(int Id)
         {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+            if (user.Id == Id)
+                return false;
             using (var db1 = new UserContext())
             {
                 var userDB = db1.Users.FirstOrDefault(e => e.Id == Id);
-                userDB.AccountState = false;
+                if (userDB.AccountState)
+                {
+                    userDB.AccountState = false;
+                }
+                else
+                {
+                    userDB.AccountState = true;
+                }
                 db1.Entry(userDB).State = EntityState.Modified;
                 db1.SaveChanges();
             }
@@ -80,17 +96,45 @@ namespace RentShopVehicle.BusinessLogic.Core
             return true;
         }
 
-        public bool UnblockUserByIdAdmin1API(int Id)
+        public bool ChangeUserRoleAdminAPI(UserInfo userInfo)
         {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+            if (user.Id == userInfo.Id)
+                return false;
             using (var db1 = new UserContext())
             {
-                var userDB = db1.Users.FirstOrDefault(e => e.Id == Id);
-                userDB.AccountState = true;
+                var userDB = db1.Users.FirstOrDefault(e => e.Id == userInfo.Id);
+                userDB.UserRole=userInfo.UserRole;
                 db1.Entry(userDB).State = EntityState.Modified;
                 db1.SaveChanges();
             }
 
             return true;
+        }
+
+        public List<BlogCommentD> GetAllBlogCommentsAdminAPI()
+        {
+            List<BlogCommentD> blogComments = new List<BlogCommentD>();
+            using (var db1 = new UserContext())
+            {
+                var commentsDB = db1.Messages.ToList();
+                foreach (var comment in commentsDB)
+                {
+                    var userDB = db1.Users.FirstOrDefault(e => e.Id == comment.UserId);
+                    var commentD = new BlogCommentD()
+                    {
+                        Id= comment.Id,
+                        Comment = comment.Message,
+                        UserName = userDB == null ? "Unknown" : userDB.Username,
+                        MessageType = comment.MessageType,
+                        UserId = comment.UserId,
+                        Created = comment.Created,
+                        AnnouncementId = comment.AnnouncementId,
+                    };
+                    blogComments.Add(commentD);
+                }
+            }
+            return blogComments;
         }
     }
 }

@@ -3,204 +3,95 @@
     ViewBag.Title = "Blog";
 }
 
-<!-- Breadcrumb End -->
-<div class="breadcrumb-option set-bg" data-setbg="/Images/breadcrumb-bg.jpg">
+
+@{
+    ViewBag.Title = "BlogDetails";
+}
+@model RentShopVehicle.Models.BlogComments
+
+<!-- Blog Details Hero Begin -->
+<section class="blog-details-hero spad set-bg" data-setbg="/Images/blog/details/details-hero-bg.jpg">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="breadcrumb__text">
-                    <h2>Latest Blogs</h2>
-                    <div class="breadcrumb__links">
-                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a>
-                        <span>Our Blogs</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb Begin -->
-<!-- Blog Section Begin -->
-<section class="blog spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic set-bg" data-setbg="/Images/blog/blog-1.jpg">
-                                <ul>
-                                    <li>By Polly Williams</li>
-                                    <li>Dec 11, 2018</li>
-                                    <li>8 Comment</li>
-                                </ul>
-                            </div>
-                            <div class="blog__item__text">
-                                <h5><a href="#">Benjamin Franklin S Method Of</a></h5>
-                                <p>
-                                    Great business ideas when utilized effectively can save lots of money. This is
-                                    not only easy for those who work full-time as an advertiser...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic set-bg" data-setbg="/Images/blog/blog-2.jpg">
-                                <ul>
-                                    <li>By Evelyn Lane</li>
-                                    <li>Dec 17, 2018</li>
-                                    <li>Comment</li>
-                                </ul>
-                            </div>
-                            <div class="blog__item__text">
-                                <h5><a href="#">Where To Look For Cheap Brochure</a></h5>
-                                <p>
-                                    Usually potential customers will visit home for business dealing. Print good
-                                    amount of fliers and give it to anyone who is visiting home like family...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic set-bg" data-setbg="/Images/blog/blog-3.jpg">
-                                <ul>
-                                    <li>By Jessie Palmer</li>
-                                    <li>Dec 19, 2018</li>
-                                    <li>Comment</li>
-                                </ul>
-                            </div>
-                            <div class="blog__item__text">
-                                <h5><a href="#">Promotional Advertising Specialty</a></h5>
-                                <p>
-                                    For those who work outside home, employ college students to distribute fliers at
-                                    supermarkets, community centers...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic set-bg" data-setbg="/Images/blog/blog-4.jpg">
-                                <ul>
-                                    <li>By Don Townsend</li>
-                                    <li>Dec 22, 2018</li>
-                                    <li>Comment</li>
-                                </ul>
-                            </div>
-                            <div class="blog__item__text">
-                                <h5><a href="#">Using Banner Stands To Increase</a></h5>
-                                <p>
-                                    Spread the word by the mouth. Talk to everyone about the product and ask them to
-                                    talk about it to others...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic set-bg" data-setbg="/Images/blog/blog-5.jpg">
-                                <ul>
-                                    <li>By Isabella Mann</li>
-                                    <li>Dec 25, 2018</li>
-                                    <li>2 Comment</li>
-                                </ul>
-                            </div>
-                            <div class="blog__item__text">
-                                <h5><a href="#">3 Smart Reasons Why You Should </a></h5>
-                                <p>
-                                    It’s a very powerful tool to increase the network and doesn’t even cost anything.
-                                    When receiving a casual call from family members and friends...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic set-bg" data-setbg="/Images/blog/blog-6.jpg">
-                                <ul>
-                                    <li>By Polly Williams</li>
-                                    <li>Dec 27, 2018</li>
-                                    <li>6 Comment</li>
-                                </ul>
-                            </div>
-                            <div class="blog__item__text">
-                                <h5><a href="#">Search Engine Optimization And</a></h5>
-                                <p>
-                                    Some businesses place a jar at the reception counter where the business cards can
-                                    be dropped for future reference, while visiting them...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pagination__option">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#"><span class="arrow_carrot-2right"></span></a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-9">
-                <div class="blog__sidebar">
-                    <form action="#" class="blog__sidebar__search">
-                        <input type="text" placeholder="Search...">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                    <div class="blog__sidebar__feature">
-                        <h4>Feature News</h4>
-                        <div class="blog__sidebar__feature__item">
-                            <h6><a href="#">Where To Look For Cheap Brochure</a></h6>
-                            <ul>
-                                <li>By Polly Williams</li>
-                                <li>Dec 27, 2018</li>
-                            </ul>
-                        </div>
-                        <div class="blog__sidebar__feature__item">
-                            <h6><a href="#">Using Banner Stands To Increase</a></h6>
-                            <ul>
-                                <li>By Evelyn Lane</li>
-                                <li>Dec 17, 2018</li>
-                            </ul>
-                        </div>
-                        <div class="blog__sidebar__feature__item">
-                            <h6><a href="#">Promotional Advertising Specialty</a></h6>
-                            <ul>
-                                <li>By Don Townsend</li>
-                                <li>Dec 22, 2018</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="blog__sidebar__categories">
-                        <h4>Categories</h4>
-                        <ul>
-                            <li><a href="#">Creativity</a></li>
-                            <li><a href="#">Design</a></li>
-                            <li><a href="#">Inspiration</a></li>
-                            <li><a href="#">News</a></li>
-                        </ul>
-                    </div>
-                    <div class="blog__sidebar__tag">
-                        <h4>Tag</h4>
-                        <a href="#">Car Dealer</a>
-                        <a href="#">bmw</a>
-                        <a href="#">Chevrolet</a>
-                        <a href="#">ferrari</a>
-                        <a href="#">Honda</a>
-                        <a href="#">Hatchback</a>
-                    </div>
-                    <div class="blog__sidebar__newslatter">
-                        <h4>Newsletter</h4>
-                        <p>Subscribe our newsletter gor get</p>
-                        <form action="#">
-                            <input type="text" placeholder="Your email">
-                            <button type="submit">Subscribe</button>
-                        </form>
-                    </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-10">
+                <div class="blog__details__hero__text">
+                    <h2>Blog</h2>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Blog Section End -->
+<!-- Blog Details Hero End -->
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog__details__pic">
+                    <img src="~/Images/blog/details/details-pic.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="blog__details__comment">
+                    <h4>Comments</h4>
+                    <div class="blog__details__comment__item">
+                        @{ foreach (var comment in Model.Comments)
+                            {
+                                <div class="blog__details__comment__item__pic">
+                                    <img src="~/Images/blog/details/comment-1.png" alt="">
+                                </div>
+                                <div class="blog__details__comment__item__text">
+                                    <h6>@comment.UserName :@if (comment.MessageType == RentShopVehicle.Domain.Enums.MessageType.Feedback) {<span class="bg-warning text-dark">@comment.MessageType.ToString()</span> } else if (comment.MessageType == RentShopVehicle.Domain.Enums.MessageType.Comment)
+                                    {<span class="bg-info text-dark">@comment.MessageType.ToString()</span>} else if (comment.MessageType == RentShopVehicle.Domain.Enums.MessageType.Error) { <span class="bg-danger text-white">@comment.MessageType.ToString()</span>}</h6>
+                                    <p>
+                                        @comment.Comment
+                                    </p>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="blog__details__comment__form">
+                    <h4>Leave A Comment</h4>
+                    @using (Html.BeginForm("AddBlogComment", "Home", FormMethod.Post, new { autocomplete = "off" }))
+                    {
+
+                        <div class="input-desc">
+                            <p>Comment</p>
+                            <textarea name="Comment"></textarea>
+                        </div>
+                        <div class="">
+                            <div class="input-list-item">
+                                <p>Comment Type</p>
+
+                                @{var typeList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.MessageType))
+                                          .Cast<RentShopVehicle.Domain.Enums.MessageType>
+                                              ()
+                                              .Where(e => e != RentShopVehicle.Domain.Enums.MessageType.Review)
+                                              .Select(e => new SelectListItem
+                                              {
+                                                  Value = e.ToString(),
+                                                  Text = e.ToString()
+                                              });
+
+                                    <select class="form-select mb-3" aria-label="MessageType" name="MessageType" required>
+                                        @foreach (var item in typeList)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                        <button type="submit" class="site-btn">Submit Now</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Details Section End -->

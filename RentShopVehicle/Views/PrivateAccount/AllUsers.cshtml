@@ -6,7 +6,7 @@
 @model RentShopVehicle.Models.UsersInfo
 
 <div class="bg-light rounded h-100 p-4">
-    <h3 class="mb-4">All users</h3>
+    <h3 class="mb-4">Manage users</h3>
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -14,10 +14,9 @@
                     <th scope="col">Id</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Login histories</th>
                     <th scope="col">Role</th>
                     <th scope="col">Account state</th>
-                    <th scope="col">Login histories</th>
-                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -30,8 +29,6 @@
                         <th>@user.Id</th>
                         <td>@user.Username</td>
                         <td>@user.Email</td>
-                        <td>@user.UserRole.ToString()</td>
-                        <td>@user.AccountState</td>
                         <td>
                             @foreach (var hist in user.LoginHistories)
                             {
@@ -39,9 +36,31 @@
                                 <div>Entry Date: @hist.LastEntry</div>
                             }
                         </td>
+                        <td>
+                            @using (Html.BeginForm("ChangeUserRole", "PrivateAccount", FormMethod.Post, new { autocomplete = "off" }))
+                            {
+                                <input type="number" name="Id" class="form-control" style="display: none;" value="@user.Id" readonly>
+                                var rolesList = Enum.GetValues(typeof(RentShopVehicle.Domain.Enums.Role))
+                                .Cast<RentShopVehicle.Domain.Enums.Role>()
+                                .Where(e => e != RentShopVehicle.Domain.Enums.Role.Admin1 && e!= user.UserRole)
+                                .Select(e => new SelectListItem
+                                {
+                                    Value = e.ToString(),
+                                    Text = e.ToString()
+                                });
+
+                                <select class="form-select mb-3" aria-label="Role" name="UserRole" required>
+                                    <option data-display="Role" value="@user.UserRole.ToString()">@user.UserRole.ToString()</option>
+                                    @foreach (var item in rolesList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-warning">Change Role</button>
+                            }
+                        </td>
+                        <td>@user.AccountState<div><a href="@Url.Action("ChangeUsersAccountStatus", "PrivateAccount", new { Id = user.Id })"><div class="btn btn-warning">Change</div></a></div></td>
                         <td><a href="@Url.Action("", "", new { Id = user.Id })"><div class="btn btn-success">More info</div></a></td>
-                        <td><a href="@Url.Action("BlockUser", "PrivateAccount", new { Id = user.Id })"><div class="btn btn-warning">Block</div></a></td>
-                        <td><a href="@Url.Action("UnblockUser", "PrivateAccount", new { Id = user.Id })"><div class="btn btn-warning">Unblock</div></a></td>
                         <td><a href="@Url.Action("DeleteUser", "PrivateAccount", new { Id = user.Id })"><div class="btn btn-danger">Delete</div></a></td>
                     </tr>
                 }
