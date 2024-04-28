@@ -34,5 +34,10 @@ namespace RentShopVehicle.BusinessLogic
         {
             return new BlogS();
         }
+
+        public IEmailSender GetEmailSenderS()
+        {
+            return new EmailSenderS();
+        }
     }
 }

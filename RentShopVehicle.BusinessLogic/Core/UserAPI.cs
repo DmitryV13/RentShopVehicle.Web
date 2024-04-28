@@ -296,6 +296,25 @@ namespace RentShopVehicle.BusinessLogic.Core
             return userDB;
         }
 
+        public UserMinData getUserByIdUserAPI(int Id)
+        {
+            UserMinData userMinData = null;
+            UserDB userDB = GetUserDBById(Id);
+
+            if (userDB != null)
+            {
+                userMinData = new UserMinData()
+                {
+                    Username = userDB.Username,
+                    Email = userDB.Email,
+                    UserRole = userDB.UserRole,
+                    AccountState = userDB.AccountState,
+                    Id = userDB.Id,
+                };
+            }
+            return userMinData;
+        }
+
         private CarDB GetCarDBById(int Id)
         {
             CarDB carDB = null;

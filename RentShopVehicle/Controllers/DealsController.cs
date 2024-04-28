@@ -10,6 +10,8 @@ using RentShopVehicle.Domain.Entities.Car;
 using RentShopVehicle.BusinessLogic.Interfaces;
 using System.IO;
 using System.Web.Http.Results;
+using System.Threading.Tasks;
+using System.Web.Http.Controllers;
 
 namespace RentShopVehicle.Controllers
 {
@@ -17,11 +19,13 @@ namespace RentShopVehicle.Controllers
     {
 
         protected readonly IDeals deals;
+        private readonly IEmailSender emailSender;
 
         public DealsController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             deals = bl.getDealsS();
+            emailSender = bl.GetEmailSenderS();
         }
 
         [HttpGet]
@@ -135,11 +139,22 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpGet]
-        public ActionResult MakePurchase(int Id)
+        public async Task<Microsoft.AspNetCore.Mvc.IActionResult> MakePurchase(int Id)
         {
-            var response = deals.MakePurchase(Id);
+            var user = (HttpContext.Session["SessionUser"] as UserMinData);
+            var responce = deals.MakePurchase(Id);
+            if (responce)
+            {
+                var userM = session.GetUserById(user.Id);
+                var reciever = userM.Email;
+                var subject = "Notification";
+                var message = "Purchase was done";
 
-            return RedirectToAction("Cars", "Home");
+                await emailSender.SendEmailAsync(reciever, subject, message);
+            }
+
+            return (Microsoft.AspNetCore.Mvc.IActionResult)RedirectToAction("Cars", "Home");
         }
+
     }
 }

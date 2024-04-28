@@ -22,7 +22,7 @@ namespace RentShopVehicle.Filters.AuthFilters
             HttpCookie currentCookies = HttpContext.Current.Request.Cookies["RSV-CC"];
             if (currentCookies != null)
             {
-                var currentUser = session.getUserByCookies(currentCookies.Value);
+                var currentUser = session.GetUserByCookies(currentCookies.Value);
                 bool validRole =
                     currentUser.UserRole == Role.Admin2 ||
                     currentUser.UserRole == Role.Admin1 ||

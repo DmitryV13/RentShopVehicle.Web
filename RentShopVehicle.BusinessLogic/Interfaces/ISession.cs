@@ -15,7 +15,8 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
         Response CredentialsVerification(LoginData lData);
         HttpCookie GenerateCookies(string creds);
         bool VerifySession(string cookies);
-        UserMinData getUserByCookies(string cookies);
+        UserMinData GetUserByCookies(string cookies);
+        UserMinData GetUserById(int Id);
         void CloseCurrentSession(string cookies);
         bool PasswordVerification(LoginData lData);
         bool ChangePassword(LoginData lData);
