@@ -12,10 +12,8 @@ using RentShopVehicle.Domain.Enums;
 using RentShopVehicle.Domain.Entities.Announcement;
 using RentShopVehicle.Domain.Entities.User.DB;
 using System.Collections.Generic;
-using System.Net;
-using RentShopVehicle.BusinessLogic.DBModel;
 using RentShopVehicle.Domain.Entities.Car.DB;
-using System.IO;
+using RentShopVehicle.Domain.Entities.Feedback;
 
 namespace RentShopVehicle.BusinessLogic.Core
 {
@@ -196,6 +194,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                     Username = sessionOwner.Username,
                     Email = sessionOwner.Email,
                     UserRole = sessionOwner.UserRole,
+                    AccountState = sessionOwner.AccountState,
                     Id = sessionOwner.Id,
                 };
             }
@@ -234,7 +233,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             }
         }
 
-        public bool CreateAnnouncementUserAPI(CreateAnnouncementD announcementD)
+        public bool CreateAnnouncementUserAPI(AnnouncementDetInfoD announcementD)
         {
             if(announcementD.UserCookies == null) {
                 return false;
@@ -254,6 +253,7 @@ namespace RentShopVehicle.BusinessLogic.Core
             AnnouncementDB announcementDB = new AnnouncementDB()
             {
                 Price = announcementD.Price,
+                RentTimeInDays = announcementD.RentTimeInDays,
                 Car = carDB,
             };
             carDB.Announcement=announcementDB;
@@ -264,6 +264,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Status = AnnouncementStatus.Undone,
                 User = userDB,
                 Owner=true,
+                CreationTime = DateTime.Now,
             };
             userDB.Connectors.Add(announcementConnectorDB);
 
@@ -295,6 +296,25 @@ namespace RentShopVehicle.BusinessLogic.Core
             return userDB;
         }
 
+        public UserMinData getUserByIdUserAPI(int Id)
+        {
+            UserMinData userMinData = null;
+            UserDB userDB = GetUserDBById(Id);
+
+            if (userDB != null)
+            {
+                userMinData = new UserMinData()
+                {
+                    Username = userDB.Username,
+                    Email = userDB.Email,
+                    UserRole = userDB.UserRole,
+                    AccountState = userDB.AccountState,
+                    Id = userDB.Id,
+                };
+            }
+            return userMinData;
+        }
+
         private CarDB GetCarDBById(int Id)
         {
             CarDB carDB = null;
@@ -317,14 +337,15 @@ namespace RentShopVehicle.BusinessLogic.Core
                 e.UserId == Id).ToList();
                 foreach (var conn in annConnList)
                 {
-                    var a = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId);
+                    var annDB = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId);
                     var tmp = new AnnouncementD()
                     {
                         ConnectorId = conn.Id,
                         AnnouncementId = conn.AnnouncementId,
                         Type = conn.Type,
                         Status = conn.Status,
-                        Price = db1.Announcements.FirstOrDefault(e => e.Id == conn.AnnouncementId).Price,
+                        Price = annDB.Price,
+                        RentTimeInDays = annDB.RentTimeInDays,
                     };
                     annListD.Add(tmp);
                 }
@@ -376,16 +397,22 @@ namespace RentShopVehicle.BusinessLogic.Core
                 Color = carDB.Color,
                 Id = Id,
                 Mileage = carDB.Mileage,
-                Images = new List<byte[]>(),
+                ImageUrls = new List<string>(),
             };
 
-            using(var db = new CarContext())
+            using (var db1 = new UserContext())
+            using (var db = new CarContext())
             {
-                detInfoD.Price=db.Announcements.FirstOrDefault(e=>e.Id == Id).Price;
+                var annDB = db.Announcements.FirstOrDefault(e => e.Id == Id);
+                var connDB = db1.Connectors.FirstOrDefault(e => e.AnnouncementId == Id && e.Owner);
+                detInfoD.Price=annDB.Price;
+                detInfoD.RentTimeInDays = annDB.RentTimeInDays;
+                detInfoD.Type=connDB.Type;
                 var images = db.Images.Where(e => e.CarId == carDB.Id).ToList();
-                for(int i = 0; i< images.Count; i++)
+
+                for (int j = 0; j < images.Count; j++)
                 {
-                    detInfoD.Images.Add(images[i].FileData);
+                    detInfoD.ImageUrls.Add($"data:image;base64,{Convert.ToBase64String(images[j].FileData)}");
                 }
             }
             return detInfoD;
@@ -433,9 +460,9 @@ namespace RentShopVehicle.BusinessLogic.Core
             return true;
         }
 
-        public List<AnnouncementMinInfoD> getAnnouncementByFilterUserAPI(FilterData filter)
+        public List<AnnouncementDetInfoD> getAnnouncementByFilterUserAPI(FilterData filter)
         {
-            List<AnnouncementMinInfoD> infoDs = new List<AnnouncementMinInfoD>();
+            List<AnnouncementDetInfoD> infoDs = new List<AnnouncementDetInfoD>();
             if(filter == null) { 
                 filter= new FilterData();
             }
@@ -467,7 +494,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                         {
                             var images = db1.Images.Where(e => e.CarId == carDB.Id).ToList();
 
-                            AnnouncementMinInfoD tmp = new AnnouncementMinInfoD()
+                            AnnouncementDetInfoD tmp = new AnnouncementDetInfoD()
                             {
                                 Id = annDB.Id,
                                 Make = carDB.Make,
@@ -501,7 +528,10 @@ namespace RentShopVehicle.BusinessLogic.Core
             {
                 var annDB = db.Announcements.FirstOrDefault(e => e.Id == Id);
                 var carDB = db.Cars.FirstOrDefault(e => e.Id == Id);
+                var connDB = db1.Connectors.FirstOrDefault(e => e.AnnouncementId == Id && e.Owner);
+                var msgsDB = db1.Messages.Where(e=>e.AnnouncementId==annDB.Id);
 
+                var images = db.Images.Where(e => e.CarId == carDB.Id).ToList();
                 infoD = new AnnouncementDetInfoD()
                 {
                     Id = Id,
@@ -513,13 +543,28 @@ namespace RentShopVehicle.BusinessLogic.Core
                     Year = carDB.Year,
                     Color = carDB.Color,
                     Mileage = carDB.Mileage,
-                    Images = new List<byte[]>(),
+                    ImageUrls = new List<string>(),
                     Price = annDB.Price,
+                    RentTimeInDays = annDB.RentTimeInDays,
+                    Type=connDB.Type,
+                    BlogComments = new List<BlogCommentD>(),
                 };
-                var images = db.Images.Where(e => e.CarId == carDB.Id).ToList();
-                for (int i = 0; i < images.Count; i++)
+
+                foreach (var comment in msgsDB)
                 {
-                    infoD.Images.Add(images[i].FileData);
+                    var userDB = db1.Users.FirstOrDefault(e => e.Id == comment.UserId);
+                    var commentD = new BlogCommentD()
+                    {
+                        Comment = comment.Message,
+                        UserName = userDB == null ? "Unknown" : userDB.Username,
+                        MessageType = comment.MessageType,
+                    };
+                    infoD.BlogComments.Add(commentD);
+                }
+
+                for (int j = 0; j < images.Count; j++)
+                {
+                    infoD.ImageUrls.Add($"data:image;base64,{Convert.ToBase64String(images[j].FileData)}");
                 }
             }
             return infoD;
@@ -527,12 +572,23 @@ namespace RentShopVehicle.BusinessLogic.Core
 
         public bool MakePurchaseUserAPI(int Id)
         {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
             using (var db1 = new UserContext())
             using (var db = new CarContext())
             {
-                var connDB = db1.Connectors.FirstOrDefault(e => e.AnnouncementId == Id);
-                connDB.Status = AnnouncementStatus.Done;
-                var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+                var connDB = db1.Connectors.FirstOrDefault(e => e.AnnouncementId == Id && e.Owner);
+                if (connDB.UserId==user.Id)
+                {
+                    return false;
+                }
+                if (connDB.Type == AnnouncementType.Rent) {
+                    connDB.Status = AnnouncementStatus.Pending;
+                }
+                else
+                {
+                    connDB.Status = AnnouncementStatus.Done;
+                }
+                
                 var userDB = db1.Users.FirstOrDefault(e=>e.Id == user.Id);
                 AnnouncementConnectorDB tmp = new AnnouncementConnectorDB()
                 {
@@ -541,6 +597,7 @@ namespace RentShopVehicle.BusinessLogic.Core
                     AnnouncementId = Id,
                     Owner = false,
                     User = userDB,
+                    CreationTime = DateTime.Now,
                 };
 
                 db1.Entry(connDB).State = EntityState.Modified;
@@ -550,5 +607,84 @@ namespace RentShopVehicle.BusinessLogic.Core
 
             return true;
         }
+
+        public bool AddBlogCommentUserAPI(BlogCommentD blogComment)
+        {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+            using (var db1 = new UserContext())
+            {
+                var userDB=db1.Users.FirstOrDefault(e=>e.Id==user.Id);
+                if (userDB == null) {
+                    return false;
+                }
+                MessageDB messageDB = new MessageDB()
+                {
+                    Message = blogComment.Comment,
+                    Created = DateTime.Now,
+                    MessageType = blogComment.MessageType,
+                    User = userDB,
+                    AnnouncementId = blogComment.AnnouncementId,
+                };
+                userDB.Messages.Add(messageDB);
+
+                db1.Messages.Add(messageDB);
+                db1.Entry(userDB).State = EntityState.Modified;
+                db1.SaveChanges();
+            }
+            return true;
+        }
+
+        public List<BlogCommentD> GetAllBlogCommentsUserAPI()
+        {
+            List<BlogCommentD> blogComments = new List<BlogCommentD>();
+            using(var db1 = new UserContext())
+            {
+                var commentsDB = db1.Messages.Where(e=>e.MessageType!=MessageType.Review).ToList();
+                foreach (var comment in commentsDB)
+                {
+                    var userDB = db1.Users.FirstOrDefault(e => e.Id == comment.UserId);
+                    var commentD = new BlogCommentD()
+                    {
+                        Comment = comment.Message,
+                        UserName = userDB == null ? "Unknown" : userDB.Username,
+                        MessageType = comment.MessageType,
+                    };
+                    blogComments.Add(commentD);
+                }
+            }
+            return blogComments;
+        }
+
+        public bool PasswordVerificationUserAPI(LoginData lData)
+        {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+            var hashedPassword = HashGenerator.HashGenerate(lData.Password);
+            using(var db1 = new UserContext())
+            {
+                var userDB = db1.Users.FirstOrDefault(e => e.Id == user.Id);
+                if (userDB == null)
+                    return false;
+                if(userDB.Password != hashedPassword)
+                    return false;
+            }
+            return true;
+        }
+
+        public bool ChangePasswordUserAPI(LoginData lData)
+        {
+            var user = (HttpContext.Current.Session["SessionUser"] as UserMinData);
+            var hashedPassword = HashGenerator.HashGenerate(lData.Password);
+            using (var db1 = new UserContext())
+            {
+                var userDB = db1.Users.FirstOrDefault(e => e.Id == user.Id);
+                if (userDB == null)
+                    return false;
+                userDB.Password = hashedPassword;
+                db1.Entry(userDB).State = EntityState.Modified;
+                db1.SaveChanges();
+            }
+            return true;
+        }
+
     }
 }

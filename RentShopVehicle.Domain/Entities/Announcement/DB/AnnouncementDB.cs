@@ -1,4 +1,5 @@
 ﻿using RentShopVehicle.Domain.Entities.Car;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,6 +15,8 @@ namespace RentShopVehicle.Domain.Entities.Announcement
 
         [Required]
         public decimal Price { get; set; }
+
+        public int RentTimeInDays {  get; set; }        
 
         public AnnouncementDB()
         {

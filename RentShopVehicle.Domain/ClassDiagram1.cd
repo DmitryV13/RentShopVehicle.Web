@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RentShopVehicle.Domain.DataSet1" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABGBAUCAAwAAAAJAJEBgQCAAAAgeQDgAAAAACAEABBQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.DataSet1TableAdapters.UserDBsTableAdapter" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.DataSet1TableAdapters.AddressDBsTableAdapter" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.DataSet1TableAdapters.AnnouncementIdDBsTableAdapter" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.DataSet1TableAdapters.BankInfoDBsTableAdapter" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.DataSet1TableAdapters.LoginHistoryDBsTableAdapter" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.DataSet1TableAdapters.TableAdapterManager" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUAIADABCEBADAGBAAAIMAAgAAACgAAAAAQAAAQABAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Announcement.AnnouncementD" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAQAAAgAAAAIAAAAAAAIAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\Announcement\AnnouncementD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Announcement.AnnouncementDetInfoD" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICQAAEBQAAAAAAAAIAAAAAQAAAAAAAAQgAgAIAggA=</HashCode>
+      <FileName>Entities\Announcement\AnnouncementDetInfoD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Announcement.AnnouncementDB" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQQAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Announcement\DB\AnnouncementDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.DB.AnnouncementConnectorDB" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAACEAAAAAAAAAAAAAAgAAAIAAAAAAQAAgAAAAAA=</HashCode>
+      <FileName>Entities\Announcement\DB\AnnouncementConnectorDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.DB.AddressDB" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAABAAAAAAAAAAAAAAYAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Entities\User\DB\AddressDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.DB.BankInfoDB" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADIAAAAAAAAAAAAEAAAAAAAAAEAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\DB\BankInfoDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Car.AddPhotosData" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Car\AddPhotosData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Car.CarD" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAABQAAAAAAAAAAAAAAQAAAAAAAAAgAAAABAAA=</HashCode>
+      <FileName>Entities\Car\CarD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Car.CarDB" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAABAAAAAAAAAAAAAAAQAAAABAAAAhAgAIAggA=</HashCode>
+      <FileName>Entities\Car\DB\CarDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Car.FilterData" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAgAAAIAgAA=</HashCode>
+      <FileName>Entities\Car\FilterData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Car.ResponceFindCar" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Car\ResponceFindCar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Car.DB.ProductImageDB" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Car\DB\ProductImageDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Feedback.BlogCommentD" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Feedback\BlogCommentD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Feedback.MessageDB" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAEAAAAAAAAAAgAAAIAAAQAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Feedback\DB\MessageDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.ServiceE.Response" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEAAAA=</HashCode>
+      <FileName>Entities\ServiceE\Response.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Session.SessionDB" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAUAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Session\SessionDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.LoginHistoryDB" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAABAAAAAAAAAAAAAAgAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\DB\LoginHistoryDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.UserDB" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQACAAAAAAAQAAAAAAAEAAAAgiAAACAQCAAAA=</HashCode>
+      <FileName>Entities\User\DB\UserDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.LoginData" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAQAAAAAAAAAQAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\LoginData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.LoginHistoryD" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\LoginHistoryD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.RegistrationData" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABACAAAAAAAQAAAAAAAAAQAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\RegistrationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.User.UserMinData" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAABACAAAAAAAQAAAAAAAEAQAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\UserMinData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Models.UserInfo" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAQAAAAAAAEAAAAgAAAACAAAAAAA=</HashCode>
+      <FileName>Entities\User\UserInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Vehicles.Car" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Vehicles\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Vehicles.Motocycle" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Vehicles\Motocycle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Entities.Vehicles.VehicleDB" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Vehicles\VehicleDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RentShopVehicle.Domain.Properties.Settings" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAYAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="RentShopVehicle.Domain.Enums.AnnouncementStatus" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIQAAAAA=</HashCode>
+      <FileName>Enums\AnnouncementStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RentShopVehicle.Domain.Enums.AnnouncementType" Collapsed="true">
+    <Position X="2.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\AnnouncementType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RentShopVehicle.Domain.Enums.Make" Collapsed="true">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACCgAAYAEIAAAAIQAQAIAAAgAAAAAABAAAgkAAEI=</HashCode>
+      <FileName>Enums\Make.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RentShopVehicle.Domain.Enums.MessageType" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAQAAAAACAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Enums\MessageType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RentShopVehicle.Domain.Enums.Role" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAQAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\Role.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RentShopVehicle.Domain.Enums.Transmission" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Enums\Transmission.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

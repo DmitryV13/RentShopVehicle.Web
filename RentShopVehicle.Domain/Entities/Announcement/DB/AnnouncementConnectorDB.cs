@@ -31,5 +31,7 @@ namespace RentShopVehicle.Domain.Entities.User.DB
 
         [Required]
         public int AnnouncementId { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }

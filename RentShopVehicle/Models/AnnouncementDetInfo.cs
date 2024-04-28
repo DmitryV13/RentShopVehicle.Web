@@ -13,6 +13,8 @@ namespace RentShopVehicle.Models
     {
         public int Id { get; set; }
 
+        public AnnouncementType Type { get; set; }
+
         public Make Make { get; set; }
 
         public string Model { get; set; }
@@ -31,6 +33,10 @@ namespace RentShopVehicle.Models
 
         public Transmission Transmission { get; set; }
 
+        public int RentTimeInDays { get; set; }
+
         public List<string> ImageUrls { get; set; }
+
+        public BlogComments BlogComments { get; set; }
     }
 }

@@ -15,5 +15,7 @@ namespace RentShopVehicle.Domain.Entities.Announcement
         public AnnouncementType Type { get; set; }
         public AnnouncementStatus Status { get; set; }
         public decimal Price { get; set; }
+
+        public int RentTimeInDays { get; set; }
     }
 }

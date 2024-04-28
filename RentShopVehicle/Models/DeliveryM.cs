@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using RentShopVehicle.Domain.Entities.Announcement;
 
 namespace RentShopVehicle.Models
 {
-    public class AnnouncementsMinInfo
+    public class DeliveryM
     {
-        public List<AnnouncementMinInfoD> Announcements { get; set; }
+        public int Id { get; set; }
+        public DeliveryType DeliveryType { get; set; }
     }
 }

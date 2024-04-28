@@ -28,7 +28,7 @@ namespace RentShopVehicle.Controllers
                 if (responce)
                 {
                     System.Web.HttpContext.Current.Session["SessionStatus"] = "valid";
-                    System.Web.HttpContext.Current.Session["SessionUser"] = session.getUserByCookies(currentCookies.Value); 
+                    System.Web.HttpContext.Current.Session["SessionUser"] = session.GetUserByCookies(currentCookies.Value); 
                 }
                 else
                 {

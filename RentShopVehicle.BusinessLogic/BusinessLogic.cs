@@ -24,5 +24,20 @@ namespace RentShopVehicle.BusinessLogic
         {
             return new UsersManagementS();
         }
+
+        public IMsgsManagement GetMsgsManagementS()
+        {
+            return new MsgsManagementS();
+        }
+
+        public IBlog GetBlogS()
+        {
+            return new BlogS();
+        }
+
+        public IEmailSender GetEmailSenderS()
+        {
+            return new EmailSenderS();
+        }
     }
 }

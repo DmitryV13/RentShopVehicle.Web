@@ -17,7 +17,7 @@ namespace RentShopVehicle.BusinessLogic.Services
         public ResponceFindCar FindCar(CarD car){
             return FindCarUserAPI(car);
         }
-        public bool CreateAnnouncement(CreateAnnouncementD announcementD)
+        public bool CreateAnnouncement(AnnouncementDetInfoD announcementD)
         {
             return CreateAnnouncementUserAPI(announcementD);
         }
@@ -42,7 +42,7 @@ namespace RentShopVehicle.BusinessLogic.Services
             return DeleteAnnouncementByIdUserAPI(Id);
         }
 
-        public List<AnnouncementMinInfoD> getAnnouncementByFilter(FilterData filter)
+        public List<AnnouncementDetInfoD> getAnnouncementByFilter(FilterData filter)
         {
             return getAnnouncementByFilterUserAPI(filter);
         }

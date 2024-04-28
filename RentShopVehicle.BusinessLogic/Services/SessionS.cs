@@ -28,14 +28,28 @@ namespace RentShopVehicle.BusinessLogic.Services
             return VerifySessionUserAPI(cookies);
         }
 
-        public UserMinData getUserByCookies(string cookies)
+        public UserMinData GetUserByCookies(string cookies)
         {
             return getUserByCookiesUserAPI(cookies);
+        }
+        public UserMinData GetUserById(int Id)
+        {
+            return getUserByIdUserAPI(Id);
         }
 
         public void CloseCurrentSession(string cookies)
         {
             CloseCurrentSessionUserAPI(cookies);
+        }
+
+        public bool PasswordVerification(LoginData lData)
+        {
+            return PasswordVerificationUserAPI(lData);
+        }
+
+        public bool ChangePassword(LoginData lData)
+        {
+            return ChangePasswordUserAPI(lData);
         }
     }
 }

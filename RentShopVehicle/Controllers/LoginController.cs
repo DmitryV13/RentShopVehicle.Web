@@ -22,6 +22,81 @@ namespace RentShopVehicle.Controllers
         }
 
         [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult NewPassword()
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePasswordAction(LoginModel lModel)
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var lData = new LoginData()
+            {
+                Password = lModel.Password,
+            };
+
+            var responce = session.PasswordVerification(lData);
+            if (responce)
+            {
+                return RedirectToAction("NewPassword", "Login");
+            }
+            else
+            {
+                return RedirectToAction("ChangePassword", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult NewPasswordAction(LoginModel lModel)
+        {
+            UpdateSessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["SessionStatus"] != "valid")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var lData = new LoginData()
+            {
+                Password = lModel.Password,
+            };
+
+            var responce = session.ChangePassword(lData);
+            if (responce)
+            {
+                CloseSession();
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return RedirectToAction("ChangePassword", "Login");
+            }
+        }
+
+        [HttpGet]
         public ActionResult Logout()
         {
             CloseSession();

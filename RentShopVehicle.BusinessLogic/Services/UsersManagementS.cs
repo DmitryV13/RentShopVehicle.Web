@@ -1,5 +1,6 @@
 ﻿using RentShopVehicle.BusinessLogic.Core;
 using RentShopVehicle.BusinessLogic.Interfaces;
+using RentShopVehicle.Domain.Entities.Feedback;
 using RentShopVehicle.Models;
 using System;
 using System.Collections.Generic;
@@ -21,14 +22,20 @@ namespace RentShopVehicle.BusinessLogic.Services
             return DeleteUserByIdAdmin1API(Id);
         }
 
-        public bool BlockUserById(int Id)
+        public bool ChangeUsersAccountStatusById(int Id)
         {
-            return BlockUserByIdAdmin1API(Id);
+            return ChangeUsersAccountStatusByIdAdmin1API(Id);
         }
 
-        public bool UnblockUserById(int Id)
+        public bool ChangeUserRole(UserInfo UserInfo)
         {
-            return UnblockUserByIdAdmin1API(Id);
+            return ChangeUserRoleAdminAPI(UserInfo);
         }
+
+        public List<BlogCommentD> GetAllMessages()
+        {
+            return GetAllBlogCommentsAdminAPI();
+        }
+
     }
 }

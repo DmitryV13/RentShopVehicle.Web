@@ -12,12 +12,12 @@ namespace RentShopVehicle.BusinessLogic.Interfaces
     public interface IDeals
     {
         ResponceFindCar FindCar(CarD car);
-        bool CreateAnnouncement(CreateAnnouncementD announcementD);
+        bool CreateAnnouncement(AnnouncementDetInfoD announcementD);
         bool AddPhotos(AddPhotosData photosD);
         List<AnnouncementD> GetAnnouncementConnectorsByUserId(int Id);
         AnnouncementDetInfoD getAnnouncementDetInfoById(int Id);
         bool DeleteAnnouncementById(int Id);
-        List<AnnouncementMinInfoD> getAnnouncementByFilter(FilterData filter);
+        List<AnnouncementDetInfoD> getAnnouncementByFilter(FilterData filter);
         AnnouncementDetInfoD getCarDetailById(int Id);
         bool MakePurchase(int Id);
     }

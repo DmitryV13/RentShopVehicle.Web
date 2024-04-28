@@ -46,6 +46,7 @@ namespace RentShopVehicle.Domain.Entities.User
         public bool AccountState { get; set; }
 
         public AddressDB Address { get; set; }
+        public int a { get; set; }
 
         public BankInfoDB BankInfo { get; set; }
 

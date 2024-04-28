@@ -32,7 +32,7 @@ namespace RentShopVehicle.Domain.Entities.Feedback
         [Required]
         public UserDB User { get; set; }
 
-        [Required]
+        
         public int AnnouncementId { get; set; }
     }
 }

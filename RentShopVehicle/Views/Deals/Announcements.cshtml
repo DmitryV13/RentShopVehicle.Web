@@ -23,7 +23,7 @@
             <tbody>
                 @foreach (var item in Model.AnnouncementConnectors)
                 {
-                    if(item.Status==RentShopVehicle.Domain.Enums.AnnouncementStatus.Undone && item.Type != RentShopVehicle.Domain.Enums.AnnouncementType.Purchase)
+                    if((item.Status==RentShopVehicle.Domain.Enums.AnnouncementStatus.Undone || item.Status == RentShopVehicle.Domain.Enums.AnnouncementStatus.Pending) && item.Type != RentShopVehicle.Domain.Enums.AnnouncementType.Purchase)
                     {
                         <tr>
                             <th>@item.ConnectorId</th>
@@ -137,6 +137,13 @@
                         <option value="@type.Value">@type.Text</option>
                     }
                 </select>
+                <div class="mb-3">
+                    <label for="RentTime1" class="form-label">Rent Time in Days</label>
+                    <input type="number" name="RentTimeInDays" class="form-control" id="RentTime1" min="1" max="30" required
+                           aria-describedby="RentTimeHelp">
+                    <div id="RentTimeHelp" class="form-text">
+                    </div>
+                </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">$</span>
                     <input type="number" name="Price" min="0" max="9999999" class="form-control" aria-label="Amount (to the nearest dollar)" required>
